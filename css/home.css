@@ -4,10 +4,9 @@
 
 /* --- Hero --- */
 .hero {
-  background: var(--pink-wash);
   position: relative;
   overflow: hidden;
-  padding: var(--space-4xl) 0 0;
+  padding: var(--space-4xl) 0 var(--space-4xl);
 }
 
 .hero-inner {
@@ -160,34 +159,31 @@
 
 /* Remove hero stat — anti-pattern */
 
-/* Hero wave at bottom */
-.hero-wave {
-  position: relative;
-  height: 60px;
-  background: var(--pink-wash);
-  overflow: visible;
+/* Hero wave removed — unified page background requires no wave divider */
+
+/* --- Classes section header --- */
+.classes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-2xl);
 }
 
-.hero-wave svg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
+.classes-header-sub {
+  max-width: 380px;
+  color: var(--text-light);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  text-align: right;
 }
 
 /* --- Class Cards section --- */
-/* Asymmetric layout: featured card (large) + 3 standard */
+/* 2×2 equal grid, inspired by TJGYM classes.html */
 .class-cards-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-xl);
-}
-
-/* First card spans 2 rows = featured */
-.class-card--featured {
-  grid-row: span 2;
 }
 
 .class-card {
@@ -195,7 +191,8 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+  border: 1.5px solid transparent;
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease), border-color var(--duration) var(--ease);
   text-decoration: none;
   display: flex;
   flex-direction: column;
@@ -203,64 +200,91 @@
 .class-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
+  border-color: var(--blush);
 }
 
-/* Featured card has taller image */
-.class-card--featured .class-card-img-placeholder {
-  aspect-ratio: 3/4;
-  font-size: 5rem;
-}
-
-/* Standard card image */
-.class-card-img-placeholder {
+/* Image area with age pill overlaid top-right */
+.class-card-img-wrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 16/9;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
   flex-shrink: 0;
 }
 
-/* Color-coded card backgrounds — each class gets a distinct tone */
-.class-card--tiddler  .class-card-img-placeholder { background: linear-gradient(135deg, #FAE0F5, #F3C7E7); }
-.class-card--toddler  .class-card-img-placeholder { background: linear-gradient(135deg, #E7D9FA, #D9C7F3); }
-.class-card--minigym  .class-card-img-placeholder { background: linear-gradient(135deg, #C7EFE7, #DAFAF3); }
-.class-card--gym      .class-card-img-placeholder { background: linear-gradient(135deg, #FAF0C7, #FAE7C7); }
+/* Color-coded backgrounds per class */
+.class-card--tiddler .class-card-img-wrap { background: linear-gradient(135deg, #FAE0F5, #F3C7E7); }
+.class-card--toddler .class-card-img-wrap { background: linear-gradient(135deg, #E7D9FA, #D9C7F3); }
+.class-card--minigym .class-card-img-wrap { background: linear-gradient(135deg, #C7EFE7, #DAFAF3); }
+.class-card--gym     .class-card-img-wrap { background: linear-gradient(135deg, #FAF0C7, #FAE7C7); }
+
+/* Age pill floated over the image area */
+.age-pill-overlay {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--magenta);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0.2rem var(--space-md);
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+}
 
 .class-card-body {
-  padding: var(--space-lg) var(--space-xl);
+  padding: var(--space-xl);
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.class-card--featured .class-card-body {
-  padding: var(--space-xl) var(--space-xl) var(--space-xl);
-}
-
-.class-card-body .age-pill { margin-bottom: var(--space-sm); }
-
 .class-card-body h3 {
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
   color: var(--text-dark);
   margin-bottom: var(--space-sm);
 }
 
-.class-card--featured .class-card-body h3 {
-  font-size: var(--text-3xl);
-}
-
-.class-card-body p {
+.class-card-body > p {
   font-size: var(--text-sm);
   color: var(--text-light);
   line-height: 1.65;
-  flex: 1;
   margin-bottom: var(--space-md);
 }
 
-.class-card--featured .class-card-body p {
-  font-size: var(--text-base);
+/* Feature bullet list */
+.class-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  flex: 1;
+}
+
+.class-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+.class-features li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 0.45em;
 }
 
 .class-card-arrow {
@@ -477,15 +501,6 @@
    Responsive
    ======================================== */
 @media (max-width: 1024px) {
-  .class-cards-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-  .class-card--featured { grid-row: span 1; }
-  .class-card--featured .class-card-img-placeholder { aspect-ratio: 16/9; font-size: 2.5rem; }
-  .class-card--featured .class-card-body h3 { font-size: var(--text-xl); }
-  .class-card--featured .class-card-body p { font-size: var(--text-sm); }
-
   .testimonials-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -533,14 +548,8 @@
     height: 260px;
   }
 
-  .class-cards-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-  .class-card--featured { grid-row: span 1; }
-  .class-card--featured .class-card-img-placeholder { aspect-ratio: 16/9; font-size: 2rem; }
-  .class-card--featured .class-card-body h3 { font-size: var(--text-xl); }
-  .class-card--featured .class-card-body p { font-size: var(--text-sm); }
+  .classes-header { flex-direction: column; align-items: flex-start; }
+  .classes-header-sub { text-align: left; max-width: 100%; }
 
   .facilities-layout { grid-template-columns: 1fr; }
   .facilities-features { grid-template-columns: 1fr 1fr; }
@@ -553,4 +562,8 @@
     grid-template-rows: auto;
   }
   .testimonial-card--featured { grid-row: span 1; }
+}
+
+@media (max-width: 480px) {
+  .class-cards-grid { grid-template-columns: 1fr; }
 }

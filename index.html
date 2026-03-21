@@ -89,19 +89,12 @@
 
       </div>
 
-      <!-- Wave transition -->
-      <div class="hero-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 60 L0 30 Q360 0 720 30 Q1080 60 1440 30 L1440 60 Z" fill="#ffffff"/>
-        </svg>
-      </div>
     </section>
 
     <!-- ── Classes ─────────────────────────────────────── -->
-    <section class="section bg-white" aria-label="Our classes">
+    <section class="section" aria-label="Our classes">
       <div class="container">
 
-        <!-- Left-aligned header — not everything centred -->
         <div class="classes-header">
           <div>
             <span class="section-label">Our Programmes</span>
@@ -110,49 +103,77 @@
           <p class="classes-header-sub">From crawling tiddlers to confident gymnasts — we have a class designed for your child's development.</p>
         </div>
 
-        <!-- Asymmetric grid: Tiddler is featured (largest, spans 2 rows) -->
+        <!-- 2×2 equal grid — each class gets equal billing -->
         <div class="class-cards-grid">
 
-          <!-- FEATURED: Tiddler -->
-          <a href="classes/tiddler.html" class="class-card class-card--featured class-card--tiddler" aria-label="Tiddler Gym classes — ages 6 to 12 months">
-            <div class="class-card-img-placeholder" aria-hidden="true">🌟</div>
+          <!-- Tiddler Gym -->
+          <a href="classes/tiddler.html" class="class-card class-card--tiddler" aria-label="Tiddler Gym — ages 6 to 12 months">
+            <div class="class-card-img-wrap" aria-hidden="true">
+              🌟
+              <span class="age-pill-overlay">6–12 Months</span>
+            </div>
             <div class="class-card-body">
-              <span class="age-pill">6–12 Months</span>
               <h3>Tiddler Gym</h3>
-              <p>A fun parent-and-baby environment using music, rolling, rocking and crawling. Tactile, bright equipment changed every week. The perfect first experience of gymnastics.</p>
+              <p>A fun parent-and-baby environment using music, rolling and crawling.</p>
+              <ul class="class-features">
+                <li>Tactile, bright equipment changed every week</li>
+                <li>Music and sensory play throughout</li>
+                <li>Parent-and-baby together — no drop-off</li>
+              </ul>
               <span class="class-card-arrow">Explore Tiddler Gym</span>
             </div>
           </a>
 
-          <!-- Toddler -->
-          <a href="classes/toddler.html" class="class-card class-card--toddler" aria-label="Toddler Gym classes — ages 1 to 2¾ years">
-            <div class="class-card-img-placeholder" aria-hidden="true">🌈</div>
+          <!-- Toddler Gym -->
+          <a href="classes/toddler.html" class="class-card class-card--toddler" aria-label="Toddler Gym — ages 1 to 2¾ years">
+            <div class="class-card-img-wrap" aria-hidden="true">
+              🌈
+              <span class="age-pill-overlay">1–2¾ Years</span>
+            </div>
             <div class="class-card-body">
-              <span class="age-pill">1–2¾ Years</span>
               <h3>Toddler Gym</h3>
-              <p>Action songs, climbing, and a large weekly circuit. Coaches guide — you assist your little one.</p>
+              <p>Action songs, climbing, and a large weekly circuit to explore.</p>
+              <ul class="class-features">
+                <li>Large circuit with varied equipment</li>
+                <li>Coaches lead — parents assist</li>
+                <li>Fun weekly themes and action songs</li>
+              </ul>
               <span class="class-card-arrow">Explore Toddler Gym</span>
             </div>
           </a>
 
           <!-- Mini Gym -->
-          <a href="classes/mini-gym.html" class="class-card class-card--minigym" aria-label="Mini Gym classes — ages 3 to 4 years">
-            <div class="class-card-img-placeholder" aria-hidden="true">🤸</div>
+          <a href="classes/mini-gym.html" class="class-card class-card--minigym" aria-label="Mini Gym — ages 3 to 4 years">
+            <div class="class-card-img-wrap" aria-hidden="true">
+              🤸
+              <span class="age-pill-overlay">3–4 Years</span>
+            </div>
             <div class="class-card-body">
-              <span class="age-pill">3–4 Years</span>
               <h3>Mini Gym</h3>
-              <p>Independent themed sessions — rolling, handstands, springboard and bar work in groups of 5.</p>
+              <p>Independent themed sessions — children work in small groups of five.</p>
+              <ul class="class-features">
+                <li>Rolling, handstands and springboard</li>
+                <li>Bar work and structured progressions</li>
+                <li>First independent class — no parents on floor</li>
+              </ul>
               <span class="class-card-arrow">Explore Mini Gym</span>
             </div>
           </a>
 
           <!-- Gymnastics -->
-          <a href="classes/gymnastics.html" class="class-card class-card--gym" aria-label="Gymnastics classes — ages 5 and over">
-            <div class="class-card-img-placeholder" aria-hidden="true">🏅</div>
+          <a href="classes/gymnastics.html" class="class-card class-card--gym" aria-label="Gymnastics — ages 5 and over">
+            <div class="class-card-img-wrap" aria-hidden="true">
+              🏅
+              <span class="age-pill-overlay">5+ Years</span>
+            </div>
             <div class="class-card-body">
-              <span class="age-pill">5+ Years</span>
               <h3>Gymnastics</h3>
-              <p>Floor and vault programme with our own badge scheme — Level 7 up to Diamond awards.</p>
+              <p>Our main programme with floor, vault and apparatus for older children.</p>
+              <ul class="class-features">
+                <li>Own badge scheme: Level 7 to Diamond</li>
+                <li>Floor, vault and apparatus work</li>
+                <li>Structured competition pathway available</li>
+              </ul>
               <span class="class-card-arrow">Explore Gymnastics</span>
             </div>
           </a>
@@ -162,7 +183,7 @@
     </section>
 
     <!-- ── Facilities ──────────────────────────────────── -->
-    <section class="section bg-pink-wash" aria-label="Our facilities">
+    <section class="section" aria-label="Our facilities">
       <div class="container">
         <div class="facilities-layout">
 
@@ -209,7 +230,7 @@
     </section>
 
     <!-- ── Location ────────────────────────────────────── -->
-    <section class="section bg-white" aria-label="Find us">
+    <section class="section" aria-label="Find us">
       <div class="container">
         <div class="location-layout">
 
@@ -259,7 +280,7 @@
     </section>
 
     <!-- ── Testimonials ────────────────────────────────── -->
-    <section class="section bg-blush" aria-label="What parents say">
+    <section class="section" aria-label="What parents say">
       <div class="container">
         <div class="section-header">
           <span class="section-label">Parent Reviews</span>

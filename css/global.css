@@ -94,7 +94,7 @@ body {
   font-size: var(--text-base);
   line-height: 1.65;
   color: var(--text-body);
-  background-color: var(--white);
+  background-color: var(--pink-wash);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
