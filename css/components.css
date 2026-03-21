@@ -1,0 +1,388 @@
+/* ========================================
+   TJ's Gymnastics Club — Component Library
+   ======================================== */
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-base);
+  padding: 0.75rem var(--space-xl);
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration) var(--ease);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--magenta);
+  color: var(--white);
+  box-shadow: 0 2px 12px rgba(217, 74, 159, 0.3);
+}
+.btn-primary:hover {
+  background: var(--plum);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(122, 42, 122, 0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--plum);
+  border: 2px solid var(--plum);
+}
+.btn-outline:hover {
+  background: var(--plum);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-plum {
+  background: var(--plum);
+  color: var(--white);
+  box-shadow: 0 2px 12px rgba(122, 42, 122, 0.25);
+}
+.btn-plum:hover {
+  background: var(--plum-dark);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--magenta);
+}
+.btn-white:hover {
+  background: var(--pink-wash);
+  color: var(--plum);
+}
+
+.btn-sm {
+  font-size: var(--text-sm);
+  padding: 0.55rem var(--space-lg);
+}
+
+/* --- Section header (centered) --- */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.section-header h2 {
+  margin-bottom: var(--space-md);
+  color: var(--text-dark);
+}
+
+.section-header p {
+  max-width: 580px;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.card-blush { background: var(--blush); box-shadow: none; }
+.card-pink  { background: var(--pink-wash); box-shadow: none; }
+
+/* --- Badges / Pills --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0.3rem var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--pink-wash);
+  color: var(--plum);
+}
+.badge-mint {
+  background: rgba(57, 195, 154, 0.15);
+  color: #126b4a;
+}
+.badge-magenta {
+  background: rgba(217, 74, 159, 0.12);
+  color: var(--plum);
+}
+
+/* Age pill on class cards */
+.age-pill {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0.25rem var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--magenta);
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+
+/* --- Background utilities --- */
+.bg-white     { background: var(--white); }
+.bg-pink-wash { background: var(--pink-wash); }
+.bg-blush     { background: var(--blush); }
+.bg-cream     { background: var(--cream); }
+.bg-plum      { background: var(--plum); }
+.bg-plum h2, .bg-plum h3, .bg-plum h4, .bg-plum p { color: var(--white); }
+.bg-plum-dark { background: var(--plum-dark); }
+
+/* --- CTA Band --- */
+.cta-band {
+  background: var(--magenta);
+  padding: var(--space-3xl) var(--container-padding);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-band::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+
+.cta-band::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+
+.cta-band-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cta-band h2 {
+  color: var(--white);
+  margin-bottom: var(--space-md);
+}
+
+.cta-band p {
+  color: rgba(255,255,255,0.88);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xl);
+}
+
+/* --- Accordion --- */
+.accordion-item {
+  border-bottom: 1px solid var(--blush);
+}
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-align: left;
+  gap: var(--space-md);
+}
+
+.accordion-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-circle);
+  background: var(--pink-wash);
+  color: var(--magenta);
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+  transition: background var(--duration) var(--ease), transform var(--duration) var(--ease);
+  line-height: 1;
+}
+
+.accordion-item.open .accordion-icon {
+  background: var(--magenta);
+  color: var(--white);
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease);
+}
+.accordion-item.open .accordion-content { max-height: 3000px; }
+
+.accordion-body {
+  padding-bottom: var(--space-xl);
+  color: var(--text-body);
+  line-height: 1.75;
+}
+
+/* --- Info table (class detail) --- */
+.info-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.info-table th,
+.info-table td {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  font-size: var(--text-base);
+  vertical-align: top;
+}
+.info-table th {
+  background: var(--plum);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  width: 38%;
+}
+.info-table td {
+  background: var(--white);
+  border-bottom: 1px solid var(--pink-wash);
+  color: var(--text-body);
+}
+.info-table tr:last-child td { border-bottom: none; }
+
+/* --- Photo gallery --- */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+.photo-gallery img,
+.photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blush);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+}
+@media (max-width: 768px) {
+  .photo-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --- Form fields --- */
+.form-group { margin-bottom: var(--space-lg); }
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-sm);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: var(--space-md);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  border: 2px solid var(--blush);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  color: var(--text-dark);
+  transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--magenta);
+  box-shadow: 0 0 0 3px rgba(217,74,159,0.15);
+}
+.form-input.error,
+.form-textarea.error { border-color: #c0392b; }
+.form-error { font-size: var(--text-sm); color: #c0392b; margin-top: var(--space-xs); }
+.form-textarea { min-height: 140px; resize: vertical; }
+
+/* --- Trust badges row --- */
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  align-items: center;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-body);
+}
+.trust-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--mint);
+  flex-shrink: 0;
+}
+
+/* --- Wave divider SVG placeholder --- */
+.wave { display: block; width: 100%; height: auto; margin: -1px 0; }
+
+/* --- Decorative blob circles --- */
+.deco {
+  position: absolute;
+  border-radius: var(--radius-circle);
+  pointer-events: none;
+  z-index: 0;
+}

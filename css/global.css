@@ -1,0 +1,366 @@
+/* ========================================
+   TJ's Gymnastics Club — Global Styles
+   ======================================== */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fredoka:wght@400;500;600&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Main palette */
+  --plum: #7A2A7A;
+  --plum-dark: #5C1F5C;
+  --magenta: #D94A9F;
+  --blush: #F3C7E7;
+  --pink-wash: #F7E9F5;
+
+  /* Secondary */
+  --mint: #39C39A;
+  --lime: #DDEB3C;
+
+  /* Tertiary */
+  --cream: #F5EFE7;
+
+  /* Functional */
+  --white: #FFFFFF;
+  --text-dark: #2D0A2D;
+  --text-body: #4B3044;
+  --text-light: #7A5A72;
+
+  /* Spacing scale (8px base) */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  --space-4xl: 6rem;     /* 96px */
+  --space-5xl: 8rem;     /* 128px */
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Typography */
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Font sizes (fluid) */
+  --text-sm:   clamp(0.8rem,   0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.938rem, 0.875rem + 0.3vw,  1rem);
+  --text-lg:   clamp(1.063rem, 1rem    + 0.3vw,   1.125rem);
+  --text-xl:   clamp(1.25rem,  1.1rem  + 0.5vw,   1.5rem);
+  --text-2xl:  clamp(1.5rem,   1.2rem  + 1vw,     2rem);
+  --text-3xl:  clamp(1.875rem, 1.4rem  + 1.5vw,   2.5rem);
+  --text-4xl:  clamp(2.25rem,  1.6rem  + 2vw,     3.25rem);
+  --text-5xl:  clamp(2.75rem,  1.8rem  + 3vw,     4rem);
+
+  /* Shadows — plum-tinted, no cold greys */
+  --shadow-sm: 0 1px 3px rgba(122, 42, 122, 0.06);
+  --shadow-md: 0 4px 16px rgba(122, 42, 122, 0.10);
+  --shadow-lg: 0 8px 32px rgba(122, 42, 122, 0.14);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 0.25s;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-padding: clamp(1rem, 4vw, 2rem);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--text-body);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--plum);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
+}
+a:hover { color: var(--magenta); }
+
+ul, ol { list-style: none; }
+
+button { font-family: var(--font-body); }
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+p + p { margin-top: var(--space-md); }
+
+/* --- Layout helpers --- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.section {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-4xl);
+}
+
+@media (max-width: 768px) {
+  .section { padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); }
+}
+
+/* ========================================
+   Header / Navigation
+   ======================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--blush);
+}
+
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-sm) var(--container-padding);
+  min-height: 68px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 44px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: all var(--duration) var(--ease);
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--plum);
+  border-bottom-color: var(--magenta);
+}
+
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: all 0.3s var(--ease);
+}
+
+/* Mobile nav */
+@media (max-width: 860px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--white);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px var(--space-xl) var(--space-xl);
+    gap: var(--space-md);
+    box-shadow: var(--shadow-lg);
+    transition: right 0.35s var(--ease);
+    z-index: 200;
+    overflow-y: auto;
+  }
+
+  .nav-links.open { right: 0; }
+
+  .nav-link {
+    font-size: var(--text-lg);
+    width: 100%;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--pink-wash);
+    border-right: none;
+  }
+
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 10, 45, 0.45);
+    z-index: 150;
+  }
+
+  .nav-overlay.open { display: block; }
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.site-footer {
+  background: var(--plum-dark);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-watermark {
+  position: absolute;
+  bottom: -0.15em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(5rem, 18vw, 16rem);
+  color: rgba(255,255,255,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--container-padding) var(--space-2xl);
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.footer-section h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--white);
+  margin-bottom: var(--space-md);
+}
+
+.footer-section p,
+.footer-section address {
+  color: rgba(255,255,255,0.72);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+  font-style: normal;
+}
+
+.footer-section a {
+  color: rgba(255,255,255,0.72);
+  font-size: var(--text-sm);
+  transition: color var(--duration) var(--ease);
+}
+.footer-section a:hover { color: var(--white); }
+
+.footer-links { list-style: none; }
+.footer-links li + li { margin-top: var(--space-sm); }
+
+.footer-bottom {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--container-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.footer-bottom p,
+.footer-bottom a {
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.45);
+}
+.footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
