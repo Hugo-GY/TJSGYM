@@ -335,20 +335,27 @@
 }
 
 .class-card {
-  background: var(--white);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1.5px solid transparent;
-  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease), border-color var(--duration) var(--ease);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    8px 16px 24px rgba(0, 0, 0, 0.03),
+    0 32px 64px rgba(217, 74, 159, 0.10),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.07);
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
   text-decoration: none;
   display: flex;
   flex-direction: column;
 }
 .class-card:hover {
-  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
-  border-color: var(--blush);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    8px 16px 32px rgba(0, 0, 0, 0.04),
+    0 40px 80px rgba(217, 74, 159, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.12);
 }
 
 /* Image area with age pill overlaid top-right */
@@ -390,6 +397,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  background: linear-gradient(160deg, #ffffff 0%, var(--pink-wash) 100%);
 }
 
 .class-card-body h3 {
@@ -478,12 +486,17 @@
 }
 
 .facilities-feature {
-  background: var(--white);
+  background: linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
   border-radius: var(--radius-md);
   padding: var(--space-md) var(--space-lg);
   display: flex;
   align-items: center;
   border-left: 3px solid var(--magenta);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    0 12px 28px rgba(217, 74, 159, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.06);
 }
 
 .facilities-feature strong {
