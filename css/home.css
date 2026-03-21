@@ -188,39 +188,46 @@
 /* --- Pathway strip: 1→2→3→4 age progression --- */
 .pathway-strip {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0;
   margin: var(--space-2xl) 0;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-2xl);
+  box-shadow: 0 2px 20px rgba(122,42,122,0.08), 0 0 0 1px rgba(122,42,122,0.06);
 }
 
 .pathway-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   padding: 0 var(--space-xl);
+  text-align: center;
 }
 
 .pathway-dot {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-circle);
-  background: var(--plum);
+  background: linear-gradient(135deg, var(--plum) 0%, var(--magenta) 100%);
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 500;
+  box-shadow: 0 4px 14px rgba(217,74,159,0.30);
   flex-shrink: 0;
 }
 
 .pathway-label {
-  font-size: var(--text-sm);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--text-dark);
   white-space: nowrap;
 }
@@ -229,13 +236,32 @@
   font-size: var(--text-sm);
   color: var(--text-light);
   white-space: nowrap;
+  margin-top: -4px;
 }
 
+/* CSS line + arrowhead replaces the → text character */
 .pathway-arrow {
-  color: var(--blush);
-  font-size: var(--text-xl);
-  padding-bottom: 1.5rem;
   flex-shrink: 0;
+  margin-top: 25px; /* align to dot centre (52px / 2 − 1px) */
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blush) 0%, var(--magenta) 100%);
+  position: relative;
+  font-size: 0;
+  color: transparent;
+}
+
+.pathway-arrow::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--magenta);
 }
 
 /* --- Accreditation trust strip --- */

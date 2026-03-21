@@ -35,41 +35,46 @@
 /* ── Pathway Strip ───────────────────────────────────── */
 .pathway-strip {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0;
-  margin: 0 auto;
-  max-width: 700px;
+  margin: var(--space-xl) auto 0;
+  background: rgba(255,255,255,0.55);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg) var(--space-2xl);
+  box-shadow: 0 2px 16px rgba(122,42,122,0.08), 0 0 0 1px rgba(255,255,255,0.7);
 }
 
 .pathway-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   padding: 0 var(--space-lg);
+  text-align: center;
 }
 
 .pathway-dot {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-circle);
-  background: var(--plum);
+  background: linear-gradient(135deg, var(--plum) 0%, var(--magenta) 100%);
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 500;
+  box-shadow: 0 4px 14px rgba(217,74,159,0.30);
   flex-shrink: 0;
 }
 
 .pathway-label {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--text-dark);
   white-space: nowrap;
 }
@@ -77,13 +82,31 @@
 .pathway-age {
   font-size: var(--text-sm);
   color: var(--text-light);
+  margin-top: -4px;
 }
 
 .pathway-arrow {
-  color: var(--blush);
-  font-size: var(--text-xl);
-  padding-bottom: 1.5rem;
   flex-shrink: 0;
+  margin-top: 25px;
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blush) 0%, var(--magenta) 100%);
+  position: relative;
+  font-size: 0;
+  color: transparent;
+}
+
+.pathway-arrow::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--magenta);
 }
 
 /* ── Class Cards Grid ────────────────────────────────── */

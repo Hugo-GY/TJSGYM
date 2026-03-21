@@ -286,19 +286,7 @@ p + p { margin-top: var(--space-md); }
 }
 
 .footer-watermark {
-  position: absolute;
-  bottom: -0.15em;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(7rem, 28vw, 22rem);
-  color: rgba(255,255,255,0.04);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  letter-spacing: 0.04em;
-  line-height: 1;
+  display: none;
 }
 
 .footer-inner {
