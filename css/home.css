@@ -270,28 +270,38 @@
 }
 
 .trust-strip-inner {
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl) var(--space-2xl);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
   flex-wrap: wrap;
-  box-shadow: var(--shadow-sm);
+  border-top: 1px solid var(--blush);
+  border-bottom: 1px solid var(--blush);
+  padding: var(--space-xl) 0;
 }
 
-.trust-logo-item {
+/* Each trust item: visual (fixed height) + two text lines */
+.trust-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
+  text-align: center;
+}
+
+/* Fixed-height visual zone — all logos/icons align here */
+.trust-visual {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-xs);
 }
 
 /* British Gymnastics — wide horizontal logo */
 .trust-logo-bg {
   display: block;
-  height: 40px;
+  max-height: 38px;
   width: auto;
   max-width: 160px;
   object-fit: contain;
@@ -300,51 +310,48 @@
 /* London Gymnastics — square logo */
 .trust-logo-lg {
   display: block;
-  height: 56px;
-  width: 56px;
+  height: 52px;
+  width: 52px;
   object-fit: contain;
   border-radius: var(--radius-sm);
 }
 
-.trust-logo-label {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-light);
-  text-align: center;
-  line-height: 1.4;
-}
-
-.trust-divider {
-  width: 1px;
+/* SEN icon image */
+.trust-icon-img {
+  display: block;
   height: 48px;
-  background: var(--blush);
-  flex-shrink: 0;
+  width: auto;
+  object-fit: contain;
 }
 
-.trust-stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.trust-stat-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.trust-stat-label {
+/* 36+ years number as the visual element */
+.trust-years-number {
   font-family: var(--font-heading);
-  font-size: var(--text-xl);
+  font-size: var(--text-4xl);
   color: var(--plum);
   font-weight: 500;
   line-height: 1;
 }
 
-.trust-stat-sub {
+.trust-item-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.trust-item-sub {
   font-size: var(--text-sm);
   color: var(--text-light);
-  font-weight: 500;
+  font-weight: 400;
+}
+
+.trust-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--blush);
+  flex-shrink: 0;
 }
 
 /* --- Class Cards section --- */
