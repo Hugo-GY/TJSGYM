@@ -258,23 +258,23 @@
   gap: var(--space-sm);
 }
 
-.trust-logo-img-wrap {
-  width: 100px;
-  height: 50px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+/* British Gymnastics — wide horizontal logo */
+.trust-logo-bg {
+  display: block;
+  height: 40px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 
-.trust-logo-img {
-  width: 200px;
-  height: 74px;
-  object-fit: none;
-  flex-shrink: 0;
+/* London Gymnastics — square logo */
+.trust-logo-lg {
+  display: block;
+  height: 56px;
+  width: 56px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
 }
-
-.trust-logo-img--bg { object-position: left center; }
-.trust-logo-img--lg { object-position: right center; }
 
 .trust-logo-label {
   font-size: var(--text-sm);
@@ -460,7 +460,7 @@
 .facilities-content h2 { margin-bottom: var(--space-md); }
 .facilities-content > p { margin-bottom: var(--space-xl); color: var(--text-body); }
 
-/* 2×2 pill grid — more compact than repeated icon rows */
+/* 2×2 feature grid — clean typographic style, no icons */
 .facilities-features {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -474,16 +474,10 @@
   padding: var(--space-md) var(--space-lg);
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  border-left: 3px solid var(--magenta);
 }
 
-.feature-icon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.feature-text strong {
+.facilities-feature strong {
   display: block;
   font-size: var(--text-sm);
   font-weight: 600;
@@ -512,35 +506,41 @@
 }
 
 .location-info h2 { margin-bottom: var(--space-md); }
-.location-info p  { margin-bottom: var(--space-xl); color: var(--text-body); }
+.location-info p  { margin-bottom: 0; color: var(--text-body); }
 
-.location-details { margin-bottom: var(--space-xl); }
-.location-detail {
+.location-contact {
+  margin-top: var(--space-xl);
   display: flex;
-  gap: var(--space-md);
+  gap: 0;
   align-items: flex-start;
-  padding: var(--space-md) 0;
-  border-bottom: 1px solid var(--pink-wash);
 }
-.location-detail:last-child { border-bottom: none; }
 
-.location-detail-icon {
-  font-size: 1.25rem;
-  width: 40px;
-  text-align: center;
-  flex-shrink: 0;
-}
-.location-detail-text strong {
-  display: block;
+.location-address {
+  font-style: normal;
   font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 2px;
+  color: var(--text-body);
+  line-height: 2;
+  padding-right: var(--space-xl);
+  border-right: 1px solid var(--blush);
 }
-.location-detail-text span {
+
+.location-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-left: var(--space-xl);
+  justify-content: center;
+  align-self: stretch;
+}
+
+.location-links a {
   font-size: var(--text-sm);
-  color: var(--text-light);
+  font-weight: 500;
+  color: var(--plum);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
 }
+.location-links a:hover { color: var(--magenta); }
 
 /* --- Testimonials — 3-column equal grid (Verd-style) --- */
 .testimonials-grid {
@@ -593,45 +593,7 @@
   font-size: var(--text-base);
   color: var(--text-body);
   line-height: 1.75;
-  margin-bottom: var(--space-lg);
   font-style: italic;
-  flex: 1;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--blush);
-}
-
-.testimonial-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-circle);
-  background: var(--blush);
-  border: 2px solid rgba(217, 74, 159, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  color: var(--plum);
-  font-weight: 500;
-  flex-shrink: 0;
-}
-
-.testimonial-name {
-  font-weight: 600;
-  font-size: var(--text-sm);
-  color: var(--text-dark);
-}
-
-.testimonial-meta {
-  font-size: var(--text-sm);
-  color: var(--text-light);
-  margin-top: 2px;
 }
 
 /* ========================================
