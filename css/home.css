@@ -138,8 +138,6 @@
   max-width: 620px;
   height: auto;
   display: block;
-  /* White bg becomes page background color — illustration floats naturally */
-  mix-blend-mode: multiply;
   /* Soft elliptical fade — fully solid at gymnast body, dissolves at all edges */
   -webkit-mask-image: radial-gradient(
     ellipse 84% 76% at 50% 40%,
@@ -367,11 +365,11 @@
   flex-shrink: 0;
 }
 
-/* Color-coded backgrounds per class */
-.class-card--tiddler .class-card-img-wrap { background: linear-gradient(135deg, #FAE0F5, #F3C7E7); }
-.class-card--toddler .class-card-img-wrap { background: linear-gradient(135deg, #E7D9FA, #D9C7F3); }
-.class-card--minigym .class-card-img-wrap { background: linear-gradient(135deg, #C7EFE7, #DAFAF3); }
-.class-card--gym     .class-card-img-wrap { background: linear-gradient(135deg, #FAF0C7, #FAE7C7); }
+/* Neutral background behind illustration images */
+.class-card--tiddler .class-card-img-wrap,
+.class-card--toddler .class-card-img-wrap,
+.class-card--minigym .class-card-img-wrap,
+.class-card--gym     .class-card-img-wrap { background: #ffffff; }
 
 /* Card illustration images */
 .class-card-img {
@@ -380,7 +378,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  mix-blend-mode: multiply;
 }
 .class-card--tiddler .class-card-img { object-position: center 18%; }
 .class-card--toddler .class-card-img { object-position: center 22%; }
