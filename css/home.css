@@ -161,6 +161,15 @@
 
 /* Hero wave removed — unified page background requires no wave divider */
 
+/* --- Section heading accent style (matches hero h1) --- */
+.section h2 {
+  color: var(--plum);
+}
+.section h2 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
 /* --- Classes section header --- */
 .classes-header {
   text-align: center;
@@ -585,8 +594,7 @@
   gap: 2px;
   margin-bottom: var(--space-md);
   font-size: 1rem;
-  color: var(--lime);
-  filter: saturate(1.2);
+  color: var(--mint);
 }
 
 .testimonial-text {
