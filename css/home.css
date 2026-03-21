@@ -715,6 +715,19 @@
   .pathway-arrow { font-size: var(--text-base); padding-bottom: 1.25rem; }
 }
 
+@media (max-width: 560px) {
+  /* Pathway: switch to 2×2 grid, hide arrows */
+  .pathway-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    align-items: start;
+  }
+  .pathway-arrow { display: none; }
+  .pathway-dot { width: 44px; height: 44px; font-size: var(--text-lg); }
+}
+
 @media (max-width: 480px) {
   .class-cards-grid { grid-template-columns: 1fr; }
 }

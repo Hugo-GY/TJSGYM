@@ -95,6 +95,8 @@ body {
   line-height: 1.65;
   color: var(--text-body);
   background-color: var(--pink-wash);
+  background-image: radial-gradient(circle, rgba(122,42,122,0.055) 1px, transparent 1px);
+  background-size: 22px 22px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

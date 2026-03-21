@@ -414,10 +414,17 @@
   }
 
   .pathway-strip {
-    gap: var(--space-sm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    align-items: start;
+    max-width: 100%;
   }
 
   .pathway-arrow {
     display: none;
   }
+
+  .pathway-dot { width: 44px; height: 44px; font-size: var(--text-lg); }
 }
