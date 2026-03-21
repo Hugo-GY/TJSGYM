@@ -65,6 +65,19 @@
   color: var(--plum);
 }
 
+/* Ghost magenta: transparent + pink border, fills on hover */
+.btn-ghost-magenta {
+  background: transparent;
+  color: var(--magenta);
+  border: 2px solid var(--magenta);
+}
+.btn-ghost-magenta:hover {
+  background: var(--magenta);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(217, 74, 159, 0.3);
+}
+
 .btn-sm {
   font-size: var(--text-sm);
   padding: 0.55rem var(--space-lg);

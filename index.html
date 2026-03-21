@@ -58,14 +58,8 @@
           </p>
 
           <div class="hero-ctas">
-            <a href="timetable.html" class="btn btn-primary">View Timetable</a>
-            <a href="classes.html"   class="btn btn-outline">Explore Classes</a>
-          </div>
-
-          <div class="hero-trust">
-            <span class="hero-trust-item">British Gymnastics Registered</span>
-            <span class="hero-trust-item">SEN Inclusive</span>
-            <span class="hero-trust-item">36+ Years</span>
+            <a href="timetable.html" class="btn btn-ghost-magenta">View Timetable</a>
+            <a href="classes.html"   class="btn btn-ghost-magenta">Explore Classes</a>
           </div>
         </div>
 
@@ -91,16 +85,83 @@
 
     </section>
 
+    <!-- ── Accreditation Trust Strip ─────────────────── -->
+    <section class="trust-section" aria-label="Our accreditations and credentials">
+      <div class="container">
+        <div class="trust-strip-inner">
+
+          <div class="trust-logo-item">
+            <div class="trust-logo-img-wrap">
+              <img src="images/gymnastics-logo.png" class="trust-logo-img trust-logo-img--bg"
+                   alt="British Gymnastics" width="200" height="74">
+            </div>
+            <span class="trust-logo-label">British Gymnastics<br>Registered Member</span>
+          </div>
+
+          <div class="trust-divider" aria-hidden="true"></div>
+
+          <div class="trust-logo-item">
+            <div class="trust-logo-img-wrap">
+              <img src="images/gymnastics-logo.png" class="trust-logo-img trust-logo-img--lg"
+                   alt="London Gymnastics" width="200" height="74">
+            </div>
+            <span class="trust-logo-label">London Gymnastics<br>Affiliated Club</span>
+          </div>
+
+          <div class="trust-divider" aria-hidden="true"></div>
+
+          <div class="trust-stat-item">
+            <span class="trust-stat-icon" aria-hidden="true">♿</span>
+            <span class="trust-stat-label">SEN Inclusive</span>
+            <span class="trust-stat-sub">All abilities welcome</span>
+          </div>
+
+          <div class="trust-divider" aria-hidden="true"></div>
+
+          <div class="trust-stat-item">
+            <span class="trust-stat-label">36+</span>
+            <span class="trust-stat-sub">Years established</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ── Classes ─────────────────────────────────────── -->
     <section class="section" aria-label="Our classes">
       <div class="container">
 
         <div class="classes-header">
-          <div>
-            <span class="section-label">Our Programmes</span>
-            <h2>Classes for Every Stage</h2>
-          </div>
+          <span class="section-label">Our Programmes</span>
+          <h2>Classes for Every Stage</h2>
           <p class="classes-header-sub">From crawling tiddlers to confident gymnasts — we have a class designed for your child's development.</p>
+        </div>
+
+        <!-- Age progression pathway -->
+        <div class="pathway-strip" role="list" aria-label="Age progression pathway">
+          <div class="pathway-item" role="listitem">
+            <div class="pathway-dot">1</div>
+            <span class="pathway-label">Tiddler Gym</span>
+            <span class="pathway-age">6–12 months</span>
+          </div>
+          <span class="pathway-arrow" aria-hidden="true">→</span>
+          <div class="pathway-item" role="listitem">
+            <div class="pathway-dot">2</div>
+            <span class="pathway-label">Toddler Gym</span>
+            <span class="pathway-age">1–2¾ years</span>
+          </div>
+          <span class="pathway-arrow" aria-hidden="true">→</span>
+          <div class="pathway-item" role="listitem">
+            <div class="pathway-dot">3</div>
+            <span class="pathway-label">Mini Gym</span>
+            <span class="pathway-age">3–4 years</span>
+          </div>
+          <span class="pathway-arrow" aria-hidden="true">→</span>
+          <div class="pathway-item" role="listitem">
+            <div class="pathway-dot">4</div>
+            <span class="pathway-label">Gymnastics</span>
+            <span class="pathway-age">5+ years</span>
+          </div>
         </div>
 
         <!-- 2×2 equal grid — each class gets equal billing -->
@@ -287,21 +348,14 @@
           <h2>What Families Say About Us</h2>
         </div>
 
-        <!-- Asymmetric: featured large dark card + two compact -->
+        <!-- 3-equal-column grid -->
         <div class="testimonials-grid">
 
-          <!-- Featured testimonial — dark plum background -->
-          <div class="testimonial-card testimonial-card--featured">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span>
-            </div>
-            <p class="testimonial-text">
-              "TJ's has been amazing for my SEN child. They were so understanding and made him feel completely included from day one. The coaches take time to know every single child — it's clear this isn't just a job for them. I can't recommend them enough."
-            </p>
+          <div class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-text">"TJ's has been amazing for my SEN child. They were so understanding and made him feel completely included from day one. The coaches take time to know every single child — it's clear this isn't just a job for them."</p>
             <div class="testimonial-author">
-              <span class="testimonial-avatar">L</span>
+              <span class="testimonial-avatar" aria-hidden="true">L</span>
               <div>
                 <p class="testimonial-name">Laura T.</p>
                 <p class="testimonial-meta">Parent, Mini Gym</p>
@@ -309,18 +363,11 @@
             </div>
           </div>
 
-          <!-- Two compact reviews -->
           <div class="testimonial-card">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span>
-            </div>
-            <p class="testimonial-text">
-              "My daughter has been coming since she was 18 months old and absolutely loves it. The coaches are so warm and encouraging — she's gained so much confidence."
-            </p>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-text">"My daughter has been coming since she was 18 months old and absolutely loves it. The coaches are so warm and encouraging — she's gained so much confidence."</p>
             <div class="testimonial-author">
-              <span class="testimonial-avatar">S</span>
+              <span class="testimonial-avatar" aria-hidden="true">S</span>
               <div>
                 <p class="testimonial-name">Sarah M.</p>
                 <p class="testimonial-meta">Parent, Toddler Gym</p>
@@ -329,16 +376,10 @@
           </div>
 
           <div class="testimonial-card">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
-              <span class="star" aria-hidden="true"></span>
-            </div>
-            <p class="testimonial-text">
-              "We've been members for 6 years. The progression from Mini Gym to Gymnastics is seamless — the team clearly know and care about every child."
-            </p>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="testimonial-text">"We've been members for 6 years. The progression from Mini Gym to Gymnastics is seamless — the team clearly know and care about every child."</p>
             <div class="testimonial-author">
-              <span class="testimonial-avatar">R</span>
+              <span class="testimonial-avatar" aria-hidden="true">R</span>
               <div>
                 <p class="testimonial-name">Rachel K.</p>
                 <p class="testimonial-meta">Parent, Gymnastics</p>
@@ -346,18 +387,6 @@
             </div>
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CTA Band ────────────────────────────────────── -->
-    <section class="cta-band" aria-label="Join TJ's Gymnastics Club">
-      <div class="cta-band-inner">
-        <h2>Ready to Join the TJ's Family?</h2>
-        <p>We run termly classes and places are offered on a first-come basis. Check the timetable and get in touch to find out what's available.</p>
-        <div class="cta-band-buttons">
-          <a href="timetable.html" class="btn btn-white">View Timetable</a>
-          <a href="contact.html"   class="btn btn-cta-ghost">Contact Us</a>
         </div>
       </div>
     </section>
@@ -377,14 +406,10 @@
         </div>
       </div>
       <div class="footer-section">
-        <h4>Quick Links</h4>
+        <h4>Our Partners</h4>
         <ul class="footer-links">
-          <li><a href="classes.html">Classes</a></li>
-          <li><a href="timetable.html">Timetable</a></li>
-          <li><a href="coaches.html">Our Coaches</a></li>
-          <li><a href="history.html">Our History</a></li>
-          <li><a href="club-info.html">Club Info</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="https://www.british-gymnastics.org" target="_blank" rel="noopener">British Gymnastics</a></li>
+          <li><a href="https://www.british-gymnastics.org/london" target="_blank" rel="noopener">London Gymnastics</a></li>
         </ul>
       </div>
       <div class="footer-section">
