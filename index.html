@@ -16,7 +16,7 @@
   <header class="site-header">
     <nav class="nav-wrap" aria-label="Main navigation">
       <a href="index.html" class="logo-link">
-        <img src="images/logo.png" alt="TJ's Gymnastics Club" class="logo-img">
+        <img src="images/logo.png" alt="TJ's Gymnastics Club" class="logo-img" width="120" height="44">
       </a>
       <div class="nav-overlay"></div>
       <div class="nav-links">
@@ -39,11 +39,12 @@
     <!-- ── Hero ───────────────────────────────────────── -->
     <section class="hero" aria-label="Welcome to TJ's Gymnastics Club">
 
-      <!-- Decorative blobs -->
-      <span class="deco" style="width:180px;height:180px;background:var(--blush);opacity:0.5;top:-60px;left:-60px;"></span>
-      <span class="deco" style="width:100px;height:100px;background:var(--magenta);opacity:0.08;top:80px;left:20%;"></span>
+      <!-- Decorative blobs (CSS-only, no inline styles) -->
+      <span class="deco hero-deco-1" aria-hidden="true"></span>
+      <span class="deco hero-deco-2" aria-hidden="true"></span>
 
       <div class="hero-inner">
+
         <!-- Content -->
         <div class="hero-content">
           <p class="hero-eyebrow">Wimbledon · SW London</p>
@@ -64,26 +65,32 @@
           <div class="hero-trust">
             <span class="hero-trust-item">British Gymnastics Registered</span>
             <span class="hero-trust-item">SEN Inclusive</span>
-            <span class="hero-trust-item">36+ Years Experience</span>
+            <span class="hero-trust-item">36+ Years</span>
           </div>
         </div>
 
-        <!-- Visual -->
+        <!-- Visual — placeholder until client supplies gymnast photo -->
         <div class="hero-visual">
-          <span class="hero-blob"></span>
-          <div class="hero-img-wrap">
-            <!-- Placeholder: replace with real action photo of gymnast -->
-            <img src="images/facilities/image_01.jpg" alt="TJ's Gymnastics Club hall" loading="eager">
-            <div class="hero-stat">
-              <span class="hero-stat-num">36+</span>
-              <span class="hero-stat-label">Years coaching in Wimbledon</span>
-            </div>
+          <span class="hero-blob" aria-hidden="true"></span>
+          <div class="hero-placeholder" aria-hidden="true">
+            <!-- Organic circle composition, Pupbar-inspired -->
+            <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" width="400" height="420" aria-hidden="true">
+              <!-- Background circles -->
+              <circle cx="200" cy="200" r="170" fill="#F3C7E7" opacity="0.6"/>
+              <circle cx="310" cy="100" r="80" fill="#D94A9F" opacity="0.12"/>
+              <circle cx="80"  cy="320" r="60" fill="#39C39A" opacity="0.15"/>
+              <circle cx="320" cy="320" r="50" fill="#7A2A7A" opacity="0.08"/>
+              <!-- Central gymnast silhouette placeholder text -->
+              <text x="200" y="195" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="60" fill="#7A2A7A" opacity="0.2">🤸</text>
+              <text x="200" y="260" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="18" fill="#7A2A7A" opacity="0.35">Photo coming soon</text>
+            </svg>
           </div>
         </div>
+
       </div>
 
-      <!-- Wave transition to white -->
-      <div class="hero-wave">
+      <!-- Wave transition -->
+      <div class="hero-wave" aria-hidden="true">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0 60 L0 30 Q360 0 720 30 Q1080 60 1440 30 L1440 60 Z" fill="#ffffff"/>
         </svg>
@@ -93,55 +100,60 @@
     <!-- ── Classes ─────────────────────────────────────── -->
     <section class="section bg-white" aria-label="Our classes">
       <div class="container">
-        <div class="section-header">
-          <span class="section-label">Our Programmes</span>
-          <h2>Classes for Every Stage</h2>
-          <p>From crawling tiddlers to confident gymnasts — we have a class designed for your child's development.</p>
+
+        <!-- Left-aligned header — not everything centred -->
+        <div class="classes-header">
+          <div>
+            <span class="section-label">Our Programmes</span>
+            <h2>Classes for Every Stage</h2>
+          </div>
+          <p class="classes-header-sub">From crawling tiddlers to confident gymnasts — we have a class designed for your child's development.</p>
         </div>
 
+        <!-- Asymmetric grid: Tiddler is featured (largest, spans 2 rows) -->
         <div class="class-cards-grid">
 
-          <!-- Tiddler -->
-          <a href="classes/tiddler.html" class="class-card">
-            <div class="class-card-img-placeholder">🌟</div>
+          <!-- FEATURED: Tiddler -->
+          <a href="classes/tiddler.html" class="class-card class-card--featured class-card--tiddler" aria-label="Tiddler Gym classes — ages 6 to 12 months">
+            <div class="class-card-img-placeholder" aria-hidden="true">🌟</div>
             <div class="class-card-body">
               <span class="age-pill">6–12 Months</span>
               <h3>Tiddler Gym</h3>
-              <p>A fun parent-and-baby environment using music, rolling, rocking and crawling — with tactile, bright equipment changed every week.</p>
-              <span class="class-card-arrow">Learn more</span>
+              <p>A fun parent-and-baby environment using music, rolling, rocking and crawling. Tactile, bright equipment changed every week. The perfect first experience of gymnastics.</p>
+              <span class="class-card-arrow">Explore Tiddler Gym</span>
             </div>
           </a>
 
           <!-- Toddler -->
-          <a href="classes/toddler.html" class="class-card">
-            <div class="class-card-img-placeholder">🌈</div>
+          <a href="classes/toddler.html" class="class-card class-card--toddler" aria-label="Toddler Gym classes — ages 1 to 2¾ years">
+            <div class="class-card-img-placeholder" aria-hidden="true">🌈</div>
             <div class="class-card-body">
               <span class="age-pill">1–2¾ Years</span>
               <h3>Toddler Gym</h3>
-              <p>Action songs, climbing, and a large circuit of equipment — coaches guide and encourage while you assist your little one.</p>
-              <span class="class-card-arrow">Learn more</span>
+              <p>Action songs, climbing, and a large weekly circuit. Coaches guide — you assist your little one.</p>
+              <span class="class-card-arrow">Explore Toddler Gym</span>
             </div>
           </a>
 
           <!-- Mini Gym -->
-          <a href="classes/mini-gym.html" class="class-card">
-            <div class="class-card-img-placeholder">🤸</div>
+          <a href="classes/mini-gym.html" class="class-card class-card--minigym" aria-label="Mini Gym classes — ages 3 to 4 years">
+            <div class="class-card-img-placeholder" aria-hidden="true">🤸</div>
             <div class="class-card-body">
               <span class="age-pill">3–4 Years</span>
               <h3>Mini Gym</h3>
-              <p>Independent classes with themed weekly sessions — rolling, handstands, springboard, bar work and more in small groups of 5.</p>
-              <span class="class-card-arrow">Learn more</span>
+              <p>Independent themed sessions — rolling, handstands, springboard and bar work in groups of 5.</p>
+              <span class="class-card-arrow">Explore Mini Gym</span>
             </div>
           </a>
 
           <!-- Gymnastics -->
-          <a href="classes/gymnastics.html" class="class-card">
-            <div class="class-card-img-placeholder">🏅</div>
+          <a href="classes/gymnastics.html" class="class-card class-card--gym" aria-label="Gymnastics classes — ages 5 and over">
+            <div class="class-card-img-placeholder" aria-hidden="true">🏅</div>
             <div class="class-card-body">
               <span class="age-pill">5+ Years</span>
               <h3>Gymnastics</h3>
-              <p>Floor and vault skills programme with our own badge scheme — from Level 7 through to Bronze, Silver, Gold, Platinum and Diamond.</p>
-              <span class="class-card-arrow">Learn more</span>
+              <p>Floor and vault programme with our own badge scheme — Level 7 up to Diamond awards.</p>
+              <span class="class-card-arrow">Explore Gymnastics</span>
             </div>
           </a>
 
@@ -157,8 +169,9 @@
           <div class="facilities-img-wrap">
             <img
               src="images/facilities/image_01.jpg"
-              alt="Raynes Park Sports Pavilion — TJ's Gymnastics Club hall"
+              alt="The fully matted gymnastics hall at Raynes Park Sports Pavilion"
               class="facilities-img"
+              width="580" height="435"
               loading="lazy"
             >
           </div>
@@ -168,34 +181,23 @@
             <h2>A Space Made for Movement</h2>
             <p>Our home at Raynes Park Sports Pavilion is a warm, safe and fully-equipped environment where children love to learn.</p>
 
+            <!-- 2×2 compact grid — replaces long icon-list -->
             <div class="facilities-features">
               <div class="facilities-feature">
-                <span class="feature-icon">🏋️</span>
-                <div class="feature-text">
-                  <strong>Fully Matted Hall</strong>
-                  <span>The entire hall is matted out for every gymnastics class, keeping children safe and comfortable.</span>
-                </div>
+                <span class="feature-icon" aria-hidden="true">🏋️</span>
+                <div class="feature-text"><strong>Fully Matted Hall</strong></div>
               </div>
               <div class="facilities-feature">
-                <span class="feature-icon">👶</span>
-                <div class="feature-text">
-                  <strong>Parent Waiting Area</strong>
-                  <span>A dedicated porch and waiting area so parents can relax close by.</span>
-                </div>
+                <span class="feature-icon" aria-hidden="true">👶</span>
+                <div class="feature-text"><strong>Parent Waiting Area</strong></div>
               </div>
               <div class="facilities-feature">
-                <span class="feature-icon">🌳</span>
-                <div class="feature-text">
-                  <strong>Extensive Grounds</strong>
-                  <span>Beautiful outdoor space to enjoy in the summer months after class.</span>
-                </div>
+                <span class="feature-icon" aria-hidden="true">🌳</span>
+                <div class="feature-text"><strong>Extensive Grounds</strong></div>
               </div>
               <div class="facilities-feature">
-                <span class="feature-icon">🚗</span>
-                <div class="feature-text">
-                  <strong>Free Parking</strong>
-                  <span>Plenty of free parking right on site — no stress on the school run.</span>
-                </div>
+                <span class="feature-icon" aria-hidden="true">🚗</span>
+                <div class="feature-text"><strong>Free Parking</strong></div>
               </div>
             </div>
 
@@ -213,26 +215,26 @@
 
           <div class="location-info">
             <span class="section-label">Find Us</span>
-            <h2>Easy to Reach in Wimbledon</h2>
-            <p>We're based at Raynes Park Sports Pavilion, with free parking on site and great transport links from across SW London.</p>
+            <h2>Easy to Reach in SW London</h2>
+            <p>Based at Raynes Park Sports Pavilion with free parking on site and good transport links from Wimbledon, Raynes Park, and Merton.</p>
 
             <div class="location-details">
               <div class="location-detail">
-                <span class="location-detail-icon">📍</span>
+                <span class="location-detail-icon" aria-hidden="true">📍</span>
                 <div class="location-detail-text">
                   <strong>Address</strong>
                   <span>Raynes Park Sports Pavilion, Taunton Avenue, London SW20 0BH</span>
                 </div>
               </div>
               <div class="location-detail">
-                <span class="location-detail-icon">📞</span>
+                <span class="location-detail-icon" aria-hidden="true">📞</span>
                 <div class="location-detail-text">
                   <strong>Phone</strong>
                   <span><a href="tel:01252702295">01252 702295</a></span>
                 </div>
               </div>
               <div class="location-detail">
-                <span class="location-detail-icon">✉️</span>
+                <span class="location-detail-icon" aria-hidden="true">✉️</span>
                 <div class="location-detail-text">
                   <strong>Email</strong>
                   <span><a href="mailto:info@tjsgymclub.co.uk">info@tjsgymclub.co.uk</a></span>
@@ -246,7 +248,7 @@
           <div class="location-map-wrap">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2487.5!2d-0.224!3d51.404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876053b5e6e4e4d%3A0x1b3e5c3a2d4e5f6a!2sRaynes%20Park%20Sports%20Ground%2C%20Taunton%20Ave%2C%20London%20SW20%200BH!5e0!3m2!1sen!2suk!4v1234567890"
-              title="TJ's Gymnastics Club location map"
+              title="Map showing TJ's Gymnastics Club at Raynes Park Sports Pavilion, London SW20 0BH"
               loading="lazy"
               allowfullscreen
             ></iframe>
@@ -264,16 +266,37 @@
           <h2>What Families Say About Us</h2>
         </div>
 
+        <!-- Asymmetric: featured large dark card + two compact -->
         <div class="testimonials-grid">
 
-          <div class="testimonial-card">
-            <div class="testimonial-stars">
-              <span class="star"></span><span class="star"></span><span class="star"></span>
-              <span class="star"></span><span class="star"></span>
+          <!-- Featured testimonial — dark plum background -->
+          <div class="testimonial-card testimonial-card--featured">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span>
             </div>
             <p class="testimonial-text">
-              "My daughter has been coming to TJ's since she was 18 months old and absolutely loves it.
-              The coaches are so warm and encouraging — she's gained so much confidence."
+              "TJ's has been amazing for my SEN child. They were so understanding and made him feel completely included from day one. The coaches take time to know every single child — it's clear this isn't just a job for them. I can't recommend them enough."
+            </p>
+            <div class="testimonial-author">
+              <span class="testimonial-avatar">L</span>
+              <div>
+                <p class="testimonial-name">Laura T.</p>
+                <p class="testimonial-meta">Parent, Mini Gym</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two compact reviews -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span>
+            </div>
+            <p class="testimonial-text">
+              "My daughter has been coming since she was 18 months old and absolutely loves it. The coaches are so warm and encouraging — she's gained so much confidence."
             </p>
             <div class="testimonial-author">
               <span class="testimonial-avatar">S</span>
@@ -285,13 +308,13 @@
           </div>
 
           <div class="testimonial-card">
-            <div class="testimonial-stars">
-              <span class="star"></span><span class="star"></span><span class="star"></span>
-              <span class="star"></span><span class="star"></span>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span><span class="star" aria-hidden="true"></span>
+              <span class="star" aria-hidden="true"></span>
             </div>
             <p class="testimonial-text">
-              "We've been members for 6 years. The progression from Mini Gym to Gymnastics classes
-              is seamless — the team clearly know and care about every child individually."
+              "We've been members for 6 years. The progression from Mini Gym to Gymnastics is seamless — the team clearly know and care about every child."
             </p>
             <div class="testimonial-author">
               <span class="testimonial-avatar">R</span>
@@ -302,36 +325,18 @@
             </div>
           </div>
 
-          <div class="testimonial-card">
-            <div class="testimonial-stars">
-              <span class="star"></span><span class="star"></span><span class="star"></span>
-              <span class="star"></span><span class="star"></span>
-            </div>
-            <p class="testimonial-text">
-              "TJ's has been amazing for my SEN child. They were so understanding and made him feel
-              completely included from day one. I can't recommend them enough."
-            </p>
-            <div class="testimonial-author">
-              <span class="testimonial-avatar">L</span>
-              <div>
-                <p class="testimonial-name">Laura T.</p>
-                <p class="testimonial-meta">Parent, Mini Gym</p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
 
     <!-- ── CTA Band ────────────────────────────────────── -->
-    <section class="cta-band" aria-label="Join us">
+    <section class="cta-band" aria-label="Join TJ's Gymnastics Club">
       <div class="cta-band-inner">
         <h2>Ready to Join the TJ's Family?</h2>
-        <p>Places fill up fast — check the timetable and get in touch to secure your spot.</p>
-        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <p>We run termly classes and places are offered on a first-come basis. Check the timetable and get in touch to find out what's available.</p>
+        <div class="cta-band-buttons">
           <a href="timetable.html" class="btn btn-white">View Timetable</a>
-          <a href="contact.html"   class="btn btn-outline" style="border-color:rgba(255,255,255,0.6);color:#fff;">Contact Us</a>
+          <a href="contact.html"   class="btn btn-cta-ghost">Contact Us</a>
         </div>
       </div>
     </section>
@@ -345,9 +350,9 @@
       <div class="footer-section">
         <h4>TJ's Gymnastics Club</h4>
         <p>Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.</p>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;">
-          <span class="badge" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:0.75rem;">British Gymnastics</span>
-          <span class="badge" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:0.75rem;">SEN Inclusive</span>
+        <div class="footer-badges">
+          <span class="badge badge-ghost">British Gymnastics</span>
+          <span class="badge badge-ghost">SEN Inclusive</span>
         </div>
       </div>
       <div class="footer-section">
@@ -368,7 +373,7 @@
           Taunton Avenue<br>
           London SW20 0BH
         </address>
-        <p style="margin-top:1rem;">
+        <p class="footer-contact-links">
           <a href="tel:01252702295">01252 702295</a><br>
           <a href="mailto:info@tjsgymclub.co.uk">info@tjsgymclub.co.uk</a>
         </p>
