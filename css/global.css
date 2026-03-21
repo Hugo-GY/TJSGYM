@@ -337,6 +337,25 @@ p + p { margin-top: var(--space-md); }
 .footer-links { list-style: none; }
 .footer-links li + li { margin-top: var(--space-sm); }
 
+.footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.footer-contact-links {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.9;
+}
+.footer-contact-links a {
+  color: rgba(255,255,255,0.72);
+  font-size: var(--text-sm);
+}
+.footer-contact-links a:hover { color: var(--white); }
+
 .footer-bottom {
   position: relative;
   z-index: 1;

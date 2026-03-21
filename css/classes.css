@@ -1,0 +1,387 @@
+/* ========================================
+   TJ's Gymnastics Club — Classes Page
+   ======================================== */
+
+/* ── Page Hero ────────────────────────────────────────── */
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #A8307F;
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--text-dark);
+}
+
+.page-hero-sub {
+  max-width: 600px;
+  margin: 0 auto var(--space-2xl);
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+/* ── Pathway Strip ───────────────────────────────────── */
+.pathway-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.pathway-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-lg);
+}
+
+.pathway-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-circle);
+  background: var(--plum);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.pathway-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.pathway-age {
+  font-size: var(--text-sm);
+  color: var(--text-light);
+}
+
+.pathway-arrow {
+  color: var(--blush);
+  font-size: var(--text-xl);
+  padding-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Class Cards Grid ────────────────────────────────── */
+.class-cards-section {
+  padding-bottom: var(--space-4xl);
+}
+
+.class-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.class-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.class-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Image placeholder area */
+.class-card-img-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.class-card--tiddler .class-card-img-wrap { background: linear-gradient(135deg, #fce4f5 0%, #f3c7e7 100%); }
+.class-card--toddler .class-card-img-wrap { background: linear-gradient(135deg, #f0e4fc 0%, #e2c9f5 100%); }
+.class-card--minigym .class-card-img-wrap { background: linear-gradient(135deg, #e4f5fc 0%, #c7e7f3 100%); }
+.class-card--gym     .class-card-img-wrap { background: linear-gradient(135deg, #e4fce8 0%, #c7f3d0 100%); }
+
+.age-pill-overlay {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--plum);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: 0.25rem var(--space-md);
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+}
+
+/* Card body */
+.class-card-body {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.class-card-body h3 {
+  font-size: var(--text-2xl);
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.class-card-desc {
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.class-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.class-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: 1.55;
+}
+
+.class-features li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-circle);
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 0.45em;
+}
+
+/* Pricing badge */
+.class-pricing {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--pink-wash);
+  border: 1px solid var(--blush);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.class-pricing-amount {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--plum);
+  font-weight: 500;
+}
+
+.class-pricing-note {
+  font-size: var(--text-sm);
+  color: var(--text-light);
+}
+
+/* Card footer — two CTAs */
+.class-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* ── Info Strip ──────────────────────────────────────── */
+.info-strip {
+  padding: var(--space-4xl) 0;
+}
+
+.info-strip-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.info-strip-header h2 { color: var(--text-dark); }
+
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.info-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--pink-wash);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.info-card h3 {
+  font-size: var(--text-xl);
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.info-card p {
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: 1.75;
+}
+
+/* ── Timetable CTA ───────────────────────────────────── */
+.timetable-cta {
+  padding: var(--space-4xl) 0;
+  text-align: center;
+}
+
+.timetable-cta-inner {
+  background: var(--plum);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl) var(--space-4xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.timetable-cta-inner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+
+.timetable-cta-inner::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.timetable-cta-inner h2 {
+  color: var(--white);
+  margin-bottom: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.timetable-cta-inner p {
+  color: rgba(255,255,255,0.82);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xl);
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.timetable-cta-btns {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .info-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .class-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timetable-cta-inner {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .pathway-item {
+    padding: 0 var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .class-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .class-card-footer .btn {
+    text-align: center;
+  }
+
+  .pathway-strip {
+    gap: var(--space-sm);
+  }
+
+  .pathway-arrow {
+    display: none;
+  }
+}
