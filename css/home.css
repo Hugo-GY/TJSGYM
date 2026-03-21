@@ -193,9 +193,13 @@
   flex-wrap: wrap;
   gap: 0;
   margin: var(--space-2xl) 0;
-  background: var(--white);
+  background:
+    radial-gradient(circle at top right,   rgba(57, 195, 154, 0.22) 0, rgba(57, 195, 154, 0.22) 72px, transparent 73px),
+    radial-gradient(circle at bottom left,  rgba(243, 199, 231, 0.7) 0, rgba(243, 199, 231, 0.7) 60px, transparent 61px),
+    var(--white);
   border-radius: var(--radius-xl);
   padding: var(--space-xl) var(--space-2xl);
+  overflow: hidden;
   box-shadow: 0 2px 20px rgba(122,42,122,0.08), 0 0 0 1px rgba(122,42,122,0.06);
 }
 
@@ -527,7 +531,9 @@
 }
 
 .facilities-feature {
-  background: linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
+  background:
+    radial-gradient(circle at top right, rgba(57, 195, 154, 0.20) 0, rgba(57, 195, 154, 0.20) 44px, transparent 45px),
+    linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
   border-radius: var(--radius-md);
   padding: var(--space-md) var(--space-lg);
   display: flex;
@@ -613,11 +619,15 @@
 }
 
 .testimonial-card {
-  background: var(--white);
+  background:
+    radial-gradient(circle at top right,  rgba(243, 199, 231, 0.75) 0, rgba(243, 199, 231, 0.75) 64px, transparent 65px),
+    radial-gradient(circle at bottom left, rgba(57, 195, 154, 0.18) 0, rgba(57, 195, 154, 0.18) 52px, transparent 53px),
+    var(--white);
   border-radius: var(--radius-xl);
   padding: var(--space-xl) clamp(1.25rem, 2.5vw, 2rem);
   box-shadow: var(--shadow-sm);
   position: relative;
+  overflow: hidden;
   transition: transform var(--duration) var(--ease);
 }
 
