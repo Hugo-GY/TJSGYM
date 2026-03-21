@@ -373,6 +373,19 @@
 .class-card--minigym .class-card-img-wrap { background: linear-gradient(135deg, #C7EFE7, #DAFAF3); }
 .class-card--gym     .class-card-img-wrap { background: linear-gradient(135deg, #FAF0C7, #FAE7C7); }
 
+/* Card illustration images */
+.class-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+.class-card--tiddler .class-card-img { object-position: center 18%; }
+.class-card--toddler .class-card-img { object-position: center 22%; }
+.class-card--minigym .class-card-img { object-position: center 30%; }
+
 /* Age pill floated over the image area */
 .age-pill-overlay {
   position: absolute;
