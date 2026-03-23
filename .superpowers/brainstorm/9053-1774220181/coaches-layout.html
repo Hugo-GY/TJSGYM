@@ -1,0 +1,169 @@
+<style>
+  body { font-family: 'DM Sans', sans-serif; }
+  .preview-title { text-align: center; margin-bottom: 8px; }
+  .preview-title h2 { color: #7A2A7A; font-size: 1.4rem; margin: 0; }
+  .preview-title p { color: #888; font-size: 0.85rem; margin: 4px 0 0; }
+
+  /* Shared mini brand tokens */
+  :root {
+    --plum: #7A2A7A;
+    --magenta: #D94A9F;
+    --blush: #F3C7E7;
+    --pink-wash: #F7E9F5;
+    --white: #fff;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 24px; margin-top: 20px; }
+  .option { border: 2px solid #e8e8e8; border-radius: 16px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+  .option:hover { border-color: var(--magenta); box-shadow: 0 4px 20px rgba(217,74,159,0.15); }
+  .option.selected { border-color: var(--magenta); box-shadow: 0 4px 20px rgba(217,74,159,0.2); }
+
+  .option-label { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--pink-wash); border-bottom: 1px solid var(--blush); }
+  .option-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--plum); color: #fff; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .option-title { font-weight: 700; color: var(--plum); font-size: 0.95rem; }
+  .option-desc { color: #666; font-size: 0.8rem; margin-top: 1px; }
+
+  .preview-area { padding: 20px; background: #FFF9FD; }
+
+  /* ── OPTION A: Horizontal Bio Cards ── */
+  .a-grid { display: flex; flex-direction: column; gap: 12px; }
+  .a-card { display: flex; gap: 16px; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(122,42,122,0.08); border: 1px solid var(--blush); }
+  .a-photo { width: 90px; min-height: 110px; background: linear-gradient(135deg, var(--blush), var(--pink-wash)); flex-shrink: 0; }
+  .a-photo.lead { width: 110px; }
+  .a-info { padding: 14px 14px 14px 0; flex: 1; }
+  .a-name { font-weight: 700; color: var(--plum); font-size: 0.95rem; margin-bottom: 2px; }
+  .a-role { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--magenta); font-weight: 600; margin-bottom: 6px; }
+  .a-bio { font-size: 0.75rem; color: #888; line-height: 1.5; }
+  .a-section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--magenta); font-weight: 700; margin-bottom: 8px; }
+
+  /* ── OPTION B: Portrait Mosaic ── */
+  .b-lead { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .b-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .b-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(122,42,122,0.07); border: 1px solid var(--blush); text-align: center; }
+  .b-photo { aspect-ratio: 1/1.1; background: linear-gradient(180deg, var(--blush) 60%, var(--pink-wash)); }
+  .b-photo.tall { aspect-ratio: 1/1.3; }
+  .b-footer { padding: 8px; }
+  .b-name { font-weight: 700; color: var(--plum); font-size: 0.8rem; }
+  .b-role { font-size: 0.65rem; color: var(--magenta); text-transform: uppercase; letter-spacing: 0.07em; }
+  .b-bio-peek { font-size: 0.65rem; color: #aaa; margin-top: 4px; font-style: italic; }
+
+  /* ── OPTION C: Editorial Hero + Compact Grid ── */
+  .c-hero-card { display: flex; gap: 0; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(122,42,122,0.1); border: 1px solid var(--blush); margin-bottom: 12px; }
+  .c-hero-photo { width: 130px; background: linear-gradient(160deg, var(--blush), #e0a8d8); flex-shrink: 0; }
+  .c-hero-body { padding: 18px; flex: 1; border-left: 4px solid var(--magenta); }
+  .c-hero-eyebrow { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--magenta); font-weight: 700; }
+  .c-hero-name { font-size: 1.1rem; font-weight: 700; color: var(--plum); margin: 2px 0 4px; }
+  .c-hero-bio { font-size: 0.75rem; color: #777; line-height: 1.55; }
+  .c-divider { text-align: center; font-size: 0.7rem; color: var(--magenta); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 6px 0; }
+  .c-small-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .c-small-card { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--blush); text-align: center; }
+  .c-small-photo { aspect-ratio: 1/1; background: linear-gradient(180deg, var(--blush), var(--pink-wash)); }
+  .c-small-info { padding: 6px 8px 8px; }
+  .c-small-name { font-size: 0.75rem; font-weight: 700; color: var(--plum); }
+  .c-small-role { font-size: 0.6rem; color: var(--magenta); text-transform: uppercase; letter-spacing: 0.06em; }
+</style>
+
+<div class="preview-title">
+  <h2>Coaches Page — Layout Direction</h2>
+  <p>Three different approaches. Click your favourite (or tell me in the terminal).</p>
+</div>
+
+<div class="options">
+
+  <!-- Option A -->
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="option-label">
+      <div class="option-letter">A</div>
+      <div>
+        <div class="option-title">Horizontal Bio Cards</div>
+        <div class="option-desc">Photo left, name + role + bio right. Clean editorial feel. Every coach gets equal weight.</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="a-section-label">The Lead Team</div>
+      <div class="a-grid">
+        <div class="a-card">
+          <div class="a-photo lead"></div>
+          <div class="a-info">
+            <div class="a-name">Gill Holland</div>
+            <div class="a-role">General Manager & Head Coach</div>
+            <div class="a-bio">Gill founded TJ's in September 1988 and has been running it for 36 wonderful years. Holds Level 3 qualifications in General and Pre-school Club Coaching.</div>
+          </div>
+        </div>
+        <div class="a-card">
+          <div class="a-photo lead"></div>
+          <div class="a-info">
+            <div class="a-name">Natalie Garlick</div>
+            <div class="a-role">Head of Gymnastics · SEN Co-ordinator</div>
+            <div class="a-bio">At TJ's since 1997. Leads the competition and display teams.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="option-label">
+      <div class="option-letter">B</div>
+      <div>
+        <div class="option-title">Portrait Mosaic Grid</div>
+        <div class="option-desc">Photo-forward cards in a flowing grid. Lead coaches larger, helpers smaller. Playful and visual.</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="b-lead">
+        <div class="b-card">
+          <div class="b-photo tall"></div>
+          <div class="b-footer">
+            <div class="b-name">Gill Holland</div>
+            <div class="b-role">General Manager</div>
+            <div class="b-bio-peek">Hover to read Gill's story...</div>
+          </div>
+        </div>
+        <div class="b-card">
+          <div class="b-photo tall"></div>
+          <div class="b-footer">
+            <div class="b-name">Natalie Garlick</div>
+            <div class="b-role">Head of Gymnastics</div>
+            <div class="b-bio-peek">Hover to read Natalie's story...</div>
+          </div>
+        </div>
+      </div>
+      <div class="b-grid">
+        <div class="b-card"><div class="b-photo"></div><div class="b-footer"><div class="b-name">Jade Shaw</div><div class="b-role">Deputy Head</div></div></div>
+        <div class="b-card"><div class="b-photo"></div><div class="b-footer"><div class="b-name">Nelum Samara</div><div class="b-role">Welfare Officer</div></div></div>
+        <div class="b-card"><div class="b-photo"></div><div class="b-footer"><div class="b-name">Hazel Pithers</div><div class="b-role">Coach</div></div></div>
+        <div class="b-card"><div class="b-photo"></div><div class="b-footer"><div class="b-name">Hannah Pettit</div><div class="b-role">Coach</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="option-label">
+      <div class="option-letter">C</div>
+      <div>
+        <div class="option-title">Editorial Hero + Compact Grid</div>
+        <div class="option-desc">Lead coaches get full spotlight (large photo + bio side-by-side). Rest in a tighter grid. Varied, rich rhythm.</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="c-hero-card">
+        <div class="c-hero-photo"></div>
+        <div class="c-hero-body">
+          <div class="c-hero-eyebrow">General Manager & Head Coach</div>
+          <div class="c-hero-name">Gill Holland</div>
+          <div class="c-hero-bio">Gill founded TJ's in September 1988. She holds Level 3 qualifications in both General and Pre-school Club Coaching, and it's a joy seeing former gymnasts now bringing their own children through the door.</div>
+        </div>
+      </div>
+      <div class="c-divider">Coaches & Helpers ↓</div>
+      <div class="c-small-grid">
+        <div class="c-small-card"><div class="c-small-photo"></div><div class="c-small-info"><div class="c-small-name">Jade Shaw</div><div class="c-small-role">Deputy Head Coach</div></div></div>
+        <div class="c-small-card"><div class="c-small-photo"></div><div class="c-small-info"><div class="c-small-name">Hazel Pithers</div><div class="c-small-role">Coach</div></div></div>
+        <div class="c-small-card"><div class="c-small-photo"></div><div class="c-small-info"><div class="c-small-name">Beth Drew</div><div class="c-small-role">Junior Helper</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>

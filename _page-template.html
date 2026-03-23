@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PAGE DESCRIPTION HERE">
+  <title>PAGE TITLE — TJ's Gymnastics Club, Wimbledon</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/PAGE-NAME.css">
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────── -->
+  <!--
+    RULES:
+    • Logo: always <img src="images/logo.png"> — never SVG, never div, never text
+    • nav-overlay div is required (mobile backdrop)
+    • nav-toggle must have exactly 3 <span> children (hamburger lines)
+    • Set class="nav-link active" on whichever page is current
+    • For pages inside a subdirectory (e.g. classes/foo.html), prefix all
+      hrefs and src with "../" (e.g. href="../index.html", src="../images/logo.png")
+  -->
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Main navigation">
+      <a href="index.html" class="logo-link">
+        <img src="images/logo.png" alt="TJ's Gymnastics Club" class="logo-img" width="120" height="44">
+      </a>
+      <div class="nav-overlay"></div>
+      <div class="nav-links">
+        <a href="index.html"     class="nav-link">Home</a>
+        <a href="classes.html"   class="nav-link">Classes</a>
+        <a href="timetable.html" class="nav-link">Timetable</a>
+        <a href="coaches.html"   class="nav-link">Coaches</a>
+        <a href="history.html"   class="nav-link">History</a>
+        <a href="club-info.html" class="nav-link">Club Info</a>
+        <a href="contact.html"   class="nav-link">Contact Us</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════
+         PAGE CONTENT GOES HERE
+         ═══════════════════════════════════════════════ -->
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────── -->
+  <!--
+    RULES:
+    • Background colour comes from global.css: var(--plum-dark) = #5C1F5C
+    • Do NOT add a watermark span — global.css sets .footer-watermark { display: none }
+    • Keep all three footer-section blocks intact
+    • For subdirectory pages prefix privacy-policy.html with "../"
+  -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-section">
+        <h4>TJ's Gymnastics Club</h4>
+        <p>Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Our Partners</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.british-gymnastics.org" target="_blank" rel="noopener">British Gymnastics</a></li>
+          <li><a href="https://www.british-gymnastics.org/london" target="_blank" rel="noopener">London Gymnastics</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Find Us</h4>
+        <div class="footer-find-us">
+          <address>
+            Raynes Park Sports Pavilion<br>
+            Taunton Avenue<br>
+            London SW20 0BH
+          </address>
+          <div class="footer-find-us-contact">
+            <a href="tel:01252702295">01252 702295</a>
+            <a href="mailto:info@tjsgymclub.co.uk">info@tjsgymclub.co.uk</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 TJ's Gymnastics Club, Wimbledon. All rights reserved.</p>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

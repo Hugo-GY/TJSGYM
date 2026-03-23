@@ -1,0 +1,230 @@
+/* ========================================
+   TJ's Gymnastics Club — Timetable Page
+   ======================================== */
+
+/* ── Page Hero (shared .page-hero pattern from classes.css) ── */
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  letter-spacing: -0.01em;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero-sub {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+/* ── Timetable section ── */
+.timetable-section {
+  padding: var(--space-4xl) 0;
+  background: var(--white);
+}
+
+.timetable-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── Day heading ── */
+.day-heading-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.day-heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  color: var(--plum);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.day-heading-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, var(--blush), transparent);
+  border-radius: 2px;
+}
+
+/* ── Table ── */
+.tt-wrap {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--blush);
+  overflow: hidden;
+}
+
+.tt-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tt-table thead tr {
+  border-bottom: 2px solid var(--pink-wash);
+}
+
+.tt-table th {
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--magenta);
+  white-space: nowrap;
+}
+
+.tt-table tbody tr {
+  border-bottom: 1px solid var(--pink-wash);
+}
+
+.tt-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tt-table td {
+  padding: var(--space-lg);
+  font-size: var(--text-base);
+  color: var(--text-body);
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Time column */
+.td-time {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-light);
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+/* Class name — Fredoka, underlined link */
+.td-class-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--plum);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(122, 42, 122, 0.35);
+  transition: color var(--duration) var(--ease),
+              text-decoration-color var(--duration) var(--ease);
+}
+
+.td-class-name:hover {
+  color: var(--magenta);
+  text-decoration-color: var(--magenta);
+}
+
+/* Sub-note in Age/Level column */
+.td-note {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--text-light);
+  font-style: italic;
+  margin-top: 3px;
+  font-family: var(--font-body);
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .timetable-grid { gap: var(--space-3xl); }
+  .day-heading { font-size: var(--text-2xl); }
+}
+
+@media (max-width: 640px) {
+  .tt-table th,
+  .tt-table td { padding: var(--space-md); }
+
+  .tt-wrap {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* Keep time/class/age on one row */
+  .tt-table thead { display: none; }
+  .tt-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(5.6rem, 0.95fr) minmax(6.25rem, 1fr) minmax(6.5rem, 1.1fr);
+    align-items: start;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-sm);
+    border: 1px solid rgba(217, 74, 159, 0.12);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: 0 10px 24px rgba(217, 74, 159, 0.06);
+  }
+  .tt-table td {
+    padding: 0;
+    text-align: left;
+    font-size: var(--text-sm);
+  }
+  .tt-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 0.15rem;
+  }
+
+  .td-time {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+  }
+
+  .td-class-name {
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .tt-table td:last-child {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    color: var(--text-body);
+  }
+
+  .td-note {
+    margin-top: 0.2rem;
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+}

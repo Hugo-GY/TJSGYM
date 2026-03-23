@@ -1,0 +1,162 @@
+<style>
+  :root {
+    --plum: #7A2A7A;
+    --magenta: #D94A9F;
+    --blush: #F3C7E7;
+    --pink-wash: #F7E9F5;
+  }
+  .preview-title { text-align: center; margin-bottom: 8px; }
+  .preview-title h2 { color: #7A2A7A; font-size: 1.3rem; margin: 0; }
+  .preview-title p { color: #888; font-size: 0.82rem; margin: 4px 0 0; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+
+  .option { border: 2px solid #e8e8e8; border-radius: 16px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+  .option:hover { border-color: var(--magenta); }
+  .option.selected { border-color: var(--magenta); box-shadow: 0 4px 20px rgba(217,74,159,0.2); }
+  .option-label { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--pink-wash); border-bottom: 1px solid var(--blush); }
+  .option-letter { width: 26px; height: 26px; border-radius: 50%; background: var(--plum); color: #fff; font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .option-title { font-weight: 700; color: var(--plum); font-size: 0.88rem; }
+  .option-desc { color: #666; font-size: 0.75rem; margin-top: 1px; }
+  .preview-area { padding: 16px; background: #FFF9FD; }
+
+  /* ── B1: Always-visible short bio ── */
+  .b1-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--blush);
+    box-shadow: 0 2px 10px rgba(122,42,122,0.07);
+    margin-bottom: 8px;
+  }
+  .b1-photo {
+    width: 100%;
+    aspect-ratio: 3/3.5;
+    background: linear-gradient(170deg, #e8b8e0 30%, var(--pink-wash));
+  }
+  .b1-body { padding: 10px 12px 12px; text-align: center; }
+  .b1-name { font-weight: 700; color: var(--plum); font-size: 0.9rem; }
+  .b1-role { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--magenta); font-weight: 600; margin: 2px 0 6px; }
+  .b1-bio { font-size: 0.7rem; color: #888; line-height: 1.5; text-align: left; }
+
+  .b1-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* ── B2: Hover reveal overlay ── */
+  .b2-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--blush);
+    box-shadow: 0 2px 10px rgba(122,42,122,0.07);
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .b2-photo {
+    width: 100%;
+    aspect-ratio: 3/3.5;
+    background: linear-gradient(170deg, #e8b8e0 30%, var(--pink-wash));
+    display: block;
+  }
+  .b2-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(122,42,122,0.92) 60%, transparent);
+    padding: 28px 12px 12px;
+    color: #fff;
+  }
+  .b2-name { font-weight: 700; font-size: 0.88rem; }
+  .b2-role { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blush); margin: 2px 0 0; }
+  /* Simulated hover state on one card */
+  .b2-card.hovered .b2-overlay-full {
+    display: block;
+  }
+  .b2-overlay-full {
+    position: absolute;
+    inset: 0;
+    background: rgba(122,42,122,0.88);
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .b2-overlay-full .name { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+  .b2-overlay-full .role { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blush); margin-bottom: 8px; }
+  .b2-overlay-full .bio { font-size: 0.7rem; line-height: 1.5; opacity: 0.9; }
+
+  .b2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .b2-hover-note { font-size: 0.68rem; color: var(--magenta); text-align: center; margin-bottom: 8px; font-style: italic; }
+</style>
+
+<div class="preview-title">
+  <h2>Bio Style — How should the story appear?</h2>
+  <p>Option B confirmed. One more choice: how do we show each coach's bio?</p>
+</div>
+
+<div class="split">
+
+  <!-- B1: Always visible -->
+  <div class="option" data-choice="b1" onclick="toggleSelect(this)">
+    <div class="option-label">
+      <div class="option-letter">1</div>
+      <div>
+        <div class="option-title">Always Visible</div>
+        <div class="option-desc">Short bio sits below each photo, readable at a glance. Warm, open, friendly.</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="b1-grid">
+        <div class="b1-card">
+          <div class="b1-photo"></div>
+          <div class="b1-body">
+            <div class="b1-name">Gill Holland</div>
+            <div class="b1-role">General Manager</div>
+            <div class="b1-bio">Founded TJ's in 1988. Holds Level 3 in General & Pre-school coaching. 36 incredible years!</div>
+          </div>
+        </div>
+        <div class="b1-card">
+          <div class="b1-photo" style="background: linear-gradient(170deg, #d4a8d0 30%, #f0d8eb);"></div>
+          <div class="b1-body">
+            <div class="b1-name">Natalie Garlick</div>
+            <div class="b1-role">Head of Gymnastics</div>
+            <div class="b1-bio">At TJ's since 1997. Leads competition teams and is our SEN Co-ordinator.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B2: Hover reveal -->
+  <div class="option" data-choice="b2" onclick="toggleSelect(this)">
+    <div class="option-label">
+      <div class="option-letter">2</div>
+      <div>
+        <div class="option-title">Hover to Reveal</div>
+        <div class="option-desc">Clean photo grid — hover shows name, role + bio over plum overlay. Sleek, interactive.</div>
+      </div>
+    </div>
+    <div class="preview-area">
+      <div class="b2-hover-note">↙ Left card shows hover state</div>
+      <div class="b2-grid">
+        <!-- Simulated hover state -->
+        <div class="b2-card hovered">
+          <div class="b2-photo"></div>
+          <div class="b2-overlay-full">
+            <div class="name">Gill Holland</div>
+            <div class="role">General Manager</div>
+            <div class="bio">Founded TJ's in 1988. Holds Level 3 in General & Pre-school coaching. 36 incredible years!</div>
+          </div>
+        </div>
+        <!-- Normal state -->
+        <div class="b2-card">
+          <div class="b2-photo" style="background: linear-gradient(170deg, #d4a8d0 30%, #f0d8eb);"></div>
+          <div class="b2-overlay">
+            <div class="b2-name">Natalie Garlick</div>
+            <div class="b2-role">Head of Gymnastics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

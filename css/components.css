@@ -65,7 +65,8 @@
   color: var(--plum);
 }
 
-/* Ghost magenta: transparent + pink border, fills on hover */
+/* ── Standard site button (used in hero + all CTAs) ──────────
+   Ghost magenta: transparent + magenta border, fills on hover */
 .btn-ghost-magenta {
   background: transparent;
   color: var(--magenta);
@@ -76,6 +77,27 @@
   color: var(--white);
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(217, 74, 159, 0.3);
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,0.6);
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  border-color: rgba(255,255,255,0.9);
+}
+
+.btn-magenta {
+  background: #c53d8e;
+  color: var(--white);
+  border: 2px solid #c53d8e;
+}
+.btn-magenta:hover {
+  background: #ad3277;
+  border-color: #ad3277;
 }
 
 .btn-sm {
@@ -126,6 +148,65 @@
 }
 .card-blush { background: var(--blush); box-shadow: none; }
 .card-pink  { background: var(--pink-wash); box-shadow: none; }
+
+/* ── Small feature card (left magenta bar, gradient fill) ──
+   Usage: <div class="card-feature"><strong>Label</strong></div>
+   Used in: Facilities features, any short info nugget */
+.card-feature {
+  background: linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  border-left: 3px solid var(--magenta);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    0 12px 28px rgba(217, 74, 159, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.06);
+}
+.card-feature strong {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ── Accent card (corner colour circles, gradient border) ──
+   Usage: <div class="card-accent">…content…</div>
+   Used in: Testimonials, any rich highlighted card */
+.card-accent {
+  background:
+    radial-gradient(circle at top right,  rgba(243, 199, 231, 0.75) 0, rgba(243, 199, 231, 0.75) 64px, transparent 65px),
+    radial-gradient(circle at bottom left, rgba(57, 195, 154, 0.18) 0, rgba(57, 195, 154, 0.18) 52px, transparent 53px),
+    var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) clamp(1.25rem, 2.5vw, 2rem);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration) var(--ease);
+}
+/* Gradient border via ::before (no extra HTML needed) */
+.card-accent::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  padding: 1px;
+  background: linear-gradient(
+    160deg,
+    rgba(217, 74, 159, 0.18),
+    transparent 40%,
+    transparent 60%,
+    rgba(122, 42, 122, 0.08)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.card-accent:hover { transform: translateY(-4px); }
 
 /* --- Badges / Pills --- */
 .badge {

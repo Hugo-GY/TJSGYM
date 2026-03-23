@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timetable — TJ's Gymnastics Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --plum: #7A2A7A; --plum-dark: #5C1F5C;
+  --magenta: #D94A9F; --blush: #F3C7E7;
+  --pink-wash: #F7E9F5; --mint: #39C39A;
+  --lime: #DDEB3C; --cream: #F5EFE7;
+  --white: #FFFFFF; --text-dark: #2D0A2D;
+  --text-body: #4B3044; --text-light: #7A5A72;
+  --shadow-sm: 0 1px 3px rgba(122,42,122,0.06);
+  --shadow-md: 0 4px 16px rgba(122,42,122,0.10);
+  --radius-sm: 8px; --radius-md: 16px; --radius-lg: 20px;
+  --radius-xl: 24px; --radius-pill: 999px;
+  --font-heading: 'Fredoka', sans-serif; --font-body: 'DM Sans', sans-serif;
+  --container-max: 1200px; --container-padding: clamp(1rem,4vw,2rem);
+  --space-xs:.25rem; --space-sm:.5rem; --space-md:1rem; --space-lg:1.5rem;
+  --space-xl:2rem; --space-2xl:3rem; --space-3xl:4rem; --space-4xl:6rem;
+  --text-sm:clamp(0.8rem,.75rem + .25vw,.875rem);
+  --text-base:clamp(.938rem,.875rem + .3vw,1rem);
+  --text-lg:clamp(1.063rem,1rem + .3vw,1.125rem);
+  --text-xl:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+  --text-2xl:clamp(1.5rem,1.2rem + 1vw,2rem);
+  --text-3xl:clamp(1.875rem,1.4rem + 1.5vw,2.5rem);
+  --text-4xl:clamp(2.25rem,1.6rem + 2vw,3.25rem);
+  --text-5xl:clamp(2.75rem,1.8rem + 3vw,4rem);
+  --ease:cubic-bezier(.4,0,.2,1); --duration:.25s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);font-weight:400;font-size:var(--text-base);
+  line-height:1.65;color:var(--text-body);background-color:#FFF9FD;
+  background-image:radial-gradient(circle,rgba(122,42,122,.04) 1px,transparent 1px);
+  background-size:22px 22px;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--plum);text-decoration:none;transition:color var(--duration) var(--ease)}
+a:hover{color:var(--magenta)}
+ul,ol{list-style:none}
+button{font-family:var(--font-body)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);font-weight:500;color:var(--text-dark);line-height:1.2}
+h1{font-size:var(--text-5xl)} h2{font-size:var(--text-4xl)}
+
+/* Preview chrome */
+.preview-bar{background:#1a001a;color:rgba(255,255,255,.8);padding:7px 20px;font-size:11px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:999}
+.preview-bar strong{color:var(--lime)}
+.preview-device{display:flex;gap:5px;margin-left:auto}
+.preview-device button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:3px 9px;border-radius:5px;font-size:10px;cursor:pointer}
+.preview-device button.active{background:var(--plum);border-color:var(--plum)}
+.viewport{margin:0 auto;transition:max-width .3s}
+.viewport.desktop{max-width:1200px}
+.viewport.tablet{max-width:768px;box-shadow:0 0 40px rgba(0,0,0,.15)}
+.viewport.mobile{max-width:390px;box-shadow:0 0 40px rgba(0,0,0,.2)}
+
+/* ── HEADER ── */
+.site-header{
+  position:sticky;top:32px;z-index:100;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--blush);
+}
+.nav-wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--container-max);margin:0 auto;
+  padding:var(--space-sm) var(--container-padding);min-height:68px;
+}
+.logo-link{display:flex;align-items:center;flex-shrink:0}
+.logo-img{height:44px;width:auto}
+.nav-overlay{display:none}
+.nav-links{display:flex;align-items:center;gap:var(--space-xl)}
+.nav-link{
+  font-size:var(--text-sm);font-weight:500;color:var(--text-dark);
+  text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent;
+  transition:all var(--duration) var(--ease);white-space:nowrap;
+}
+.nav-link:hover,.nav-link.active{color:var(--plum);border-bottom-color:var(--magenta)}
+.nav-toggle{
+  display:none;background:none;border:none;cursor:pointer;padding:var(--space-sm);
+  flex-direction:column;gap:5px;min-width:44px;min-height:44px;
+  align-items:center;justify-content:center;
+}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--text-dark);border-radius:2px}
+
+/* ── Layout ── */
+.container{width:100%;max-width:var(--container-max);margin:0 auto;padding:0 var(--container-padding)}
+
+/* ── Page Hero ── */
+.page-hero{padding:var(--space-4xl) 0 var(--space-3xl);text-align:center}
+.page-hero-eyebrow{
+  display:inline-block;font-size:var(--text-sm);font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--magenta);
+  margin-bottom:var(--space-sm);
+}
+.page-hero h1{margin-bottom:var(--space-md);color:var(--plum);letter-spacing:-.01em}
+.page-hero h1 em{color:var(--magenta);font-style:normal}
+.page-hero-sub{
+  max-width:600px;margin:0 auto;
+  color:var(--text-light);font-size:var(--text-lg);line-height:1.7;
+}
+
+/* ── Timetable ── */
+.timetable-section{padding:var(--space-4xl) 0;background:var(--white)}
+.timetable-grid{display:flex;flex-direction:column;gap:var(--space-4xl);max-width:860px;margin:0 auto}
+
+.day-heading-wrap{display:flex;align-items:center;gap:var(--space-lg);margin-bottom:var(--space-xl)}
+.day-heading{font-family:var(--font-heading);font-size:var(--text-3xl);font-weight:500;color:var(--plum);white-space:nowrap;letter-spacing:-.01em}
+.day-heading-line{flex:1;height:2px;background:linear-gradient(to right,var(--blush),transparent);border-radius:2px}
+
+.tt-wrap{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);border:1px solid var(--blush);overflow:hidden}
+.tt-table{width:100%;border-collapse:collapse}
+.tt-table thead tr{border-bottom:2px solid var(--pink-wash)}
+.tt-table th{
+  padding:var(--space-md) var(--space-lg);text-align:center;
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--magenta);white-space:nowrap;
+}
+.tt-table tbody tr{border-bottom:1px solid var(--pink-wash);transition:background var(--duration) var(--ease)}
+.tt-table tbody tr:last-child{border-bottom:none}
+.tt-table tbody tr:hover{background:#fdf5fb}
+.tt-table td{
+  padding:var(--space-lg);font-size:var(--text-base);
+  color:var(--text-body);vertical-align:middle;text-align:center;
+}
+.td-time{
+  font-variant-numeric:tabular-nums;color:var(--text-light);
+  white-space:nowrap;font-size:var(--text-sm);font-weight:500;
+}
+.td-class-name{
+  font-family:var(--font-heading);font-size:var(--text-xl);font-weight:500;
+  color:var(--plum);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:rgba(122,42,122,.35);
+  transition:color var(--duration) var(--ease),text-decoration-color var(--duration) var(--ease);
+}
+.td-class-name:hover{color:var(--magenta);text-decoration-color:var(--magenta)}
+.td-note{
+  display:block;font-size:var(--text-sm);color:var(--text-light);
+  font-style:italic;margin-top:3px;font-family:var(--font-body);
+}
+
+/* ── Thu transition row — blended into the table using brand colours ── */
+.tt-transition-row td {
+  background: var(--pink-wash);
+  border-bottom: 1px solid var(--blush) !important;
+  padding: var(--space-sm) var(--space-lg);
+  text-align: center;
+}
+.tt-transition-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-light);
+}
+.tt-transition-arrow {
+  color: var(--blush);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.tt-transition-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--white);
+  border: 1.5px solid var(--blush);
+  border-radius: var(--radius-pill);
+  padding: 2px 10px;
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  font-style: normal;
+}
+.tt-transition-tag a {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--plum);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(122,42,122,.3);
+}
+.tt-transition-tag a:hover { color: var(--magenta); text-decoration-color: var(--magenta); }
+.tt-transition-date {
+  font-size: var(--text-sm);
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* ── FOOTER ── */
+.site-footer{background:#5C1F5C;color:var(--white);position:relative;overflow:hidden}
+.footer-inner{
+  max-width:var(--container-max);margin:0 auto;
+  padding:var(--space-3xl) var(--container-padding) var(--space-2xl);
+  display:grid;grid-template-columns:1.2fr .8fr 1.4fr;gap:var(--space-2xl);
+}
+.footer-section h4{font-family:var(--font-heading);font-size:var(--text-xl);color:var(--white);margin-bottom:var(--space-md)}
+.footer-section p,.footer-section address{color:rgba(255,255,255,.72);font-size:var(--text-sm);line-height:1.75;font-style:normal}
+.footer-section a{color:rgba(255,255,255,.72);font-size:var(--text-sm);transition:color var(--duration) var(--ease)}
+.footer-section a:hover{color:var(--white)}
+.footer-links li+li{margin-top:var(--space-sm)}
+.footer-find-us{display:flex;gap:0;align-items:flex-start;margin-top:var(--space-sm)}
+.footer-find-us address{
+  font-style:normal;font-size:var(--text-sm);color:rgba(255,255,255,.72);
+  line-height:1.9;padding-right:var(--space-lg);
+  border-right:1px solid rgba(255,255,255,.12);flex-shrink:0;white-space:nowrap;
+}
+.footer-find-us-contact{display:flex;flex-direction:column;gap:var(--space-xs);padding-left:var(--space-lg);justify-content:center;align-self:stretch}
+.footer-find-us-contact a{font-size:var(--text-sm);color:rgba(255,255,255,.72)}
+.footer-find-us-contact a:hover{color:var(--white)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);
+  max-width:var(--container-max);margin:0 auto;
+  padding:var(--space-lg) var(--container-padding);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:var(--space-sm);
+}
+.footer-bottom p,.footer-bottom a{font-size:var(--text-sm);color:rgba(255,255,255,.45)}
+.footer-bottom a:hover{color:rgba(255,255,255,.7)}
+
+@media(max-width:860px){
+  .nav-toggle{display:flex} .nav-links{display:none}
+  .timetable-grid{gap:var(--space-3xl)}
+  .day-heading{font-size:var(--text-2xl)}
+}
+@media(max-width:640px){
+  .footer-inner{grid-template-columns:1fr;gap:var(--space-xl)}
+  .tt-table th,.tt-table td{padding:var(--space-md)}
+}
+</style>
+</head>
+<body>
+
+<div class="preview-bar">
+  <strong>Design Preview v5</strong> — transition row融入表格，品牌配色
+  <div class="preview-device">
+    <button class="active" onclick="setDevice('desktop',this)">Desktop</button>
+    <button onclick="setDevice('tablet',this)">Tablet</button>
+    <button onclick="setDevice('mobile',this)">Mobile</button>
+  </div>
+</div>
+
+<div class="viewport desktop" id="viewport">
+
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Main navigation">
+      <a href="index.html" class="logo-link">
+        <img src="../../../images/logo.png" alt="TJ's Gymnastics Club" class="logo-img" width="120" height="44">
+      </a>
+      <div class="nav-overlay"></div>
+      <div class="nav-links">
+        <a href="index.html"     class="nav-link">Home</a>
+        <a href="classes.html"   class="nav-link">Classes</a>
+        <a href="timetable.html" class="nav-link active">Timetable</a>
+        <a href="coaches.html"   class="nav-link">Coaches</a>
+        <a href="history.html"   class="nav-link">History</a>
+        <a href="club-info.html" class="nav-link">Club Info</a>
+        <a href="contact.html"   class="nav-link">Contact Us</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-hero-eyebrow">2025 / 2026</p>
+        <h1>Weekly <em>Timetable</em></h1>
+        <p class="page-hero-sub">Classes run Monday to Thursday at Raynes Park Sports Pavilion. Click any class name to view full details and book your place.</p>
+      </div>
+    </section>
+
+    <section class="timetable-section">
+      <div class="container">
+        <div class="timetable-grid">
+
+          <!-- MONDAY -->
+          <div>
+            <div class="day-heading-wrap">
+              <h2 class="day-heading">Monday</h2>
+              <div class="day-heading-line"></div>
+            </div>
+            <div class="tt-wrap">
+              <table class="tt-table">
+                <thead><tr><th>Time</th><th>Class</th><th>Age / Level</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="td-time">1:20 – 2:00</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">2:10 – 2:50</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:00 – 4:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Mixed Intermediate</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:30 – 5:15</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Girls Mini Squad<span class="td-note">Warm-up in adjacent hall</span></td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">5:00 – 6:00</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Boys Elite<span class="td-note">Warm-up in adjacent hall</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TUESDAY -->
+          <div>
+            <div class="day-heading-wrap">
+              <h2 class="day-heading">Tuesday</h2>
+              <div class="day-heading-line"></div>
+            </div>
+            <div class="tt-wrap">
+              <table class="tt-table">
+                <thead><tr><th>Time</th><th>Class</th><th>Age / Level</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="td-time">9:40 – 10:20</td>
+                    <td><a href="classes/toddler.html" class="td-class-name">Toddler Gym</a></td>
+                    <td>1 – 2¾ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">10:30 – 11:10</td>
+                    <td><a href="classes/toddler.html" class="td-class-name">Toddler Gym</a></td>
+                    <td>1 – 2¾ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">1:20 – 2:00</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">2:10 – 2:50</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:00 – 4:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Beginners<span class="td-note">Ex Mini Gym only</span></td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:45 – 5:30</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Mixed Intermediate</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">5:30 – 6:30</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Mixed Squad</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- WEDNESDAY -->
+          <div>
+            <div class="day-heading-wrap">
+              <h2 class="day-heading">Wednesday</h2>
+              <div class="day-heading-line"></div>
+            </div>
+            <div class="tt-wrap">
+              <table class="tt-table">
+                <thead><tr><th>Time</th><th>Class</th><th>Age / Level</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="td-time">9:30 – 10:10</td>
+                    <td><a href="classes/toddler.html" class="td-class-name">Toddler Gym</a></td>
+                    <td>1 – 2¾ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">10:30 – 11:10</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">1:20 – 2:00</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">2:10 – 2:50</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:00 – 4:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Beginners<span class="td-note">Ex Mini Gym only</span></td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:30 – 5:30</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Girls Squad<span class="td-note">Warm-up in adjacent hall</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- THURSDAY -->
+          <div>
+            <div class="day-heading-wrap">
+              <h2 class="day-heading">Thursday</h2>
+              <div class="day-heading-line"></div>
+            </div>
+            <div class="tt-wrap">
+              <table class="tt-table">
+                <thead><tr><th>Time</th><th>Class</th><th>Age / Level</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td class="td-time">9:40 – 10:20</td>
+                    <td><a href="classes/toddler.html" class="td-class-name">Toddler Gym</a></td>
+                    <td>1 – 2¾ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">10:30 – 11:10</td>
+                    <td><a href="classes/toddler.html" class="td-class-name">Toddler Gym</a></td>
+                    <td>1 – 2¾ years<span class="td-note">Spring term only</span></td>
+                  </tr>
+                  <!-- Transition row — blended with brand colours -->
+                  <tr class="tt-transition-row">
+                    <td colspan="3">
+                      <div class="tt-transition-inner">
+                        <span class="tt-transition-date">From 13 April</span>
+                        <span class="tt-transition-arrow">→</span>
+                        <span class="tt-transition-tag">
+                          <a href="classes/tiddler.html" class="td-class-name" style="font-size:var(--text-base)">Tiddler Gym</a>
+                          <span style="color:var(--text-light);font-size:var(--text-sm)">· 6–12 months</span>
+                        </span>
+                        <span class="tt-transition-date">takes this slot (Summer term onwards)</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">1:20 – 2:00</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">2:10 – 2:50</td>
+                    <td><a href="classes/mini-gym.html" class="td-class-name">Mini Gym</a></td>
+                    <td>3 – 4½ years</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:00 – 4:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Beginners<span class="td-note">Ex Mini Gym only</span></td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:45 – 5:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Girls Junior Squad</td>
+                  </tr>
+                  <tr>
+                    <td class="td-time">4:45 – 6:45</td>
+                    <td><a href="classes/gymnastics.html" class="td-class-name">Gymnastics</a></td>
+                    <td>Girls Elite</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-section">
+        <h4>TJ's Gymnastics Club</h4>
+        <p>Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Our Partners</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.british-gymnastics.org" target="_blank" rel="noopener">British Gymnastics</a></li>
+          <li><a href="https://www.british-gymnastics.org/london" target="_blank" rel="noopener">London Gymnastics</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Find Us</h4>
+        <div class="footer-find-us">
+          <address>
+            Raynes Park Sports Pavilion<br>
+            Taunton Avenue<br>
+            London SW20 0BH
+          </address>
+          <div class="footer-find-us-contact">
+            <a href="tel:01252702295">01252 702295</a>
+            <a href="mailto:info@tjsgymclub.co.uk">info@tjsgymclub.co.uk</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TJ's Gymnastics Club, Wimbledon. All rights reserved.</p>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function setDevice(size,btn){
+  document.getElementById('viewport').className='viewport '+size;
+  document.querySelectorAll('.preview-device button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

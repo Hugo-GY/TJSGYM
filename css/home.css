@@ -6,7 +6,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: var(--space-4xl) 0 var(--space-4xl);
+  padding: var(--space-4xl) 0 var(--space-3xl);
 }
 
 .hero-inner {
@@ -156,6 +156,12 @@
   );
 }
 
+/* Section spacing — tighter than global default */
+.section {
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+}
+
 /* --- Section heading accent style (matches hero h1) --- */
 .section h2 {
   color: var(--plum);
@@ -266,7 +272,7 @@
 
 /* --- Accreditation trust strip --- */
 .trust-section {
-  padding: var(--space-xl) 0;
+  padding: var(--space-lg) 0;
 }
 
 .trust-strip-inner {
@@ -355,7 +361,7 @@
 }
 
 /* --- Class Cards section --- */
-/* 2×2 equal grid, inspired by TJGYM classes.html */
+/* Desktop 2x2 grid, collapses to single-column on mobile */
 .class-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -423,8 +429,8 @@
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
-  background: var(--magenta);
-  color: var(--white);
+  background: var(--pink-wash);
+  color: var(--plum);
   font-family: var(--font-heading);
   font-size: var(--text-sm);
   font-weight: 500;
@@ -454,48 +460,50 @@
   margin-bottom: var(--space-md);
 }
 
-/* Feature bullet list */
-.class-features {
-  list-style: none;
+/* Card CTA row — price left, button right */
+.class-card-cta {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--blush);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.class-pricing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.class-pricing-amount {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--plum);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.class-pricing-meta {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-lg);
-  flex: 1;
+  gap: 1px;
 }
 
-.class-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  font-size: var(--text-sm);
-  color: var(--text-body);
-  line-height: 1.5;
-}
-
-.class-features li::before {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--magenta);
-  flex-shrink: 0;
-  margin-top: 0.45em;
-}
-
-.class-card-arrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
+.class-pricing-label {
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--magenta);
-  margin-top: auto;
-  transition: gap var(--duration) var(--ease);
+  color: var(--text-dark);
+  line-height: 1.2;
 }
-.class-card-arrow::after { content: '→'; }
-.class-card:hover .class-card-arrow { gap: var(--space-sm); }
+
+.class-pricing-note {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  line-height: 1.2;
+}
 
 /* --- Facilities section --- */
 .facilities-layout {
@@ -526,28 +534,13 @@
   margin-bottom: var(--space-xl);
 }
 
-.facilities-feature {
-  background: linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
-  border-radius: var(--radius-md);
-  padding: var(--space-md) var(--space-lg);
-  display: flex;
-  align-items: center;
-  border-left: 3px solid var(--magenta);
-  box-shadow:
-    2px 4px 8px rgba(0, 0, 0, 0.02),
-    0 12px 28px rgba(217, 74, 159, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 1),
-    0 0 0 1px rgba(217, 74, 159, 0.06);
-}
-
-.facilities-feature strong {
-  display: block;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-dark);
-}
+/* .facilities-feature visual → .card-feature in components.css */
 
 /* --- Location section --- */
+.location-section {
+  padding-top: var(--space-xl);
+}
+
 .location-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -612,40 +605,7 @@
   gap: var(--space-xl);
 }
 
-.testimonial-card {
-  background:
-    radial-gradient(circle at top right,  rgba(243, 199, 231, 0.75) 0, rgba(243, 199, 231, 0.75) 64px, transparent 65px),
-    radial-gradient(circle at bottom left, rgba(57, 195, 154, 0.18) 0, rgba(57, 195, 154, 0.18) 52px, transparent 53px),
-    var(--white);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl) clamp(1.25rem, 2.5vw, 2rem);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  transition: transform var(--duration) var(--ease);
-}
-
-/* Subtle gradient border via ::before (Verd technique) */
-.testimonial-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-xl);
-  padding: 1px;
-  background: linear-gradient(
-    160deg,
-    rgba(217, 74, 159, 0.18),
-    transparent 40%,
-    transparent 60%,
-    rgba(122, 42, 122, 0.08)
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.testimonial-card:hover { transform: translateY(-4px); }
+/* .testimonial-card visual → .card-accent in components.css */
 
 .testimonial-stars {
   display: flex;
@@ -701,6 +661,8 @@
     margin: 0 auto;
   }
 
+  .class-cards-grid { grid-template-columns: 1fr; }
+
   .classes-header { flex-direction: column; align-items: flex-start; }
   .classes-header-sub { text-align: left; max-width: 100%; }
 
@@ -730,8 +692,4 @@
   }
   .pathway-arrow { display: none; }
   .pathway-dot { width: 44px; height: 44px; font-size: var(--text-lg); }
-}
-
-@media (max-width: 480px) {
-  .class-cards-grid { grid-template-columns: 1fr; }
 }
