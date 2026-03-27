@@ -1,0 +1,323 @@
+/* ========================================
+   TJ's Gymnastics Club — History Page
+   ======================================== */
+
+h2 {
+  color: var(--plum);
+}
+
+h2 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  letter-spacing: -0.01em;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero-sub {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+.history-story,
+.history-highlight,
+.history-community,
+.history-timeline,
+.history-gallery {
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-4xl);
+}
+
+.history-section-head {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.history-section-head h2 {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.history-section-head--left {
+  text-align: left;
+}
+
+.history-section-head--left h2 {
+  margin: 0;
+}
+
+.history-story {
+  padding-top: var(--space-xl);
+}
+
+.history-story-grid,
+.history-community-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.history-copy-card {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid rgba(243, 199, 231, 0.95);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 233, 245, 0.9) 100%);
+}
+
+.history-copy-card--soft {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(243, 199, 231, 0.32) 100%);
+}
+
+.history-copy-card p {
+  color: var(--text-body);
+}
+
+.history-figure,
+.history-gallery-item {
+  margin: 0;
+}
+
+.history-figure {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-sm);
+  border: 1px solid rgba(243, 199, 231, 0.95);
+  box-shadow: var(--shadow-sm);
+}
+
+.history-figure img,
+.history-gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: calc(var(--radius-xl) - 6px);
+  object-fit: cover;
+}
+
+.history-figure-main img {
+  aspect-ratio: 4 / 5;
+  object-position: 22% center;
+}
+
+.history-figure figcaption {
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.history-highlight {
+  padding-top: 0;
+}
+
+.history-highlight-card {
+  background:
+    radial-gradient(circle at top right, rgba(243, 199, 231, 0.78) 0, rgba(243, 199, 231, 0.78) 80px, transparent 81px),
+    linear-gradient(145deg, #ffffff 0%, rgba(247, 233, 245, 0.98) 100%);
+  border: 1px solid rgba(243, 199, 231, 0.95);
+  border-radius: 28px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: 0 10px 32px rgba(122, 42, 122, 0.10);
+}
+
+.history-highlight-copy {
+  max-width: 720px;
+  margin-bottom: var(--space-xl);
+}
+
+.history-highlight-copy h2 {
+  margin-bottom: var(--space-md);
+}
+
+.history-highlight-copy p {
+  color: var(--text-body);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+.history-highlight-milestones,
+.history-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.history-milestone-card,
+.history-timeline-item {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(243, 199, 231, 0.95);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.history-milestone-year,
+.history-timeline-year {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+
+.history-milestone-card h3,
+.history-timeline-item h3 {
+  font-size: var(--text-xl);
+  color: var(--plum);
+  margin-bottom: var(--space-sm);
+}
+
+.history-milestone-card p:last-child,
+.history-timeline-item p:last-child {
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+
+.history-community {
+  background: rgba(255, 255, 255, 0.46);
+  border-top: 1px solid rgba(243, 199, 231, 0.7);
+  border-bottom: 1px solid rgba(243, 199, 231, 0.7);
+}
+
+.history-community-media {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+.history-community-media .history-figure img {
+  aspect-ratio: 4 / 4.6;
+}
+
+.history-community-media .history-figure:first-child img {
+  object-position: center top;
+}
+
+.history-community-media .history-figure:last-child img {
+  object-position: 42% center;
+}
+
+.history-timeline-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.history-gallery {
+  padding-top: var(--space-3xl);
+}
+
+.history-gallery-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+.history-gallery-item {
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  min-height: 220px;
+}
+
+.history-gallery-item--wide {
+  grid-column: span 2;
+}
+
+.history-gallery-item--tall {
+  grid-row: span 2;
+  min-height: 456px;
+}
+
+.history-gallery-item img {
+  transition: transform var(--duration) var(--ease);
+}
+
+.history-gallery-item:hover img {
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px) {
+  .history-story-grid,
+  .history-community-grid,
+  .history-timeline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-highlight-milestones {
+    grid-template-columns: 1fr;
+  }
+
+  .history-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-gallery-item--wide,
+  .history-gallery-item--tall {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 680px) {
+  .history-story,
+  .history-highlight,
+  .history-community,
+  .history-timeline,
+  .history-gallery {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .history-story {
+    padding-top: var(--space-lg);
+  }
+
+  .history-community-media,
+  .history-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-highlight-copy p,
+  .page-hero-sub {
+    font-size: var(--text-base);
+  }
+
+  .history-milestone-card,
+  .history-timeline-item,
+  .history-copy-card {
+    padding: var(--space-lg);
+  }
+}
