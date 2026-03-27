@@ -74,7 +74,7 @@ Full spec: `TJSGYM Branding upgrade/TJS BACKGROUND.md`
 
 ### Navigation
 ```
-Home | Classes | Timetable | Coaches | History | Club Info | Contact Us
+Home | Classes | Timetable | Coaches | History | Club Policy | Club Kit | FAQ | News | Contact Us
 ```
 - Clean text-based header, no heavy button bar
 - Mobile: hamburger → slide-in menu
@@ -102,7 +102,10 @@ TJS_V2/
 ├── timetable.html                # Timetable (pure table view)
 ├── coaches.html                  # Our Coaches
 ├── history.html                  # Our Story / History
-├── club-info.html                # Club Info (policies, news, kit, info sheet)
+├── club-policy.html              # Club policies and downloads
+├── club-kit.html                 # Club kit information and supplier links
+├── faq.html                      # Frequently asked questions
+├── news.html                     # Club news and updates
 ├── contact.html                  # Contact Us
 ├── privacy-policy.html           # Privacy Policy
 ├── css/
@@ -114,9 +117,12 @@ TJS_V2/
 │   ├── timetable.css             # Timetable specific
 │   ├── coaches.css               # Coaches specific
 │   ├── history.css               # History specific
-│   ├── club-info.css             # Club Info specific
+│   ├── club-policy.css           # Club Policy specific
+│   ├── club-kit.css              # Club Kit specific
+│   ├── faq.css                   # FAQ specific
+│   ├── news.css                  # News specific
 │   ├── contact.css               # Contact specific
-│   └── privacy.css               # Privacy Policy specific
+│   └── privacy-policy.css        # Privacy Policy specific
 ├── js/
 │   └── main.js                   # Mobile nav, accordions, smooth scroll
 ├── images/
@@ -145,9 +151,12 @@ Each file's responsibility:
 | `css/timetable.css` | Day-grouped table styling |
 | `css/coaches.css` | Coach grid, circular avatar styling, leadership highlight cards |
 | `css/history.css` | Timeline/narrative layout, historical photo gallery |
-| `css/club-info.css` | Multi-section info page: policies, news, kit, download |
+| `css/club-policy.css` | Policy document page with rules and download links |
+| `css/club-kit.css` | Club kit information and supplier links |
+| `css/faq.css` | FAQ accordion page |
+| `css/news.css` | News listing page |
 | `css/contact.css` | Contact form + map + info layout |
-| `css/privacy.css` | Simple prose page styling |
+| `css/privacy-policy.css` | Simple prose page styling |
 | `js/main.js` | Mobile hamburger toggle, accordion expand/collapse, smooth scroll to anchors |
 
 ---
@@ -770,7 +779,10 @@ Replace the test `index.html` with:
         <a href="timetable.html" class="nav-link">Timetable</a>
         <a href="coaches.html" class="nav-link">Coaches</a>
         <a href="history.html" class="nav-link">History</a>
-        <a href="club-info.html" class="nav-link">Club Info</a>
+        <a href="club-policy.html" class="nav-link">Club Policy</a>
+        <a href="club-kit.html" class="nav-link">Club Kit</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="news.html" class="nav-link">News</a>
         <a href="contact.html" class="nav-link">Contact Us</a>
       </div>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -1834,32 +1846,27 @@ git commit -m "feat: history page — club story with timeline and photos"
 
 ---
 
-### Task 11: Club Info Page
+### Task 11: News Page
 
 **Files:**
-- Create: `css/club-info.css`
-- Create: `club-info.html`
+- Create: `css/news.css`
+- Create: `news.html`
 
 **Content sources:**
-- Club Policies: `Original web/club-rules/club-rules.txt`
 - News: `Original web/category-news/index.html`
-- Information Sheet: `Original web/information-sheet/index.html`
-- Club Kit: `Original web/clothing-supplier/clothing-supplier.txt`
 
 **Page structure:**
 1. Page header
-2. Club Policies section — list of policies with expandable accordion (Child Safeguarding, Code of Conduct, Anti-Bullying, Equity Policy, Dress Code)
-3. News section — latest news items
-4. Information Sheet — downloadable form / key info
-5. Club Kit — brief description + link to Print My Kit shop
+2. News list section — latest news items
+3. Links to full article pages
 
-- [ ] **Step 1: Create css/club-info.css**
+- [ ] **Step 1: Create css/news.css**
 
-Multi-section page: each section visually distinct with alternating backgrounds (white / pink-wash). Policy accordion, news cards, download button for info sheet, external link card for club kit.
+Simple listing page with readable summary cards that link to individual article pages.
 
-- [ ] **Step 2: Create club-info.html**
+- [ ] **Step 2: Create news.html**
 
-Full page. Extract all policy text from `club-rules.txt`. Format as accordion items. News items from source. Club kit with link to `https://tjs.printmykit.co.uk/`.
+Full page. Extract news items from source and present them as readable summary cards.
 
 - [ ] **Step 3: Visual check**
 
@@ -1868,8 +1875,8 @@ Desktop + mobile. Verify accordions work.
 - [ ] **Step 4: Commit**
 
 ```bash
-git add css/club-info.css club-info.html
-git commit -m "feat: club info page — policies, news, info sheet, club kit"
+git add css/news.css news.html
+git commit -m "feat: news page"
 ```
 
 ---
@@ -2015,7 +2022,7 @@ git commit -m "polish: design review fixes — brand alignment and visual consis
 | 8 | Timetable page | 4 |
 | 9 | Coaches page | 4 |
 | 10 | History page | 4 |
-| 11 | Club Info page | 4 |
+| 11 | News page | 4 |
 | 12 | Contact page | 4 |
 | 13 | Privacy Policy page | 3 |
 | 14 | Cross-page QA & polish | 6 |

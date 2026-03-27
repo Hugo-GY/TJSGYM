@@ -1,0 +1,212 @@
+/* ========================================
+   TJ's Gymnastics Club — Club Kit Page
+   ======================================== */
+
+.club-kit-page {
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(243, 199, 231, 0.34) 0%, rgba(243, 199, 231, 0) 24%),
+    radial-gradient(circle at 92% 12%, rgba(57, 195, 154, 0.08) 0%, rgba(57, 195, 154, 0) 20%),
+    radial-gradient(circle at 22% 72%, rgba(243, 199, 231, 0.14) 0%, rgba(243, 199, 231, 0) 22%),
+    linear-gradient(180deg, #fff 0%, #fffdfd 48%, #fffafc 100%);
+}
+
+.page-hero {
+  padding: clamp(4rem, 10vw, 7rem) 0 clamp(2rem, 5vw, 3.5rem);
+  background: transparent;
+}
+
+.page-hero h1 {
+  color: var(--plum);
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  max-width: 10ch;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.kit-supplier-section {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.kit-supplier-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(16rem, 0.82fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid rgba(217, 74, 159, 0.07);
+  border-bottom: 1px solid rgba(217, 74, 159, 0.07);
+}
+
+.kit-supplier-copy p {
+  max-width: 34rem;
+  color: var(--text-body);
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  line-height: 1.9;
+}
+
+.kit-brand-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: calc(var(--radius-xl) + 4px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 242, 248, 0.82) 100%);
+  box-shadow:
+    0 18px 42px rgba(92, 31, 92, 0.06),
+    inset 0 0 0 1px rgba(217, 74, 159, 0.08);
+}
+
+.kit-supplier-logo {
+  width: auto;
+  height: 88px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.kit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.kit-products {
+  padding-top: var(--space-xl);
+  background: transparent;
+}
+
+.kit-products-title {
+  margin-bottom: var(--space-xl);
+  color: var(--plum);
+  font-size: clamp(1.65rem, 2.2vw, 2.4rem);
+  line-height: 1.02;
+  max-width: none;
+}
+
+.kit-products-title em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.kit-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.kit-product-card {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.kit-product-image-wrap {
+  aspect-ratio: 1 / 1;
+  padding: clamp(1rem, 2vw, 1.4rem);
+  border-radius: calc(var(--radius-xl) + 2px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(252, 246, 250, 0.88) 100%);
+  box-shadow:
+    0 14px 32px rgba(92, 31, 92, 0.05),
+    inset 0 0 0 1px rgba(217, 74, 159, 0.07);
+  transition:
+    transform var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
+}
+
+.kit-product-card:hover .kit-product-image-wrap {
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 38px rgba(92, 31, 92, 0.09),
+    inset 0 0 0 1px rgba(217, 74, 159, 0.12);
+}
+
+.kit-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.kit-product-card h3 {
+  margin-top: var(--space-md);
+  color: var(--plum);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.kit-product-link {
+  margin-top: 0.35rem;
+  color: var(--magenta);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.kit-support-strip {
+  padding: var(--space-2xl) 0 var(--space-4xl);
+}
+
+.kit-support-text {
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.8;
+  max-width: 52rem;
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(217, 74, 159, 0.1);
+}
+
+.kit-support-strip a {
+  color: var(--magenta);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .kit-supplier-layout,
+  .kit-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kit-supplier-layout {
+    gap: var(--space-xl);
+  }
+
+  .kit-products-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .kit-supplier-layout,
+  .kit-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kit-supplier-logo {
+    height: 64px;
+  }
+
+  .kit-products-grid { gap: var(--space-xl); }
+
+  .kit-actions .btn { width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .kit-products-grid {
+    grid-template-columns: 1fr;
+  }
+}

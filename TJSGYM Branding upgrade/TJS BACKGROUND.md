@@ -235,7 +235,7 @@ The user interface should feel soft, clear, and reassuring. Components should be
 - Desktop navigation should be simple and uncluttered; avoid dense multi-level structures unless absolutely necessary
 - Mobile navigation must prioritize speed and clarity; hamburger menu slides in from the right at ≤860px
 - The current preferred desktop direction is a clean text-based header with a sticky frosted-glass bar
-- Top-level navigation: `Home`, `Classes`, `Timetable`, `Coaches`, `History`, `Club Info`, `Contact Us`
+- Top-level navigation: `Home`, `Classes`, `Timetable`, `Coaches`, `History`, `Club Policy`, `Club Kit`, `FAQ`, `News`, `Contact Us`
 
 ## 7d. Forms and Booking UI
 

@@ -1,0 +1,172 @@
+/* ========================================
+   TJ's Gymnastics Club — FAQ Page
+   ======================================== */
+
+.faq-hero {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.faq-kicker {
+  margin-bottom: var(--space-sm);
+  color: var(--magenta);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.faq-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.faq-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.faq-hero-sub {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.75;
+}
+
+.faq-section {
+  padding: 0 0 var(--space-3xl);
+}
+
+.faq-shell {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.faq-accordion {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.faq-item {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: linear-gradient(145deg, #ffffff 0%, var(--pink-wash) 100%);
+  border-left: 3px solid var(--magenta);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    0 12px 28px rgba(217, 74, 159, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.06);
+}
+
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 1rem 1.25rem;
+  border: none;
+  background: none;
+  color: var(--text-dark);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  text-align: left;
+  transition: color var(--duration) var(--ease);
+}
+
+.faq-trigger:hover {
+  color: var(--plum);
+}
+
+.faq-trigger .tc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(217, 74, 159, 0.09);
+  transition:
+    background var(--duration) var(--ease),
+    transform var(--duration) var(--ease);
+}
+
+.faq-trigger .tc-icon::after {
+  content: "";
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: -0.15rem;
+  border-right: 2px solid var(--plum);
+  border-bottom: 2px solid var(--plum);
+  transform: rotate(45deg);
+  transition: transform var(--duration) var(--ease), margin-top var(--duration) var(--ease);
+}
+
+.faq-trigger[aria-expanded="true"] .tc-icon {
+  background: rgba(217, 74, 159, 0.16);
+}
+
+.faq-trigger[aria-expanded="true"] .tc-icon::after {
+  margin-top: 0.15rem;
+  transform: rotate(-135deg);
+}
+
+.faq-panel {
+  padding: 0 1.25rem 1rem;
+  border-top: 1px solid rgba(217, 74, 159, 0.08);
+}
+
+.faq-panel p {
+  margin: var(--space-md) 0 0;
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.82;
+}
+
+.page-faq {
+  padding-bottom: 18rem;
+}
+
+.page-faq .site-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+}
+
+@media (max-width: 768px) {
+  .page-faq {
+    padding-bottom: 22rem;
+  }
+
+  .faq-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .faq-hero h1 {
+    font-size: clamp(2.3rem, 11vw, 3.5rem);
+  }
+
+  .faq-section {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .faq-trigger {
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .faq-panel {
+    padding: 0 1rem 1rem;
+  }
+}

@@ -597,6 +597,48 @@ h2 em {
   line-height: 1.6;
 }
 
+/* ── Competition & Displays ───────────────────────────── */
+.competition-section {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-4xl);
+}
+
+.competition-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.competition-content p + p {
+  margin-top: var(--space-md);
+}
+
+.competition-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.competition-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+.competition-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.68rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+}
+
 /* ── Photo Gallery ──────────────────────────────────────── */
 .cd-gallery {
   padding: var(--space-2xl) 0 var(--space-4xl);
@@ -733,6 +775,10 @@ h2 em {
   }
 
   .cd-term-selector { grid-template-columns: 1fr; }
+
+  .competition-inner {
+    grid-template-columns: 1fr;
+  }
 
   .cd-hero-card { aspect-ratio: 16 / 7; }
   .cd-hero-meta { bottom: var(--space-xl); left: var(--space-xl); }

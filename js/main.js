@@ -3,15 +3,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
   const overlay = document.querySelector('.nav-overlay');
+  let navBack = null;
+
+  function setMenuOpen(isOpen) {
+    if (!navLinks || !toggle) return;
+
+    navLinks.classList.toggle('open', isOpen);
+    overlay?.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+
+    // Prevent layout shift when body scrolling is locked and the scrollbar disappears.
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    document.body.style.paddingRight = isOpen && scrollbarWidth > 0 ? `${scrollbarWidth}px` : '';
+  }
 
   if (toggle && navLinks) {
+    if (!navLinks.querySelector('.nav-back')) {
+      navBack = document.createElement('button');
+      navBack.type = 'button';
+      navBack.className = 'nav-back';
+      navBack.setAttribute('aria-label', 'Close menu and return to page');
+      navBack.innerHTML = '<span aria-hidden="true">←</span><span>Back</span>';
+      navLinks.prepend(navBack);
+    } else {
+      navBack = navLinks.querySelector('.nav-back');
+    }
+
     toggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      overlay?.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      const isOpen = !navLinks.classList.contains('open');
+      setMenuOpen(isOpen);
     });
 
+    navBack?.addEventListener('click', closeNav);
     overlay?.addEventListener('click', closeNav);
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeNav();
@@ -19,10 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeNav() {
-    navLinks?.classList.remove('open');
-    overlay?.classList.remove('open');
-    toggle?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
+    setMenuOpen(false);
   }
 
   // ── Accordion ──────────────────────────────────────────────
