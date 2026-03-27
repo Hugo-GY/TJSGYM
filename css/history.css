@@ -196,6 +196,8 @@ h2 em {
   padding: 0.1rem var(--space-xs) var(--space-xs);
   border-top: 1px solid rgba(243, 199, 231, 0.72);
   padding-top: 0.7rem;
+  text-align: center;
+  align-items: center;
 }
 
 .history-gallery-item figcaption p {
@@ -203,6 +205,18 @@ h2 em {
   font-size: var(--text-sm);
   line-height: 1.55;
   margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .history-gallery-item:hover img {
