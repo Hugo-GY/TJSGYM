@@ -12,7 +12,7 @@ h2 em {
 }
 
 .page-hero {
-  padding: var(--space-4xl) 0 var(--space-3xl);
+  padding: var(--space-4xl) 0 var(--space-xl);
   text-align: center;
 }
 
@@ -50,6 +50,10 @@ h2 em {
 .history-gallery {
   padding-top: var(--space-4xl);
   padding-bottom: var(--space-4xl);
+}
+
+.history-timeline-section {
+  padding-top: var(--space-xl);
 }
 
 .history-section-head {
@@ -234,6 +238,10 @@ h2 em {
   .history-gallery {
     padding-top: var(--space-3xl);
     padding-bottom: var(--space-3xl);
+  }
+
+  .history-timeline-section {
+    padding-top: var(--space-lg);
   }
 
   .history-timeline {
