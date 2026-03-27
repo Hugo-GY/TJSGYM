@@ -63,10 +63,13 @@ h2 em {
 }
 
 .history-timeline {
+  --timeline-gutter: clamp(1.75rem, 4vw, 4rem);
+  --timeline-axis: 0.5rem;
+  --timeline-dot: 14px;
   position: relative;
   max-width: 860px;
   margin: 0 auto;
-  padding-left: clamp(1.5rem, 4vw, 4rem);
+  padding-left: var(--timeline-gutter);
 }
 
 .history-timeline::before {
@@ -74,8 +77,9 @@ h2 em {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0.35rem;
+  left: var(--timeline-axis);
   width: 2px;
+  transform: translateX(-50%);
   background: linear-gradient(180deg, rgba(217, 74, 159, 0.75), rgba(122, 42, 122, 0.18));
 }
 
@@ -101,9 +105,9 @@ h2 em {
   content: "";
   position: absolute;
   top: 1.55rem;
-  left: calc(-1 * clamp(1.5rem, 4vw, 4rem) + 0.1rem);
-  width: 14px;
-  height: 14px;
+  left: calc((-1 * var(--timeline-gutter)) + var(--timeline-axis) - (var(--timeline-dot) / 2));
+  width: var(--timeline-dot);
+  height: var(--timeline-dot);
   border-radius: 50%;
   background: var(--magenta);
   box-shadow: 0 0 0 6px rgba(243, 199, 231, 0.8);
@@ -143,24 +147,39 @@ h2 em {
 }
 
 .history-gallery-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   overflow: hidden;
   border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(243, 199, 231, 0.95);
   box-shadow: var(--shadow-sm);
-  min-height: 220px;
+  padding: var(--space-sm);
 }
 
 .history-gallery-item--feature {
   grid-column: span 2;
-  min-height: 300px;
 }
 
 .history-gallery-item img {
   width: 100%;
-  height: 100%;
   display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: calc(var(--radius-xl) - 8px);
   object-fit: cover;
   transition: transform var(--duration) var(--ease);
+}
+
+.history-gallery-item--feature img {
+  aspect-ratio: 16 / 9;
+}
+
+.history-gallery-item figcaption {
+  padding: 0 var(--space-xs) var(--space-xs);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  line-height: 1.55;
 }
 
 .history-gallery-item:hover img {
@@ -185,7 +204,8 @@ h2 em {
   }
 
   .history-timeline {
-    padding-left: 1.5rem;
+    --timeline-gutter: 1.5rem;
+    --timeline-axis: 0.45rem;
   }
 
   .history-gallery-grid {
@@ -196,17 +216,11 @@ h2 em {
     font-size: var(--text-base);
   }
 
-  .history-timeline-item,
-  .history-gallery-item {
+  .history-timeline-item {
     padding: var(--space-lg);
-  }
-
-  .history-timeline-item::before {
-    left: -1.05rem;
   }
 
   .history-gallery-item--feature {
     grid-column: auto;
-    min-height: 240px;
   }
 }
