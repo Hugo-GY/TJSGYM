@@ -132,23 +132,7 @@
   line-height: 1.82;
 }
 
-.page-faq {
-  padding-bottom: 18rem;
-}
-
-.page-faq .site-footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20;
-}
-
 @media (max-width: 768px) {
-  .page-faq {
-    padding-bottom: 22rem;
-  }
-
   .faq-hero {
     padding: var(--space-3xl) 0 var(--space-xl);
   }
