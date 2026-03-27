@@ -172,6 +172,8 @@ h2 em {
 
 .history-gallery-item--feature {
   width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .history-gallery-item img {
