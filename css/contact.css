@@ -55,6 +55,24 @@
   text-align: center;
 }
 
+.contact-callout {
+  margin: 0 auto var(--space-lg);
+  color: var(--plum);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.contact-callout a {
+  color: var(--magenta);
+  text-decoration: none;
+}
+
+.contact-callout a:hover {
+  color: var(--plum);
+}
+
 .contact-card {
   position: relative;
   border-radius: var(--radius-xl);
