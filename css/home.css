@@ -567,9 +567,13 @@
 
   .hero-trust { justify-content: center; }
 
+  .hero-content {
+    order: 2;
+  }
+
   .hero-visual {
+    order: 1;
     justify-content: center;
-    /* image follows content on mobile — no order:-1 */
   }
 
   .hero-blob {
