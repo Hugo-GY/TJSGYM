@@ -105,8 +105,292 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const toddlerSessionKeys = ['class', 'bookingType', 'term', 'day', 'time', 'price', 'availability'];
+
+  function getBookingTypeLabel(value) {
+    return value === 'trial' ? 'Trial lesson' : 'Full booking';
+  }
+
+  function getSelectedSessionFromUrl(search = window.location.search) {
+    const params = new URLSearchParams(search);
+    const session = {};
+
+    toddlerSessionKeys.forEach(key => {
+      const rawValue = (params.get(key) || '').trim();
+      if (key === 'bookingType') {
+        session[key] = rawValue === 'trial' ? 'trial' : 'full';
+        return;
+      }
+
+      session[key] = rawValue;
+    });
+
+    return session;
+  }
+
+  function hasSelectedSession(session) {
+    return toddlerSessionKeys
+      .filter(key => key !== 'bookingType')
+      .every(key => Boolean(session?.[key]));
+  }
+
+  function setFieldValues(fields, values, fallbackText = '') {
+    fields.forEach(field => {
+      const key = field.dataset.sessionField || field.dataset.submittedField;
+      const value = values?.[key];
+      const resolvedValue = key === 'bookingType' && value ? getBookingTypeLabel(value) : value;
+      field.textContent = resolvedValue && String(resolvedValue).trim() ? resolvedValue : fallbackText;
+    });
+  }
+
+  function normalizeBookingText(value) {
+    return typeof value === 'string' ? value.trim() : '';
+  }
+
+  function validateToddlerBookingForm(rawValue) {
+    if (!rawValue || typeof rawValue !== 'object' || Array.isArray(rawValue)) {
+      return null;
+    }
+
+    const requiredKeys = ['childName', 'childDob', 'parentName', 'email', 'phone'];
+    const bookingData = {};
+
+    for (const key of requiredKeys) {
+      const value = rawValue[key];
+      if (typeof value !== 'string') {
+        return null;
+      }
+
+      bookingData[key] = value.trim();
+      if (!bookingData[key]) {
+        return null;
+      }
+    }
+
+    const messageValue = rawValue.message;
+    bookingData.message = typeof messageValue === 'string' ? messageValue.trim() : '';
+    bookingData.bookingType = rawValue.bookingType === 'trial' ? 'trial' : 'full';
+
+    return bookingData;
+  }
+
+  function readToddlerBookingForm() {
+    try {
+      const raw = sessionStorage.getItem('toddlerBookingForm');
+      if (!raw) return null;
+
+      return validateToddlerBookingForm(JSON.parse(raw));
+    } catch {
+      return null;
+    }
+  }
+
+  // ── Toddler booking links ─────────────────────────────────
+  function buildToddlerBookingUrl(trigger) {
+    const requiredKeys = ['class', 'term', 'day', 'time', 'price', 'availability'];
+    const missingKey = requiredKeys.find(key => {
+      const value = trigger?.dataset?.[key];
+      return !value || !value.trim();
+    });
+
+    if (missingKey) {
+      return null;
+    }
+
+    const params = new URLSearchParams({
+      class: trigger.dataset.class,
+      bookingType: trigger.dataset.bookingType === 'trial' ? 'trial' : 'full',
+      term: trigger.dataset.term,
+      day: trigger.dataset.day,
+      time: trigger.dataset.time,
+      price: trigger.dataset.price,
+      availability: trigger.dataset.availability
+    });
+
+    const bookingUrl = new URL('toddler-booking.html', new URL('.', window.location.href));
+    bookingUrl.search = params.toString();
+    return bookingUrl.toString();
+  }
+
+  const applyWaitingListState = link => {
+    if (!link) return;
+    link.classList.remove('is-disabled');
+    link.classList.add('cd-waitlist-btn');
+    link.removeAttribute('aria-disabled');
+    link.removeAttribute('tabindex');
+    link.removeAttribute('data-booking-link');
+    link.removeAttribute('data-booking-type');
+    link.textContent = 'Join the Waiting List';
+    link.setAttribute('href', '../contact.html');
+    link.setAttribute('data-waitlist-link', '');
+  };
+
+  document.querySelectorAll('.cd-booking-table tbody tr').forEach(row => {
+    const isFullRow = row.querySelector('.cd-avail.is-full');
+    if (!isFullRow) return;
+
+    applyWaitingListState(row.querySelector('.cd-book-btn'));
+  });
+
+  document.querySelectorAll('.cd-booking-mobile-card').forEach(card => {
+    const availabilityValue = card.querySelector('.cd-booking-mobile-label')?.textContent?.trim() === 'Availability'
+      ? card.querySelector('.cd-booking-mobile-value')?.textContent?.trim()
+      : Array.from(card.querySelectorAll('.cd-booking-mobile-stat')).find(stat =>
+          stat.querySelector('.cd-booking-mobile-label')?.textContent?.trim() === 'Availability'
+        )?.querySelector('.cd-booking-mobile-value')?.textContent?.trim();
+
+    if (availabilityValue === '10 / 10') {
+      applyWaitingListState(card.querySelector('.cd-book-btn'));
+    }
+  });
+
+  document.querySelectorAll('a.is-disabled').forEach(applyWaitingListState);
+
+  document.querySelectorAll('[data-booking-link]').forEach(link => {
+    const bookingUrl = buildToddlerBookingUrl(link);
+    if (bookingUrl) {
+      link.setAttribute('href', bookingUrl);
+    }
+  });
+
+  // ── Toddler booking page ──────────────────────────────────
+  const bookingPageRoot = document.querySelector('[data-page-root="toddler-booking"]');
+  if (bookingPageRoot) {
+    const bookingSessionFields = bookingPageRoot.querySelectorAll('[data-session-field]');
+    const bookingForm = bookingPageRoot.querySelector('[data-booking-form]');
+    const bookingFormShell = bookingPageRoot.querySelector('[data-booking-form-shell]');
+    const bookingSessionShell = bookingPageRoot.querySelector('[data-booking-session-shell]');
+    const bookingFallback = bookingPageRoot.querySelector('[data-booking-fallback]');
+    const selectedSession = getSelectedSessionFromUrl();
+    const sessionIsComplete = hasSelectedSession(selectedSession);
+    const bookingTypeInputs = bookingPageRoot.querySelectorAll('input[name="booking-type"]');
+
+    bookingTypeInputs.forEach(input => {
+      input.checked = input.value === selectedSession.bookingType;
+    });
+
+    const syncBookingType = nextValue => {
+      selectedSession.bookingType = nextValue === 'trial' ? 'trial' : 'full';
+      if (bookingSessionFields.length) {
+        setFieldValues(bookingSessionFields, selectedSession, 'No session selected');
+      }
+    };
+
+    if (bookingSessionFields.length) {
+      setFieldValues(bookingSessionFields, selectedSession, 'No session selected');
+    }
+
+    bookingTypeInputs.forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.checked) {
+          syncBookingType(input.value);
+        }
+      });
+    });
+
+    if (bookingFormShell && bookingSessionShell && bookingFallback) {
+      if (!sessionIsComplete) {
+        bookingSessionShell.hidden = true;
+        bookingFormShell.hidden = true;
+        bookingFallback.hidden = false;
+      } else {
+        bookingFallback.hidden = true;
+      }
+    }
+
+    bookingForm?.addEventListener('submit', event => {
+      event.preventDefault();
+
+      if (!sessionIsComplete) {
+        return;
+      }
+
+      const formData = new FormData(bookingForm);
+      const bookingData = {
+        bookingType: normalizeBookingText(formData.get('booking-type')),
+        childName: normalizeBookingText(formData.get('child-name')),
+        childDob: normalizeBookingText(formData.get('child-dob')),
+        parentName: normalizeBookingText(formData.get('parent-name')),
+        email: normalizeBookingText(formData.get('email')),
+        phone: normalizeBookingText(formData.get('phone')),
+        message: normalizeBookingText(formData.get('message'))
+      };
+
+      try {
+        sessionStorage.setItem('toddlerBookingForm', JSON.stringify(bookingData));
+      } catch {
+        // Continue to confirmation so the page can render its fallback state.
+      }
+
+      const nextUrl = new URL('toddler-booking-confirmation.html', new URL('.', window.location.href));
+      const nextParams = new URLSearchParams();
+      syncBookingType(bookingData.bookingType);
+      toddlerSessionKeys.forEach(key => {
+        nextParams.set(key, selectedSession[key]);
+      });
+      nextUrl.search = nextParams.toString();
+      window.location.href = nextUrl.toString();
+    });
+  }
+
+  // ── Toddler booking confirmation page ─────────────────────
+  const confirmationPageRoot = document.querySelector('[data-page-root="toddler-booking-confirmation"]');
+  if (confirmationPageRoot) {
+    const confirmationSessionFields = confirmationPageRoot.querySelectorAll('[data-session-field]');
+    const confirmationSubmittedFields = confirmationPageRoot.querySelectorAll('[data-submitted-field]');
+    const confirmationFallback = confirmationPageRoot.querySelector('[data-confirmation-fallback]');
+    const confirmationFallbackTitle = confirmationPageRoot.querySelector('[data-confirmation-fallback-title]');
+    const confirmationFallbackSession = confirmationPageRoot.querySelector('[data-confirmation-fallback-session]');
+    const confirmationFallbackBooking = confirmationPageRoot.querySelector('[data-confirmation-fallback-booking]');
+    const confirmationSessionShell = confirmationPageRoot.querySelector('[data-confirmation-session-shell]');
+    const confirmationSubmittedShell = confirmationPageRoot.querySelector('[data-confirmation-submitted-shell]');
+    const selectedSession = getSelectedSessionFromUrl();
+    const bookingData = readToddlerBookingForm();
+    const hasSession = hasSelectedSession(selectedSession);
+    const hasBookingData = Boolean(bookingData);
+
+    if (confirmationSessionFields.length) {
+      setFieldValues(confirmationSessionFields, selectedSession, 'No session selected');
+    }
+
+    if (confirmationSubmittedFields.length) {
+      setFieldValues(confirmationSubmittedFields, bookingData, 'No details available');
+    }
+
+    if (
+      confirmationFallback &&
+      confirmationFallbackTitle &&
+      confirmationFallbackSession &&
+      confirmationFallbackBooking &&
+      confirmationSessionShell &&
+      confirmationSubmittedShell
+    ) {
+      confirmationFallback.hidden = hasSession && hasBookingData;
+      confirmationSessionShell.hidden = !hasSession;
+      confirmationSubmittedShell.hidden = !hasSession || !hasBookingData;
+
+      if (!hasSession && !hasBookingData) {
+        confirmationFallbackTitle.textContent = 'Booking details unavailable';
+        confirmationFallbackSession.hidden = false;
+        confirmationFallbackBooking.hidden = false;
+      } else if (!hasSession) {
+        confirmationFallbackTitle.textContent = 'No session selected';
+        confirmationFallbackSession.hidden = false;
+        confirmationFallbackBooking.hidden = true;
+      } else if (!hasBookingData) {
+        confirmationFallbackTitle.textContent = 'Booking details unavailable';
+        confirmationFallbackSession.hidden = true;
+        confirmationFallbackBooking.hidden = false;
+      } else {
+        confirmationFallbackTitle.textContent = 'Booking details unavailable';
+        confirmationFallbackSession.hidden = true;
+        confirmationFallbackBooking.hidden = true;
+      }
+    }
+  }
+
   // ── Class detail term tabs ─────────────────────────────────
-  const termCards = document.querySelectorAll('.cd-term-card');
+  const termCards = document.querySelectorAll('.cd-term-card[aria-controls]');
   if (termCards.length) {
     termCards.forEach(card => {
       card.addEventListener('click', () => {

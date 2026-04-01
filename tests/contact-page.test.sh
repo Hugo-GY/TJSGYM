@@ -45,10 +45,12 @@ assert_contains 'Tell us a little about your child'
 assert_contains 'Parent / Carer Name'
 assert_contains 'Email Address'
 assert_contains 'Phone Number'
-assert_contains "Child's Age"
+assert_contains "Child's date of birth"
 assert_contains 'Class of Interest'
 assert_contains 'Send Enquiry'
 
 assert_not_contains 'Reply expectations'
 assert_not_contains 'aria-label="Contact details"'
 assert_not_contains 'aria-label="Map and directions"'
+assert_not_contains 'Child Information Sheet'
+assert_not_contains 'Download Form'

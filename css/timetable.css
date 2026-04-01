@@ -38,6 +38,10 @@
   line-height: 1.7;
 }
 
+.timetable-nowrap {
+  white-space: nowrap;
+}
+
 /* ── Timetable section ── */
 .timetable-section {
   padding: var(--space-4xl) 0;
@@ -88,6 +92,7 @@
 .tt-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .tt-table thead tr {
@@ -112,6 +117,11 @@
 
 .tt-table tbody tr:last-child {
   border-bottom: none;
+}
+
+.tt-table th,
+.tt-table td {
+  width: 33.333%;
 }
 
 .tt-table td {
@@ -188,7 +198,7 @@
   .tt-table thead { display: none; }
   .tt-table tbody tr {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     align-items: start;
     gap: 0.7rem;
     padding: 1rem 1rem;
@@ -200,8 +210,18 @@
   }
   .tt-table td {
     padding: 0;
-    text-align: left;
+    text-align: center;
     font-size: var(--text-sm);
+    width: auto;
+    min-width: 0;
+  }
+
+  .tt-table td:not(.td-time) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.22rem;
   }
 
   .tt-table td::before {
@@ -222,20 +242,23 @@
   .tt-table td[data-label="Class"] {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.22rem;
-    padding-left: 0.3rem;
+    padding-left: 0;
   }
 
   .td-time {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.5rem;
-    padding: 0.35rem 0.55rem;
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(243, 199, 231, 0.42) 0%, rgba(247, 233, 245, 0.95) 100%);
-    border: 1px solid rgba(217, 74, 159, 0.12);
+    display: block;
+    justify-self: center;
+    align-self: center;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    border: 0;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-dark);
@@ -251,6 +274,7 @@
 
   .td-price {
     margin-top: 0;
+    min-height: 1.45rem;
     padding: 0.12rem 0.42rem;
     border-radius: 999px;
     background: rgba(217, 74, 159, 0.08);

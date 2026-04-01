@@ -36,5 +36,6 @@ assert_contains 'Trial classes are only available if we have spaces in a particu
 assert_contains 'We cannot offer refunds or ‘make up’ classes for those missed.'
 assert_contains 'March 2026'
 assert_contains 'Still Choosing the <em>Right Class?</em>'
+assert_contains 'From Babies and Crawling Toddlers to Confident Walkers'
 assert_contains 'Visit FAQ'
 assert_contains 'Contact Us'

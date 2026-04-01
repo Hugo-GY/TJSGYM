@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/class-detail.css">
 </head>
-<body>
+<body class="class-detail-page">
 
   <header class="site-header">
     <nav class="nav-wrap" aria-label="Main navigation">
@@ -20,7 +20,7 @@
       <div class="nav-overlay"></div>
       <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../classes.html" class="nav-link active">Classes</a>
+        <a href="../classes.html" class="nav-link active">Classes Info</a>
         <a href="../timetable.html" class="nav-link">Timetable</a>
         <a href="../coaches.html" class="nav-link">Coaches</a>
         <a href="../history.html" class="nav-link">History</a>
@@ -28,6 +28,7 @@
         <a href="../club-kit.html" class="nav-link">Club Kit</a>
         <a href="../faq.html" class="nav-link">FAQ</a>
         <a href="../news.html" class="nav-link">News</a>
+        <a href="../child-info-sheet.html" class="nav-link">Child Info Sheet</a>
         <a href="../contact.html" class="nav-link">Contact Us</a>
       </div>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -56,7 +57,7 @@
 
     <section class="section cd-about cd-about--single" aria-label="About Toddler Gym">
       <div class="container">
-        <div class="cd-about-header">
+        <div class="cd-about-header cd-about-header--centered">
           <span class="section-label">About This Class</span>
           <h2>Action songs, circuits and <em>adventure</em> — together</h2>
         </div>
@@ -74,12 +75,13 @@
       <div class="container">
         <div class="cd-booking-header">
           <span class="section-label">Book a Place</span>
-          <h2><em>Times &amp; Prices</em></h2>
-          <p>Select a term to view sessions and book online</p>
+          <h2>Times, Prices and <em>Term Dates</em></h2>
+          <p>Current term sessions are shown below, with the next term dates underneath for planning ahead.</p>
         </div>
 
-        <div class="cd-term-selector" role="tablist" aria-label="Select term">
-          <button class="cd-term-card is-active" role="tab" aria-selected="true" aria-controls="term-spring" id="tab-spring" data-term="spring">
+        <section class="cd-booking-term-current" aria-label="Current term details">
+          <span class="section-label">Current Term</span>
+          <article class="cd-term-card cd-term-card--static cd-term-card--current">
             <div class="cd-term-top">
               <span class="cd-term-season">Spring 2026</span>
               <span class="cd-term-status">Teaching now</span>
@@ -92,367 +94,171 @@
               <span class="cd-term-halfterm">Half term: w/k 16 February</span>
               <span class="cd-term-payment">Payment due by 27 November</span>
             </div>
-          </button>
-
-          <button class="cd-term-card" role="tab" aria-selected="false" aria-controls="term-summer" id="tab-summer" data-term="summer">
-            <div class="cd-term-top">
-              <span class="cd-term-season">Summer 2026</span>
-              <span class="cd-term-status">Next term</span>
-            </div>
-            <hr class="cd-term-divider">
-            <div class="cd-term-schedule">
-              <span class="cd-term-weeks">13 weeks</span>
-              <span class="cd-term-daterange">13 Apr – 21 May</span>
-              <span class="cd-term-daterange">1 Jun – 16 Jul</span>
-              <span class="cd-term-halfterm">Half term: w/k 25 May · No class 4 May</span>
-              <span class="cd-term-payment">Payment due by 12 March</span>
-            </div>
-          </button>
-
-          <button class="cd-term-card" role="tab" aria-selected="false" aria-controls="term-winter" id="tab-winter" data-term="winter">
-            <div class="cd-term-top">
-              <span class="cd-term-season">Winter 2026</span>
-              <span class="cd-term-status">Planning ahead</span>
-            </div>
-            <hr class="cd-term-divider">
-            <div class="cd-term-schedule">
-              <span class="cd-term-weeks">12 weeks</span>
-              <span class="cd-term-daterange">7 Sep – 16 Oct</span>
-              <span class="cd-term-daterange">2 Nov – 10 Dec</span>
-              <span class="cd-term-halfterm">2-week half term: w/k 19 October</span>
-              <span class="cd-term-payment">Payment due by 26 June</span>
-            </div>
-          </button>
-        </div>
+          </article>
+        </section>
 
         <div class="cd-booking-table-wrap">
-          <div class="cd-booking-panel is-active" id="term-spring" role="tabpanel" aria-labelledby="tab-spring">
-            <table class="cd-booking-table" aria-label="Spring 2026 Toddler Gym sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Availability</th>
-                  <th>Trial</th>
-                  <th>Book Now</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group">
-                  <td>Tuesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">£143 / term</td>
-                  <td data-label="Availability"><span class="cd-avail is-limited">6 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">10:30 – 11:10</td>
-                  <td data-label="Price">£143 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">8 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Wednesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:30 – 10:10</td>
-                  <td data-label="Price">£143 / term</td>
-                  <td data-label="Availability"><span class="cd-avail is-full">10 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Thursday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">£143 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">9 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">10:30 – 11:10</td>
-                  <td data-label="Price">£143 / term</td>
-                  <td data-label="Availability"><span class="cd-avail is-limited">5 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-              </tbody>
-            </table>
+          <table class="cd-booking-table" aria-label="Spring 2026 Toddler Gym sessions">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Book Now</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cd-day-group">
+                <td>Tuesday</td><td colspan="3"></td>
+              </tr>
+              <tr>
+                <td data-label="Time">9:40 – 10:20</td>
+                <td data-label="Price">£143 / term</td>
+                <td data-label="Availability"><span class="cd-avail is-limited">6 / 10</span></td>
+                <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Tuesday" data-time="9:40 – 10:20" data-price="£143 / term" data-availability="6 / 10">Book now</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">10:30 – 11:10</td>
+                <td data-label="Price">£143 / term</td>
+                <td data-label="Availability"><span class="cd-avail">8 / 10</span></td>
+                <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Tuesday" data-time="10:30 – 11:10" data-price="£143 / term" data-availability="8 / 10">Book now</a></td>
+              </tr>
+              <tr class="cd-day-group">
+                <td>Wednesday</td><td colspan="3"></td>
+              </tr>
+              <tr>
+                <td data-label="Time">9:30 – 10:10</td>
+                <td data-label="Price">£143 / term</td>
+                <td data-label="Availability"><span class="cd-avail is-full">10 / 10</span></td>
+                <td data-label="Book Now"><a href="../contact.html" class="btn btn-magenta btn-sm cd-book-btn cd-waitlist-btn" data-waitlist-link>Join the Waiting List</a></td>
+              </tr>
+              <tr class="cd-day-group">
+                <td>Thursday</td><td colspan="3"></td>
+              </tr>
+              <tr>
+                <td data-label="Time">9:40 – 10:20</td>
+                <td data-label="Price">£143 / term</td>
+                <td data-label="Availability"><span class="cd-avail">9 / 10</span></td>
+                <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Thursday" data-time="9:40 – 10:20" data-price="£143 / term" data-availability="9 / 10">Book now</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">10:30 – 11:10</td>
+                <td data-label="Price">£143 / term</td>
+                <td data-label="Availability"><span class="cd-avail is-limited">5 / 10</span></td>
+                <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Thursday" data-time="10:30 – 11:10" data-price="£143 / term" data-availability="5 / 10">Book now</a></td>
+              </tr>
+            </tbody>
+          </table>
 
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">6 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">8 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:30 – 10:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">9 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">5 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <div class="cd-booking-panel" id="term-summer" role="tabpanel" aria-labelledby="tab-summer" hidden>
-            <table class="cd-booking-table" aria-label="Summer 2026 Toddler Gym sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Availability</th>
-                  <th>Trial</th>
-                  <th>Book Now</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group">
-                  <td>Tuesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">£169 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">10:30 – 11:10</td>
-                  <td data-label="Price">£169 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Wednesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:30 – 10:10</td>
-                  <td data-label="Price">£169 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Thursday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">£169 / term</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book now</a></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£169 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£169 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:30 – 10:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£169 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£169 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn">Book Now</a>
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <div class="cd-booking-panel" id="term-winter" role="tabpanel" aria-labelledby="tab-winter" hidden>
-            <table class="cd-booking-table" aria-label="Winter 2026 Toddler Gym sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Availability</th>
-                  <th>Trial</th>
-                  <th>Book Now</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group">
-                  <td>Tuesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book now</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">10:30 – 11:10</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Wednesday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:30 – 10:10</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book now</a></td>
-                </tr>
-                <tr class="cd-day-group">
-                  <td>Thursday</td><td colspan="4"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">9:40 – 10:20</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Availability"><span class="cd-avail">10 / 10</span></td>
-                  <td data-label="Trial"><a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a></td>
-                  <td data-label="Book Now"><a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book now</a></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book Now</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:30 – 10:10</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book Now</a>
-                </div>
-              </article>
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="#" class="btn btn-ghost-magenta btn-sm is-disabled">Book a trial</a>
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn is-disabled">Book Now</a>
-                </div>
-              </article>
-            </div>
+          <div class="cd-booking-cards-mobile" aria-hidden="true">
+            <p class="cd-booking-mobile-day">Tuesday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">6 / 10</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Tuesday" data-time="9:40 – 10:20" data-price="£143 / term" data-availability="6 / 10">Book Now</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">8 / 10</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Tuesday" data-time="10:30 – 11:10" data-price="£143 / term" data-availability="8 / 10">Book Now</a>
+              </div>
+            </article>
+            <p class="cd-booking-mobile-day">Wednesday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:30 – 10:10</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">10 / 10</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm cd-book-btn cd-waitlist-btn" data-waitlist-link>Join the Waiting List</a>
+              </div>
+            </article>
+            <p class="cd-booking-mobile-day">Thursday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">9:40 – 10:20</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">9 / 10</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Thursday" data-time="9:40 – 10:20" data-price="£143 / term" data-availability="9 / 10">Book Now</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">10:30 – 11:10</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£143 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Availability</span><span class="cd-booking-mobile-value">5 / 10</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Toddler Gym" data-term="Spring 2026" data-day="Thursday" data-time="10:30 – 11:10" data-price="£143 / term" data-availability="5 / 10">Book Now</a>
+              </div>
+            </article>
           </div>
         </div>
+
+        <section class="cd-booking-term-upcoming" aria-label="Upcoming term details">
+          <h2><em>Next</em> Terms</h2>
+          <div class="cd-booking-term-grid">
+            <article class="cd-term-card cd-term-card--static cd-term-card--future">
+              <div class="cd-term-top">
+                <span class="cd-term-season">Summer 2026</span>
+                <span class="cd-term-status">Next term</span>
+              </div>
+              <hr class="cd-term-divider">
+              <div class="cd-term-schedule">
+                <span class="cd-term-weeks">13 weeks</span>
+                <span class="cd-term-daterange">13 Apr – 21 May</span>
+                <span class="cd-term-daterange">1 Jun – 16 Jul</span>
+                <span class="cd-term-halfterm">Half term: w/k 25 May · No class 4 May</span>
+                <span class="cd-term-payment">Payment due by 12 March</span>
+              </div>
+            </article>
+
+            <article class="cd-term-card cd-term-card--static cd-term-card--future">
+              <div class="cd-term-top">
+                <span class="cd-term-season">Winter 2026</span>
+                <span class="cd-term-status">Planning ahead</span>
+              </div>
+              <hr class="cd-term-divider">
+              <div class="cd-term-schedule">
+                <span class="cd-term-weeks">12 weeks</span>
+                <span class="cd-term-daterange">7 Sep – 16 Oct</span>
+                <span class="cd-term-daterange">2 Nov – 10 Dec</span>
+                <span class="cd-term-halfterm">2-week half term: w/k 19 October</span>
+                <span class="cd-term-payment">Payment due by 26 June</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+
+    <section class="cd-terms-summary" aria-labelledby="cd-terms-summary-title">
+      <div class="container">
+        <article class="cd-terms-summary-card">
+          <span class="section-label">Important Information</span>
+          <h2 id="cd-terms-summary-title">Terms and Conditions on <em>Bookings</em></h2>
+          <div class="cd-terms-summary-body">
+            <p>Our classes are run on a termly basis. The classes are coached, structured and progressive classes, the equipment set ups and skills become more demanding the term progresses.</p>
+            <p>We prefer that bookings are made for the term. If, after a few, weeks you feel the class is not right for your child, we are happy to refund remaining classes. We want to work with you and your child to give them the best possible experience at TJ’s and we know that it can sometimes take a few weeks for the children to get to know us and what to expect. This is why we prefer bookings to be made for the term.</p>
+            <p>Trial classes are only available if we have spaces in a particular class. Only 2 trials per term per child can be booked.</p>
+            <p>If you sign up to a trial class, consideration must be given to the fact there is a lot to see and do and, for some, the first class can be quite intense! It can take a few weeks for children to settle into the classes, the first class is not always the best guide for how your child will enjoy our classes.</p>
+            <p>We cannot offer refunds or ‘make up’ classes for those missed. However, in serious medical circumstances, we can make exceptions to this rule.</p>
+          </div>
+          <p class="cd-terms-summary-date">March 2026</p>
+        </article>
       </div>
     </section>
 

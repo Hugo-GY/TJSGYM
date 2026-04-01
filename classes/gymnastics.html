@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/class-detail.css">
 </head>
-<body>
+<body class="class-detail-page">
 
   <header class="site-header">
     <nav class="nav-wrap" aria-label="Main navigation">
@@ -20,7 +20,7 @@
       <div class="nav-overlay"></div>
       <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../classes.html" class="nav-link active">Classes</a>
+        <a href="../classes.html" class="nav-link active">Classes Info</a>
         <a href="../timetable.html" class="nav-link">Timetable</a>
         <a href="../coaches.html" class="nav-link">Coaches</a>
         <a href="../history.html" class="nav-link">History</a>
@@ -28,6 +28,7 @@
         <a href="../club-kit.html" class="nav-link">Club Kit</a>
         <a href="../faq.html" class="nav-link">FAQ</a>
         <a href="../news.html" class="nav-link">News</a>
+        <a href="../child-info-sheet.html" class="nav-link">Child Info Sheet</a>
         <a href="../contact.html" class="nav-link">Contact Us</a>
       </div>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -47,18 +48,16 @@
       <div class="container">
         <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--tiddler card-accent">
           <div class="cd-hero-meta">
-            <span class="cd-hero-kicker">Floor &amp; Vault Programme</span>
             <span class="cd-hero-age">5+ Years</span>
             <h1 class="cd-hero-title">Gymnastics</h1>
-            <p class="cd-hero-note">Structured weekly classes with progressive skills, TJ's badge scheme, optional squad routes and a supportive watching week at the end of every term.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section cd-about" aria-label="About Gymnastics">
+    <section class="section cd-about cd-about--single" aria-label="About Gymnastics">
       <div class="container">
-        <div class="cd-about-header">
+        <div class="cd-about-header cd-about-header--centered">
           <span class="section-label">About This Class</span>
           <h2><em>Progressive</em> gymnastics for children aged 5+</h2>
         </div>
@@ -67,32 +66,7 @@
           <div class="cd-about-content">
             <p class="cd-about-lead">Our Gymnastics classes are for children aged 5 and over who have moved up through TJ's pre-school programme. Sessions are built around floor and vault work, helping gymnasts develop confidence, technique, body control and strength in a structured but encouraging environment.</p>
             <p>We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards. Classes are popular and our venue is small, so most children join this programme after attending Mini Gym in the Summer term before they start Reception.</p>
-            <ul class="cd-about-bullets">
-              <li>Progression through TJ's own badge and award scheme</li>
-              <li>Weekly coaching focused on floor and vault skills</li>
-              <li>Watching Week in the final session of each term</li>
-              <li>Optional squad pathways and performance opportunities</li>
-            </ul>
           </div>
-
-          <aside class="cd-info-card" aria-label="Gymnastics class details">
-            <div class="cd-info-row">
-              <span class="cd-info-row-label">Age</span>
-              <span class="cd-info-row-value">5+ years</span>
-            </div>
-            <div class="cd-info-row">
-              <span class="cd-info-row-label">Focus</span>
-              <span class="cd-info-row-value">Floor &amp; vault skills</span>
-            </div>
-            <div class="cd-info-row">
-              <span class="cd-info-row-label">Progression</span>
-              <span class="cd-info-row-value">Levels 7-1, then Bronze to Diamond</span>
-            </div>
-            <div class="cd-info-row">
-              <span class="cd-info-row-label">Entry Route</span>
-              <span class="cd-info-row-value">Usually via Mini Gym</span>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
@@ -100,16 +74,19 @@
     <section class="cd-booking cd-booking--gymnastics section" id="book" aria-label="Gymnastics times and prices">
       <div class="container">
         <div class="cd-booking-header">
-          <span class="section-label">Times &amp; Prices</span>
-          <h2><em>Choose</em> a term</h2>
-          <p>Use the timetable below to compare session times, level groupings and current term pricing.</p>
+          <span class="section-label">Book a Place</span>
+          <h2>Times, Prices and <em>Term Dates</em></h2>
+          <p>Current term sessions are shown below, with the next term dates underneath for planning ahead.</p>
         </div>
 
-        <div class="cd-term-selector" role="tablist" aria-label="Select term">
-          <button class="cd-term-card" role="tab" aria-selected="false" aria-controls="gym-term-spring" id="gym-tab-spring" data-term="spring">
+        <p class="cd-table-note cd-table-note--highlight"><strong>British Gymnastics membership required.</strong> All Mini Gym and Gymnastics members need British Gymnastics membership (£18 or £24 for 12 months). <strong>Watching Week:</strong> The final week of each term is our Watching Week, when parents and carers are invited into the hall.</p>
+
+        <section class="cd-booking-term-current" aria-label="Current term details">
+          <span class="section-label">Current Term</span>
+          <article class="cd-term-card cd-term-card--static cd-term-card--current">
             <div class="cd-term-top">
               <span class="cd-term-season">Spring 2026</span>
-              <span class="cd-term-status">Earlier term</span>
+              <span class="cd-term-status">Teaching now</span>
             </div>
             <hr class="cd-term-divider">
             <div class="cd-term-schedule">
@@ -119,516 +96,259 @@
               <span class="cd-term-halfterm">Half term: w/k 16 February</span>
               <span class="cd-term-payment">Payment due by 27 November</span>
             </div>
-          </button>
-
-          <button class="cd-term-card is-active" role="tab" aria-selected="true" aria-controls="gym-term-summer" id="gym-tab-summer" data-term="summer">
-            <div class="cd-term-top">
-              <span class="cd-term-season">Summer 2026</span>
-              <span class="cd-term-status">Current timetable</span>
-            </div>
-            <hr class="cd-term-divider">
-            <div class="cd-term-schedule">
-              <span class="cd-term-weeks">13 weeks</span>
-              <span class="cd-term-daterange">13 Apr – 21 May</span>
-              <span class="cd-term-daterange">1 Jun – 16 Jul</span>
-              <span class="cd-term-halfterm">Half term: w/k 25 May · No class 4 May</span>
-              <span class="cd-term-payment">Payment due by 12 March</span>
-            </div>
-          </button>
-
-          <button class="cd-term-card" role="tab" aria-selected="false" aria-controls="gym-term-winter" id="gym-tab-winter" data-term="winter">
-            <div class="cd-term-top">
-              <span class="cd-term-season">Winter 2026</span>
-              <span class="cd-term-status">Planning ahead</span>
-            </div>
-            <hr class="cd-term-divider">
-            <div class="cd-term-schedule">
-              <span class="cd-term-weeks">12 weeks</span>
-              <span class="cd-term-daterange">7 Sep – 15 Oct</span>
-              <span class="cd-term-daterange">2 Nov – 10 Dec</span>
-              <span class="cd-term-halfterm">2-week half term: w/k 19 October</span>
-              <span class="cd-term-payment">Payment due by 26 June</span>
-            </div>
-          </button>
-        </div>
+          </article>
+        </section>
 
         <div class="cd-booking-table-wrap">
-          <div class="cd-booking-panel" id="gym-term-spring" role="tabpanel" aria-labelledby="gym-tab-spring" hidden>
-            <table class="cd-booking-table" aria-label="Spring 2026 Gymnastics sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Group</th>
-                  <th>Ask Us</th>
-                  <th>Enquire</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group"><td>Monday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:15</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Girls Mini Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:00 – 6:00</td>
-                  <td data-label="Price">£176 / term</td>
-                  <td data-label="Group">Boys Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
+          <table class="cd-booking-table" aria-label="Spring 2026 Gymnastics sessions">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Price</th>
+                <th>Group</th>
+                <th>Enquire</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cd-day-group"><td>Monday</td><td colspan="3"></td></tr>
+              <tr>
+                <td data-label="Time">4:00 – 4:45</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Mixed Intermediate</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">4:30 – 5:15</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Girls Mini Squad</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">5:00 – 6:00</td>
+                <td data-label="Price">£176 / term</td>
+                <td data-label="Group">Boys Elite</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
 
-                <tr class="cd-day-group"><td>Tuesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:30</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:30 – 6:30</td>
-                  <td data-label="Price">£176 / term</td>
-                  <td data-label="Group">Mixed Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
+              <tr class="cd-day-group"><td>Tuesday</td><td colspan="3"></td></tr>
+              <tr>
+                <td data-label="Time">4:00 – 4:45</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Beginners</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">4:45 – 5:30</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Mixed Intermediate</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">5:30 – 6:30</td>
+                <td data-label="Price">£176 / term</td>
+                <td data-label="Group">Mixed Squad</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
 
-                <tr class="cd-day-group"><td>Wednesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:30</td>
-                  <td data-label="Price">£176 / term</td>
-                  <td data-label="Group">Girls Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
+              <tr class="cd-day-group"><td>Wednesday</td><td colspan="3"></td></tr>
+              <tr>
+                <td data-label="Time">4:00 – 4:45</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Beginners</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">4:30 – 5:30</td>
+                <td data-label="Price">£176 / term</td>
+                <td data-label="Group">Girls Squad</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
 
-                <tr class="cd-day-group"><td>Thursday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£165 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:45</td>
-                  <td data-label="Price">£176 / term</td>
-                  <td data-label="Group">Girls Junior Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 6:45</td>
-                  <td data-label="Price">£209 / term</td>
-                  <td data-label="Group">Girls Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-              </tbody>
-            </table>
+              <tr class="cd-day-group"><td>Thursday</td><td colspan="3"></td></tr>
+              <tr>
+                <td data-label="Time">4:00 – 4:45</td>
+                <td data-label="Price">£165 / term</td>
+                <td data-label="Group">Beginners</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">4:45 – 5:45</td>
+                <td data-label="Price">£176 / term</td>
+                <td data-label="Group">Girls Junior Squad</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+              <tr>
+                <td data-label="Time">4:45 – 6:45</td>
+                <td data-label="Price">£209 / term</td>
+                <td data-label="Group">Girls Elite</td>
+                <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
+              </tr>
+            </tbody>
+          </table>
 
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Monday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:15</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Mini Squad</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:00 – 6:00</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Boys Elite</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
+          <div class="cd-booking-cards-mobile" aria-hidden="true">
+            <p class="cd-booking-mobile-day">Monday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:15</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Mini Squad</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:00 – 6:00</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Boys Elite</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
 
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:30</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:30 – 6:30</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Squad</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
+            <p class="cd-booking-mobile-day">Tuesday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:30</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:30 – 6:30</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Squad</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
 
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:30</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Squad</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
+            <p class="cd-booking-mobile-day">Wednesday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:30</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Squad</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
 
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Junior Squad</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 6:45</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£209 / term</span></div>
-                  <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Elite</span></div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a>
-                  <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
-                </div>
-              </article>
-            </div>
+            <p class="cd-booking-mobile-day">Thursday</p>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£165 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£176 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Junior Squad</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
+            <article class="cd-booking-mobile-card">
+              <div class="cd-booking-mobile-stats">
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 6:45</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£209 / term</span></div>
+                <div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Elite</span></div>
+              </div>
+              <div class="cd-booking-mobile-actions">
+                <a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a>
+              </div>
+            </article>
           </div>
 
-          <div class="cd-booking-panel is-active" id="gym-term-summer" role="tabpanel" aria-labelledby="gym-tab-summer">
-            <table class="cd-booking-table" aria-label="Summer 2026 Gymnastics sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Group</th>
-                  <th>Ask Us</th>
-                  <th>Enquire</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group"><td>Monday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£180 / term</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:15</td>
-                  <td data-label="Price">£180 / term</td>
-                  <td data-label="Group">Girls Mini Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:00 – 6:00</td>
-                  <td data-label="Price">£192 / term</td>
-                  <td data-label="Group">Boys Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Tuesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£195 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:30</td>
-                  <td data-label="Price">£195 / term</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:30 – 6:30</td>
-                  <td data-label="Price">£208 / term</td>
-                  <td data-label="Group">Mixed Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Wednesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£195 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:30</td>
-                  <td data-label="Price">£208 / term</td>
-                  <td data-label="Group">Girls Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Thursday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">£195 / term</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:45</td>
-                  <td data-label="Price">£208 / term</td>
-                  <td data-label="Group">Girls Junior Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 6:45</td>
-                  <td data-label="Price">£253 / term</td>
-                  <td data-label="Group">Girls Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Monday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£180 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:15</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£180 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Mini Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:00 – 6:00</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£192 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Boys Elite</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£195 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£195 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:30 – 6:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£208 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£195 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£208 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£195 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£208 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Junior Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 6:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">£253 / term</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Elite</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-            </div>
-          </div>
-
-          <div class="cd-booking-panel" id="gym-term-winter" role="tabpanel" aria-labelledby="gym-tab-winter" hidden>
-            <table class="cd-booking-table" aria-label="Winter 2026 Gymnastics sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Group</th>
-                  <th>Ask Us</th>
-                  <th>Enquire</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group"><td>Monday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:15</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Girls Mini Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:00 – 6:00</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Boys Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Tuesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:30</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Mixed Intermediate</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">5:30 – 6:30</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Mixed Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Wednesday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:30 – 5:30</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Girls Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-
-                <tr class="cd-day-group"><td>Thursday</td><td colspan="4"></td></tr>
-                <tr>
-                  <td data-label="Time">4:00 – 4:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Beginners</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 5:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Girls Junior Squad</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">4:45 – 6:45</td>
-                  <td data-label="Price">TBC</td>
-                  <td data-label="Group">Girls Elite</td>
-                  <td data-label="Ask Us"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a></td>
-                  <td data-label="Enquire"><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Monday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:15</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Mini Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:00 – 6:00</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Boys Elite</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Tuesday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Intermediate</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">5:30 – 6:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Mixed Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Wednesday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:30 – 5:30</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:00 – 4:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Beginners</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 5:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Junior Squad</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-              <article class="cd-booking-mobile-card"><div class="cd-booking-mobile-stats"><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Time</span><span class="cd-booking-mobile-value">4:45 – 6:45</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Price</span><span class="cd-booking-mobile-value">TBC</span></div><div class="cd-booking-mobile-stat"><span class="cd-booking-mobile-label">Group</span><span class="cd-booking-mobile-value">Girls Elite</span></div></div><div class="cd-booking-mobile-actions"><a href="../contact.html" class="btn btn-ghost-magenta btn-sm">Ask us</a><a href="../contact.html" class="btn btn-magenta btn-sm">Enquire</a></div></article>
-            </div>
-          </div>
-
-          <p class="cd-table-note">All Mini Gym and Gymnastics members need British Gymnastics membership (£18 or £24 for 12 months). The final week of each term is our Watching Week, when parents and carers are invited into the hall.</p>
         </div>
+
+        <section class="cd-booking-term-upcoming" aria-label="Upcoming term details">
+          <h2><em>Next</em> Terms</h2>
+          <div class="cd-booking-term-grid">
+            <article class="cd-term-card cd-term-card--static cd-term-card--future">
+              <div class="cd-term-top">
+                <span class="cd-term-season">Summer 2026</span>
+                <span class="cd-term-status">Next term</span>
+              </div>
+              <hr class="cd-term-divider">
+              <div class="cd-term-schedule">
+                <span class="cd-term-weeks">13 weeks</span>
+                <span class="cd-term-daterange">13 Apr – 21 May</span>
+                <span class="cd-term-daterange">1 Jun – 16 Jul</span>
+                <span class="cd-term-halfterm">Half term: w/k 25 May · No class 4 May</span>
+                <span class="cd-term-payment">Payment due by 12 March</span>
+              </div>
+            </article>
+
+            <article class="cd-term-card cd-term-card--static cd-term-card--future">
+              <div class="cd-term-top">
+                <span class="cd-term-season">Winter 2026</span>
+                <span class="cd-term-status">Planning ahead</span>
+              </div>
+              <hr class="cd-term-divider">
+              <div class="cd-term-schedule">
+                <span class="cd-term-weeks">12 weeks</span>
+                <span class="cd-term-daterange">7 Sep – 15 Oct</span>
+                <span class="cd-term-daterange">2 Nov – 10 Dec</span>
+                <span class="cd-term-halfterm">2-week half term: w/k 19 October</span>
+                <span class="cd-term-payment">Payment due by 26 June</span>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     </section>
 
     <section class="competition-section section" aria-label="Competition and displays">
       <div class="container">
         <div class="competition-inner">
-          <div class="competition-content">
+          <div class="competition-content competition-content--full">
             <span class="section-label">Going Further</span>
             <h2><em>Competition</em> &amp; Displays</h2>
             <p>For gymnasts who want to go further, we offer competition and display opportunities throughout the year. These are entirely optional — never a requirement — and are open to children at appropriate levels in our Gymnastics programme.</p>

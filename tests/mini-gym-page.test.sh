@@ -25,6 +25,15 @@ assert_contains() {
   fi
 }
 
+assert_not_contains() {
+  local pattern="$1"
+
+  if contains_fixed_string "$pattern"; then
+    echo "Expected '$FILE' not to contain: $pattern" >&2
+    exit 1
+  fi
+}
+
 if [[ ! -f "$FILE" ]]; then
   echo "classes/mini-gym.html missing" >&2
   exit 1
@@ -38,12 +47,25 @@ assert_contains 'cd-about cd-about--single'
 assert_contains 'Book a Place'
 assert_contains 'cd-booking cd-booking--tiddler section'
 assert_contains 'cd-booking-cards-mobile'
-assert_contains 'Tuesday'
-assert_contains 'Wednesday'
-assert_contains 'Thursday'
+assert_contains 'cd-table-note cd-table-note--highlight'
+assert_contains 'British Gymnastics membership required.'
+assert_contains 'Watching Week:'
+assert_contains 'Current Term'
+assert_contains 'Spring 2026'
+assert_contains 'Teaching now'
+assert_contains '<h2><em>Next</em> Terms</h2>'
+assert_contains 'Summer 2026'
+assert_contains 'Winter 2026'
+assert_not_contains 'cd-term-selector'
+assert_not_contains 'id="term-summer"'
+assert_not_contains 'id="term-winter"'
+assert_not_contains 'Book a trial'
+assert_contains 'Monday'
 assert_contains '1:20 – 2:00'
 assert_contains '2:10 – 2:50'
-assert_contains '£182 / term'
+assert_contains '£168 / term'
+assert_contains 'Mini Gym trial classes are only offered at the beginning of each term.'
+assert_contains 'Please enquire with the club or call us to check availability.'
 assert_contains 'Gallery'
 assert_contains 'Photos</em> of our Mini Gym'
 assert_contains '../images/classes/mini-gym/kids-mini-gym-6.jpg'
