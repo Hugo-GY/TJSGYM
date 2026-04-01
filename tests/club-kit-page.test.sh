@@ -24,9 +24,16 @@ assert_contains() {
 assert_file "$ROOT_DIR/club-kit.html"
 assert_file "$ROOT_DIR/css/club-kit.css"
 
+assert_contains "$ROOT_DIR/club-kit.html" "TJ’s Gym Club <em>Kit</em>"
+assert_contains "$ROOT_DIR/club-kit.html" 'images/club-kit-leotard.png'
+assert_contains "$ROOT_DIR/club-kit.html" 'images/club-kit-shorts.jpg'
+assert_contains "$ROOT_DIR/club-kit.html" 'available to buy directly through the club'
+assert_contains "$ROOT_DIR/club-kit.html" 'Please speak to a member of staff'
 assert_contains "$ROOT_DIR/club-kit.html" 'href="https://tjs.printmykit.co.uk/"'
 assert_contains "$ROOT_DIR/club-kit.html" 'online@printmykit.co.uk'
+assert_contains "$ROOT_DIR/club-kit.html" 'Club Shop'
 assert_contains "$ROOT_DIR/club-kit.html" 'Print My Kit'
+assert_contains "$ROOT_DIR/club-kit.html" 'Additional TJ’s branded clothing and accessories are available online through our Print My Kit shop.'
 assert_contains "$ROOT_DIR/club-kit.html" 'All 16 current pieces from the'
 assert_contains "$ROOT_DIR/club-kit.html" "TJ's Sweatshirt - Kids"
 assert_contains "$ROOT_DIR/club-kit.html" "TJ's Girls Shorts"

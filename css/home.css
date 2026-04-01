@@ -134,7 +134,7 @@
   z-index: 0;
 }
 
-/* Gymnast illustration — blend into page background */
+/* Hero photo */
 .hero-gymnast-img {
   position: relative;
   z-index: 1;
@@ -142,22 +142,13 @@
   max-width: 620px;
   height: auto;
   display: block;
-  mix-blend-mode: multiply;
-  /* Soft elliptical fade — fully solid at gymnast body, dissolves at all edges */
-  -webkit-mask-image: radial-gradient(
-    ellipse 84% 76% at 50% 40%,
-    black 25%,
-    rgba(0,0,0,0.92) 40%,
-    rgba(0,0,0,0.45) 62%,
-    transparent 78%
-  );
-  mask-image: radial-gradient(
-    ellipse 84% 76% at 50% 40%,
-    black 25%,
-    rgba(0,0,0,0.92) 40%,
-    rgba(0,0,0,0.45) 62%,
-    transparent 78%
-  );
+  aspect-ratio: 8 / 9;
+  object-fit: cover;
+  object-position: 50% 24%;
+  border-radius: 2rem;
+  box-shadow:
+    0 22px 54px rgba(122, 42, 122, 0.16),
+    0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* Section spacing — tighter than global default */
@@ -335,9 +326,9 @@
   height: 100%;
   object-fit: cover;
 }
-.class-card--tiddler .class-card-img { object-position: center 18%; }
-.class-card--toddler .class-card-img { object-position: center 22%; }
-.class-card--minigym .class-card-img { object-position: center 30%; }
+.class-card--tiddler .class-card-img { object-position: center 52%; }
+.class-card--toddler .class-card-img { object-position: center 38%; }
+.class-card--minigym .class-card-img { object-position: center 44%; }
 .class-card--gym     .class-card-img { object-position: center 20%; }
 
 /* Age pill floated over the image area */

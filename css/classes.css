@@ -106,9 +106,9 @@ h2 em { color: var(--magenta); font-style: normal; }
   height: 100%;
   object-fit: cover;
 }
-.class-card--tiddler .class-card-img { object-position: center 18%; }
-.class-card--toddler .class-card-img { object-position: center 22%; }
-.class-card--minigym .class-card-img { object-position: center 30%; }
+.class-card--tiddler .class-card-img { object-position: center 52%; }
+.class-card--toddler .class-card-img { object-position: center 38%; }
+.class-card--minigym .class-card-img { object-position: center 44%; }
 .class-card--gym     .class-card-img { object-position: center 20%; }
 
 /* Age pill overlaid top-right */
