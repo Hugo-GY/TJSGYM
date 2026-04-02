@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-FILE="$ROOT_DIR/child-info-sheet.html"
+FILE="$ROOT_DIR/pages/child-info-sheet.html"
 CSS_FILE="$ROOT_DIR/css/child-info-sheet.css"
 
 contains_fixed_string() {
@@ -31,8 +31,8 @@ assert_contains() {
 [[ -f "$FILE" ]] || { echo "child-info-sheet.html missing" >&2; exit 1; }
 [[ -f "$CSS_FILE" ]] || { echo "css/child-info-sheet.css missing" >&2; exit 1; }
 
-assert_contains 'Child Info <em>Sheet</em>' "$FILE"
-assert_contains 'Please download the form, fill it in, and send it back to' "$FILE"
+assert_contains 'Child Information <em>Sheet</em>' "$FILE"
+assert_contains 'Download the form and email the completed copy to' "$FILE"
 assert_contains 'Download Form' "$FILE"
 assert_contains 'info@tjsgymclub.co.uk' "$FILE"
 assert_contains 'https://www.tjsgymclub.co.uk/wp-content/uploads/2024/08/v8-Information-Sheet-TJS.docx' "$FILE"

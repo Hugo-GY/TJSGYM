@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-FILE="$ROOT_DIR/coaches.html"
+FILE="$ROOT_DIR/pages/coaches.html"
 
 contains_fixed_string() {
   local pattern="$1"

@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-HTML_FILE="$ROOT_DIR/timetable.html"
+HTML_FILE="$ROOT_DIR/pages/timetable.html"
 CSS_FILE="$ROOT_DIR/css/timetable.css"
 
 assert_regex() {

@@ -101,13 +101,13 @@
   },
 
   "images": {
-    "hero": "images/classes/toddler-hero.jpg",
+    "hero": "images/classes/toddler/hero.jpg",
     "gallery": [
-      "images/classes/toddler-gym1.jpg",
-      "images/classes/toddler-gym2.jpg",
-      "images/classes/toddler-gym3.jpg",
-      "images/classes/toddler-gym4.jpg",
-      "images/classes/toddler-gym5.jpg"
+      "images/classes/toddler/gallery-1.jpg",
+      "images/classes/toddler/gallery-2.jpg",
+      "images/classes/toddler/gallery-3.jpg",
+      "images/classes/toddler/gallery-4.jpg",
+      "images/classes/toddler/gallery-5.jpg"
     ]
   }
 }

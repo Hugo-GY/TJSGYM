@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-FILE="$ROOT_DIR/news.html"
+FILE="$ROOT_DIR/pages/news.html"
 INDEX_FILE="$ROOT_DIR/index.html"
 
 contains_fixed_string() {
@@ -38,11 +38,11 @@ assert_contains 'Congratulations!' "$FILE"
 assert_contains 'Both Natalie and Jade recently passed their Level 3, Module 1 assessment.' "$FILE"
 assert_contains 'Summer 2026' "$FILE"
 assert_contains 'Parents Guidance for Re-opening of TJ’s Gymnastics Club' "$FILE"
-assert_contains 'news/congratulations.html' "$FILE"
-assert_contains 'news/summer-2026.html' "$FILE"
-assert_contains 'news/parents-guidance.html' "$FILE"
+assert_contains '../news/congratulations.html' "$FILE"
+assert_contains '../news/summer-2026.html' "$FILE"
+assert_contains '../news/parents-guidance.html' "$FILE"
 assert_contains 'Continue Reading' "$FILE"
-assert_contains '<a href="faq.html"         class="nav-link">FAQ</a>' "$INDEX_FILE"
-assert_contains '<a href="news.html"        class="nav-link">News</a>' "$INDEX_FILE"
-assert_contains '<a href="child-info-sheet.html" class="nav-link">Child Info Sheet</a>' "$INDEX_FILE"
-assert_contains '<a href="contact.html"     class="nav-link">Contact Us</a>' "$INDEX_FILE"
+assert_contains '<a href="pages/faq.html"         class="nav-link">FAQ</a>' "$INDEX_FILE"
+assert_contains '<a href="pages/news.html"        class="nav-link">News</a>' "$INDEX_FILE"
+assert_contains '<a href="pages/child-info-sheet.html" class="nav-link">Child Info Sheet</a>' "$INDEX_FILE"
+assert_contains '<a href="pages/contact.html"     class="nav-link">Contact Us</a>' "$INDEX_FILE"

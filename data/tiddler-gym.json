@@ -111,12 +111,12 @@
   },
 
   "images": {
-    "hero": "images/decoration/tiddler-test.png",
+    "hero": "images/classes/tiddler/hero.jpg",
     "gallery": [
-      "images/classes/tiddlers-gym1.jpg",
-      "images/classes/tiddlers-gym2.jpg",
-      "images/classes/tiddlers-gym3.jpg",
-      "images/classes/tiddlers-gym4.jpg"
+      "images/classes/tiddler/gallery-1.jpg",
+      "images/classes/tiddler/gallery-2.jpg",
+      "images/classes/tiddler/gallery-3.jpg",
+      "images/classes/tiddler/gallery-4.jpg"
     ]
   }
 }

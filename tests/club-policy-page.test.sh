@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
-FILE="$ROOT_DIR/club-policy.html"
+FILE="$ROOT_DIR/pages/club-policy.html"
 
 if [[ ! -f "$FILE" ]]; then
   echo "club-policy.html missing" >&2

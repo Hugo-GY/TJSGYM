@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toddlerSessionKeys = ['class', 'bookingType', 'term', 'day', 'time', 'price', 'availability'];
 
   function getBookingTypeLabel(value) {
-    return value === 'trial' ? 'Trial lesson' : 'Full booking';
+    return value === 'trial' ? 'Trial lesson' : 'Full-term Booking';
   }
 
   function getSelectedSessionFromUrl(search = window.location.search) {

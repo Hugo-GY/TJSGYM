@@ -33,7 +33,7 @@ for file in "$CONGRATS_FILE" "$SUMMER_FILE" "$GUIDANCE_FILE"; do
   }
 
   assert_contains "$file" 'Back to News'
-  assert_contains "$file" '../news.html'
+  assert_contains "$file" '../pages/news.html'
   assert_contains "$file" '../css/news-article.css'
 done
 
