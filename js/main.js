@@ -147,6 +147,38 @@ document.addEventListener('DOMContentLoaded', () => {
     return typeof value === 'string' ? value.trim() : '';
   }
 
+  function getBookingPageConfig(className) {
+    switch (className) {
+      case 'Tiddler Gym':
+        return {
+          classLabel: 'Tiddler Gym',
+          classHref: '../classes/tiddler.html#book',
+          bookingHref: '../classes/toddler-booking.html',
+          missingSessionCopy: 'We could not find a selected Tiddler Gym session for this booking page.',
+          confirmationSessionCopy: 'We could not find a selected Tiddler Gym session for this confirmation page.',
+          confirmationFallbackCopy: 'You can return to the booking form and complete the enquiry again, or go back to the Tiddler Gym timetable.'
+        };
+      case 'Mini Gym':
+        return {
+          classLabel: 'Mini Gym',
+          classHref: '../classes/mini-gym.html#book',
+          bookingHref: '../classes/toddler-booking.html',
+          missingSessionCopy: 'We could not find a selected Mini Gym session for this booking page.',
+          confirmationSessionCopy: 'We could not find a selected Mini Gym session for this confirmation page.',
+          confirmationFallbackCopy: 'You can return to the booking form and complete the enquiry again, or go back to the Mini Gym timetable.'
+        };
+      default:
+        return {
+          classLabel: 'Toddler Gym',
+          classHref: '../classes/toddler.html#book',
+          bookingHref: '../classes/toddler-booking.html',
+          missingSessionCopy: 'We could not find a selected Toddler Gym session for this booking page.',
+          confirmationSessionCopy: 'We could not find a selected Toddler Gym session for this confirmation page.',
+          confirmationFallbackCopy: 'You can return to the booking form and complete the enquiry again, or go back to the Toddler Gym timetable.'
+        };
+    }
+  }
+
   function validateToddlerBookingForm(rawValue) {
     if (!rawValue || typeof rawValue !== 'object' || Array.isArray(rawValue)) {
       return null;
@@ -261,9 +293,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookingFormShell = bookingPageRoot.querySelector('[data-booking-form-shell]');
     const bookingSessionShell = bookingPageRoot.querySelector('[data-booking-session-shell]');
     const bookingFallback = bookingPageRoot.querySelector('[data-booking-fallback]');
+    const bookingClassLabel = bookingPageRoot.querySelector('[data-booking-class-label]');
+    const bookingBackLink = bookingPageRoot.querySelector('[data-booking-back-link]');
+    const bookingFallbackCopy = bookingPageRoot.querySelector('[data-booking-fallback-copy]');
+    const bookingFallbackLink = bookingPageRoot.querySelector('[data-booking-fallback-link]');
     const selectedSession = getSelectedSessionFromUrl();
     const sessionIsComplete = hasSelectedSession(selectedSession);
     const bookingTypeInputs = bookingPageRoot.querySelectorAll('input[name="booking-type"]');
+    const bookingConfig = getBookingPageConfig(selectedSession.class);
+
+    if (bookingClassLabel) {
+      bookingClassLabel.textContent = bookingConfig.classLabel;
+    }
+
+    if (bookingBackLink) {
+      bookingBackLink.href = bookingConfig.classHref;
+      bookingBackLink.textContent = `← Back to ${bookingConfig.classLabel}`;
+    }
+
+    if (bookingFallbackCopy) {
+      bookingFallbackCopy.textContent = bookingConfig.missingSessionCopy;
+    }
+
+    if (bookingFallbackLink) {
+      bookingFallbackLink.href = bookingConfig.classHref;
+      bookingFallbackLink.textContent = `Return to ${bookingConfig.classLabel}`;
+    }
 
     bookingTypeInputs.forEach(input => {
       input.checked = input.value === selectedSession.bookingType;
@@ -342,12 +397,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmationFallbackTitle = confirmationPageRoot.querySelector('[data-confirmation-fallback-title]');
     const confirmationFallbackSession = confirmationPageRoot.querySelector('[data-confirmation-fallback-session]');
     const confirmationFallbackBooking = confirmationPageRoot.querySelector('[data-confirmation-fallback-booking]');
+    const confirmationClassLabel = confirmationPageRoot.querySelector('[data-confirmation-class-label]');
+    const confirmationBackLink = confirmationPageRoot.querySelector('[data-confirmation-back-link]');
+    const confirmationFallbackCopy = confirmationPageRoot.querySelector('[data-confirmation-fallback-copy]');
+    const confirmationFormLink = confirmationPageRoot.querySelector('[data-confirmation-form-link]');
+    const confirmationClassLink = confirmationPageRoot.querySelector('[data-confirmation-class-link]');
     const confirmationSessionShell = confirmationPageRoot.querySelector('[data-confirmation-session-shell]');
     const confirmationSubmittedShell = confirmationPageRoot.querySelector('[data-confirmation-submitted-shell]');
     const selectedSession = getSelectedSessionFromUrl();
     const bookingData = readToddlerBookingForm();
     const hasSession = hasSelectedSession(selectedSession);
     const hasBookingData = Boolean(bookingData);
+    const bookingConfig = getBookingPageConfig(selectedSession.class);
+
+    if (confirmationClassLabel) {
+      confirmationClassLabel.textContent = bookingConfig.classLabel;
+    }
+
+    if (confirmationBackLink) {
+      confirmationBackLink.href = bookingConfig.bookingHref;
+    }
+
+    if (confirmationFallbackSession) {
+      confirmationFallbackSession.textContent = bookingConfig.confirmationSessionCopy;
+    }
+
+    if (confirmationFallbackCopy) {
+      confirmationFallbackCopy.textContent = bookingConfig.confirmationFallbackCopy;
+    }
+
+    if (confirmationFormLink) {
+      confirmationFormLink.href = bookingConfig.bookingHref;
+    }
+
+    if (confirmationClassLink) {
+      confirmationClassLink.href = bookingConfig.classHref;
+      confirmationClassLink.textContent = `Return to ${bookingConfig.classLabel}`;
+    }
 
     if (confirmationSessionFields.length) {
       setFieldValues(confirmationSessionFields, selectedSession, 'No session selected');

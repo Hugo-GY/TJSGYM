@@ -40,13 +40,13 @@
   <main data-page-root="toddler-booking-confirmation">
     <div class="cd-back-wrap">
       <div class="container">
-        <a href="../classes/toddler-booking.html" class="cd-back-btn">← Back to Booking Form</a>
+        <a href="../classes/toddler-booking.html" class="cd-back-btn" data-confirmation-back-link>← Back to Booking Form</a>
       </div>
     </div>
 
     <section class="cd-booking-confirmation-hero" aria-label="Booking confirmation">
       <div class="container">
-        <p class="page-hero-eyebrow">Toddler Gym</p>
+        <p class="page-hero-eyebrow" data-confirmation-class-label>Toddler Gym</p>
         <h1>Booking Request Received</h1>
         <p class="page-hero-sub">Review your selected session and any available booking details below.</p>
       </div>
@@ -58,10 +58,10 @@
           <h2 data-confirmation-fallback-title>Booking details unavailable</h2>
           <p data-confirmation-fallback-session hidden>We could not find a selected Toddler Gym session for this confirmation page.</p>
           <p data-confirmation-fallback-booking hidden>We could not find the submitted booking form details for this confirmation page.</p>
-          <p>You can return to the booking form and complete the enquiry again, or go back to the Toddler Gym timetable.</p>
+          <p data-confirmation-fallback-copy>You can return to the booking form and complete the enquiry again, or go back to the Toddler Gym timetable.</p>
           <div class="contact-submit-row">
-            <a href="../classes/toddler-booking.html" class="btn btn-ghost-magenta cd-fallback-link">Return to Booking Form</a>
-            <a href="../classes/toddler.html#book" class="btn btn-ghost-magenta cd-fallback-link">Return to Toddler Gym</a>
+            <a href="../classes/toddler-booking.html" class="btn btn-ghost-magenta cd-fallback-link" data-confirmation-form-link>Return to Booking Form</a>
+            <a href="../classes/toddler.html#book" class="btn btn-ghost-magenta cd-fallback-link" data-confirmation-class-link>Return to Toddler Gym</a>
           </div>
         </div>
 
@@ -146,7 +146,6 @@
         <h4>Our Partners</h4>
         <ul class="footer-links">
           <li><a href="https://www.british-gymnastics.org" target="_blank" rel="noopener">British Gymnastics</a></li>
-          <li><a href="https://www.british-gymnastics.org/london" target="_blank" rel="noopener">London Gymnastics</a></li>
         </ul>
       </div>
       <div class="footer-section">

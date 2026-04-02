@@ -1305,6 +1305,21 @@
     0 0 0 1px rgba(217, 74, 159, 0.06);
 }
 
+.cd-table-note--highlight p {
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.cd-table-note--highlight p + p {
+  margin-top: 0.7rem;
+}
+
+.cd-table-note--highlight a {
+  color: var(--magenta);
+  font-weight: 600;
+}
+
 .cd-table-note--highlight strong {
   color: var(--plum);
   font-weight: 700;

@@ -35,7 +35,7 @@ h2 em { color: var(--magenta); font-style: normal; }
 }
 
 .page-hero-sub {
-  max-width: 600px;
+  max-width: 760px;
   margin: 0 auto var(--space-2xl);
   color: var(--text-light);
   font-size: var(--text-lg);

@@ -2,14 +2,28 @@
    TJ's Gymnastics Club — Child Info Sheet
    ======================================== */
 
-.page-hero {
-  padding: var(--space-4xl) 0 var(--space-2xl);
-  text-align: center;
+.child-sheet-section {
+  padding: var(--space-4xl) 0 var(--space-5xl);
+  min-height: calc(100vh - 22rem);
+  display: flex;
+  align-items: center;
 }
 
-.page-hero-eyebrow {
-  display: inline-block;
-  margin-bottom: var(--space-sm);
+.child-sheet-section .container {
+  max-width: 42rem;
+}
+
+.child-sheet-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+  margin: 0 auto;
+}
+
+.child-sheet-eyebrow {
+  margin: 0;
   color: var(--magenta);
   font-size: var(--text-sm);
   font-weight: 600;
@@ -17,59 +31,25 @@
   text-transform: uppercase;
 }
 
-.page-hero h1 {
-  margin-bottom: var(--space-md);
+.child-sheet-content h1 {
+  margin: 0;
   color: var(--plum);
-  letter-spacing: -0.01em;
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
-.page-hero h1 em {
+.child-sheet-content h1 em {
   color: var(--magenta);
   font-style: normal;
 }
 
-.page-hero-sub {
-  max-width: 42rem;
-  margin: 0 auto;
-  color: var(--text-light);
-  font-size: var(--text-lg);
-  line-height: 1.75;
-}
-
-.child-sheet-section {
-  padding: 0 0 var(--space-5xl);
-}
-
-.child-sheet-section .container {
-  max-width: 44rem;
-}
-
-.child-sheet-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-lg);
-  padding: clamp(1.25rem, 3vw, 2rem);
-  border-radius: var(--radius-xl);
-  background:
-    radial-gradient(circle at top right, rgba(243, 199, 231, 0.35) 0%, rgba(243, 199, 231, 0) 32%),
-    linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.96) 100%);
-  box-shadow:
-    0 18px 40px rgba(122, 42, 122, 0.08),
-    inset 0 0 0 1px rgba(217, 74, 159, 0.08);
-}
-
-.child-sheet-copy h2 {
-  margin-bottom: 0.35rem;
-  color: var(--plum);
-  font-size: clamp(1.45rem, 2vw, 1.8rem);
-}
-
-.child-sheet-copy p {
+.child-sheet-copy {
   margin: 0;
   color: var(--text-body);
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   line-height: 1.7;
+  max-width: 34rem;
 }
 
 .child-sheet-copy a {
@@ -85,11 +65,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.95rem 1.2rem;
+  padding: 1rem 1.35rem;
   border-radius: 999px;
-  background: rgba(217, 74, 159, 0.08);
-  color: var(--plum);
-  font-size: var(--text-sm);
+  background: var(--magenta);
+  color: var(--white);
+  font-size: var(--text-base);
   font-weight: 700;
   text-decoration: none;
   transition:
@@ -101,8 +81,8 @@
 
 .child-sheet-download-link:hover {
   transform: translateY(-1px);
-  background: rgba(217, 74, 159, 0.14);
-  color: var(--magenta);
+  background: var(--plum);
+  color: var(--white);
 }
 
 .child-sheet-download-icon {
@@ -112,32 +92,30 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 50%;
-  background: rgba(217, 74, 159, 0.14);
-  color: var(--magenta);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
   font-size: 1rem;
   line-height: 1;
 }
 
 @media (max-width: 640px) {
-  .page-hero {
-    padding: var(--space-3xl) 0 var(--space-xl);
-  }
-
-  .page-hero h1 {
-    font-size: clamp(2.4rem, 10vw, 3.6rem);
-  }
-
-  .page-hero-sub {
-    font-size: var(--text-base);
-    line-height: 1.7;
-  }
-
-  .child-sheet-card {
-    flex-direction: column;
+  .child-sheet-section {
     align-items: flex-start;
+    min-height: auto;
+    padding: var(--space-3xl) 0 var(--space-4xl);
+  }
+
+  .child-sheet-content {
     gap: var(--space-md);
-    padding: 1.15rem;
-    border-radius: var(--radius-lg);
+  }
+
+  .child-sheet-content h1 {
+    font-size: clamp(2.2rem, 12vw, 3.4rem);
+    white-space: normal;
+  }
+
+  .child-sheet-copy {
+    font-size: var(--text-base);
   }
 
   .child-sheet-download-link {
