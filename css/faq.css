@@ -2,6 +2,16 @@
    TJ's Gymnastics Club — FAQ Page
    ======================================== */
 
+.page-faq {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-faq main {
+  flex: 1;
+}
+
 .faq-hero {
   padding: var(--space-4xl) 0 var(--space-2xl);
   text-align: center;
