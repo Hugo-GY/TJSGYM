@@ -57,6 +57,7 @@
 }
 
 .news-card h3 {
+  font-family: var(--font-body);
   color: var(--plum);
   font-size: clamp(1.45rem, 2.6vw, 1.85rem);
   line-height: 1.18;
