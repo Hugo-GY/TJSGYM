@@ -2,6 +2,16 @@
    TJ's Gymnastics Club — Child Info Sheet
    ======================================== */
 
+.page-child-sheet {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-child-sheet main {
+  flex: 1;
+}
+
 .child-sheet-section {
   padding: var(--space-4xl) 0 var(--space-5xl);
   min-height: calc(100vh - 22rem);
