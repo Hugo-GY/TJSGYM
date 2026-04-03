@@ -65,13 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Competition photo carousel ─────────────────────────────
-  const carousel = document.querySelector('.comp-carousel');
-  if (carousel) {
+  document.querySelectorAll('.comp-carousel').forEach(carousel => {
     const imgs    = carousel.querySelectorAll('.comp-carousel-img');
     const thumbs  = carousel.querySelectorAll('.comp-thumb');
     const counter = carousel.querySelector('.comp-carousel-counter');
+    const prevBtn = carousel.querySelector('.comp-carousel-prev');
+    const nextBtn = carousel.querySelector('.comp-carousel-next');
     const total   = imgs.length;
     let current   = 0;
+
+    if (!imgs.length || !thumbs.length || !prevBtn || !nextBtn) {
+      return;
+    }
 
     const thumbsContainer = carousel.querySelector('.comp-carousel-thumbs');
 
@@ -84,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbs[current].classList.add('is-active');
       thumbs[current].setAttribute('aria-selected', 'true');
       if (counter) counter.textContent = `${current + 1} / ${total}`;
-      // Scroll only the thumbs strip horizontally — never the page
       if (thumbsContainer) {
         const thumb = thumbs[current];
         const scrollTarget = thumb.offsetLeft - (thumbsContainer.clientWidth - thumb.offsetWidth) / 2;
@@ -92,18 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    carousel.querySelector('.comp-carousel-prev').addEventListener('click', () => goTo(current - 1));
-    carousel.querySelector('.comp-carousel-next').addEventListener('click', () => goTo(current + 1));
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => goTo(parseInt(thumb.dataset.index, 10)));
     });
 
-    // Keyboard left/right when carousel is focused
     carousel.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
     });
-  }
+  });
 
   const toddlerSessionKeys = ['class', 'bookingType', 'term', 'day', 'time', 'price', 'availability'];
 

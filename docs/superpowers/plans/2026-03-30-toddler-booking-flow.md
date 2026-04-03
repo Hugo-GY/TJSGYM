@@ -278,7 +278,7 @@ For each active desktop and mobile `Book now` action, add attributes like:
 ```html
 data-booking-link
 data-class="Toddler Gym"
-data-term="Spring 2026"
+data-term="Summer 2026"
 data-day="Tuesday"
 data-time="9:40 – 10:20"
 data-price="£143 / term"

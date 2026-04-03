@@ -47,25 +47,10 @@
 
   "terms": [
     {
-      "id": "spring-2026",
-      "label": "Spring 2026",
-      "display_name": "Current term",
-      "status": "current",
-      "weeks": 11,
-      "dates": [
-        { "from": "2026-01-05", "to": "2026-02-12" },
-        { "from": "2026-02-23", "to": "2026-03-26" }
-      ],
-      "half_term": "Week beginning 16 February 2026",
-      "payment_deadline": "2025-11-27",
-      "price_per_class": 10,
-      "price_per_class_note": "Pay as you go — £10 per class"
-    },
-    {
       "id": "summer-2026",
       "label": "Summer 2026",
-      "display_name": "Next term",
-      "status": "next",
+      "display_name": "Current term",
+      "status": "current",
       "weeks": 13,
       "dates": [
         { "from": "2026-04-13", "to": "2026-05-21", "note": "4 May is a bank holiday" },
@@ -79,8 +64,8 @@
     {
       "id": "winter-2026",
       "label": "Winter 2026",
-      "display_name": "Planning ahead",
-      "status": "future",
+      "display_name": "Next term",
+      "status": "next",
       "weeks": 12,
       "dates": [
         { "from": "2026-09-07", "to": "2026-10-15" },
@@ -88,6 +73,21 @@
       ],
       "half_term": "2-week half term, week beginning 19 October 2026",
       "payment_deadline": "2026-06-26",
+      "price_per_class": 10,
+      "price_per_class_note": "Pay as you go — £10 per class"
+    },
+    {
+      "id": "spring-2027",
+      "label": "Spring 2027",
+      "display_name": "Planning ahead",
+      "status": "future",
+      "weeks": 11,
+      "dates": [
+        { "from": "2027-01-04", "to": "2027-02-11" },
+        { "from": "2027-02-22", "to": "2027-03-25" }
+      ],
+      "half_term": "Week beginning 15 February 2027",
+      "payment_deadline": "2026-11-27",
       "price_per_class": 10,
       "price_per_class_note": "Pay as you go — £10 per class"
     }

@@ -111,6 +111,20 @@
   gap: var(--space-sm);
 }
 
+.cd-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.cd-hero-actions .btn {
+  min-width: 11rem;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(217, 74, 159, 0.16);
+}
+
 .cd-about--single .cd-about-inner {
   grid-template-columns: 1fr;
   gap: 0;
@@ -980,6 +994,7 @@
 }
 
 .cd-booking-term-current {
+  margin-top: var(--space-xl);
   margin-bottom: var(--space-lg);
 }
 
@@ -1616,6 +1631,7 @@
   }
 
   .cd-booking-term-current {
+    margin-top: var(--space-lg);
     margin-bottom: var(--space-md);
   }
 
@@ -1681,6 +1697,14 @@
   }
   .cd-hero-card--tiddler .cd-hero-title {
     font-size: clamp(1.65rem, 7.5vw, 2.35rem);
+  }
+  .cd-hero-actions {
+    width: 100%;
+    margin-top: 0.2rem;
+  }
+  .cd-hero-actions .btn {
+    width: 100%;
+    min-width: 0;
   }
   .cd-hero-note {
     font-size: var(--text-base);

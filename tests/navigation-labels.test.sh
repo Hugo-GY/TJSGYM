@@ -36,8 +36,8 @@ for file in "${FILES[@]}"; do
     exit 1
   fi
 
-  if ! rg -UPq 'News</a>[\s\S]*Child Info Sheet</a>[\s\S]*Contact Us</a>' "$file"; then
-    echo "Expected navigation order 'News -> Child Info Sheet -> Contact Us' in $file" >&2
+  if ! rg -UPq 'News</a>[\s\S]*Club Policies</a>[\s\S]*Child Info Sheet</a>[\s\S]*Contact Us</a>' "$file"; then
+    echo "Expected navigation order 'News -> Club Policies -> Child Info Sheet -> Contact Us' in $file" >&2
     exit 1
   fi
 

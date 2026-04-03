@@ -8,13 +8,13 @@
     "id": "toddler-gym",
     "name": "Toddler Gym",
     "slug": "toddler",
-    "age_range": "1–2¾ years",
+    "age_range": "1–3 years",
     "age_min_months": 12,
     "age_max_months": 33,
     "type": "parent_accompanied",
     "tagline": "Action songs, circuits and adventure — together.",
     "description_original": "Parents/Carers assist their Toddler during the warm up time where we use action songs to open the class, encourage the toddlers to listen, copy and join in with the Lead Coaches' activities. This lasts for a maximum of 10 mins. No use of the equipment is permitted until guidance has been given by the Lead Coach. Following the warm up everyone uses the equipment which is set up in one large circuit and is a different set up each week. Coaches will assist with the climbing, making friends with the toddlers and encouraging safe and varied use of the equipment. To close the class, we all come back to the middle of the gym and we use a couple of songs to help calm the children down at the end of the class.",
-    "description_redesign": "A parent-accompanied class for 1 to 2¾ year olds. Each session opens with action songs and a structured warm-up — teaching toddlers to listen, copy and join in before the equipment circuit begins. The gym layout changes every single week, so there's always something new to climb, balance on and explore.",
+    "description_redesign": "A parent-accompanied class for 1 to 3 year olds. Each session opens with action songs and a structured warm-up — teaching toddlers to listen, copy and join in before the equipment circuit begins. The gym layout changes every single week, so there's always something new to climb, balance on and explore.",
     "description_para2": "Coaches are on hand throughout, helping with climbing, encouraging safe and varied use of the equipment, and building a warm rapport with the children. Sessions close with calming songs to bring little ones together gently before the end of class.",
     "highlights": [
       "Action songs and structured warm-up to start every class",
@@ -32,7 +32,8 @@
     "currency": "GBP",
     "spring_2026": { "weeks": 11, "price": 143 },
     "summer_2026": { "weeks": 13, "price": 169 },
-    "winter_2026": { "weeks": 12, "price": null, "note": "Price TBC — contact club" }
+    "winter_2026": { "weeks": 12, "price": null, "note": "Price TBC — contact club" },
+    "spring_2027": { "weeks": 11, "price": null, "note": "Price TBC — contact club" }
   },
 
   "schedule": [
@@ -45,24 +46,10 @@
 
   "terms": [
     {
-      "id": "spring-2026",
-      "label": "Spring 2026",
-      "display_name": "Current term",
-      "status": "current",
-      "weeks": 11,
-      "dates": [
-        { "from": "2026-01-05", "to": "2026-02-12" },
-        { "from": "2026-02-23", "to": "2026-03-26" }
-      ],
-      "half_term": "Week beginning 16 February 2026",
-      "price": 143,
-      "price_note": "£143 per term — 11 sessions"
-    },
-    {
       "id": "summer-2026",
       "label": "Summer 2026",
-      "display_name": "Next term",
-      "status": "next",
+      "display_name": "Current term",
+      "status": "current",
       "weeks": 13,
       "dates": [
         { "from": "2026-04-13", "to": "2026-05-21", "note": "4 May is a bank holiday" },
@@ -75,14 +62,28 @@
     {
       "id": "winter-2026",
       "label": "Winter 2026",
-      "display_name": "Planning ahead",
-      "status": "future",
+      "display_name": "Next term",
+      "status": "next",
       "weeks": 12,
       "dates": [
         { "from": "2026-09-07", "to": "2026-10-15" },
         { "from": "2026-11-02", "to": "2026-12-10" }
       ],
       "half_term": "2-week half term, week beginning 19 October 2026",
+      "price": null,
+      "price_note": "Price TBC — contact the club"
+    },
+    {
+      "id": "spring-2027",
+      "label": "Spring 2027",
+      "display_name": "Planning ahead",
+      "status": "future",
+      "weeks": 11,
+      "dates": [
+        { "from": "2027-01-04", "to": "2027-02-11" },
+        { "from": "2027-02-22", "to": "2027-03-25" }
+      ],
+      "half_term": "Week beginning 15 February 2027",
       "price": null,
       "price_note": "Price TBC — contact the club"
     }

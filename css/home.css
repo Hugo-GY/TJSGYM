@@ -107,6 +107,7 @@
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 0;
+  min-height: 34rem;
 }
 
 /* Primary blush glow circle — sits behind gymnast */
@@ -134,21 +135,77 @@
   z-index: 0;
 }
 
-/* Hero photo */
-.hero-gymnast-img {
+.hero-collage {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 620px;
-  height: auto;
-  display: block;
-  aspect-ratio: 8 / 9;
-  object-fit: cover;
-  object-position: 50% 24%;
-  border-radius: 2rem;
+  width: min(100%, 39rem);
+  min-height: 34rem;
+}
+
+.hero-collage-card {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 1.7rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 4px solid rgba(122, 42, 122, 0.42);
   box-shadow:
-    0 22px 54px rgba(122, 42, 122, 0.16),
-    0 10px 24px rgba(0, 0, 0, 0.08);
+    0 26px 54px rgba(122, 42, 122, 0.14),
+    0 12px 26px rgba(0, 0, 0, 0.08);
+}
+
+.hero-collage-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+
+.hero-collage-card--main {
+  top: 1.6rem;
+  left: 2.8rem;
+  width: min(100%, 25.5rem);
+  transform: rotate(-3deg);
+  z-index: 1;
+}
+
+.hero-collage-card--archive {
+  top: 0;
+  right: 0;
+  width: 12.2rem;
+  transform: rotate(6deg);
+  z-index: 3;
+}
+
+.hero-collage-card--space {
+  right: 2.2rem;
+  bottom: 0.6rem;
+  width: 15rem;
+  transform: rotate(2.5deg);
+  z-index: 2;
+}
+
+.hero-collage-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-collage-img--main {
+  aspect-ratio: 8 / 9;
+  object-position: 50% 16%;
+}
+
+.hero-collage-img--archive {
+  aspect-ratio: 4 / 5;
+  object-position: 48% center;
+}
+
+.hero-collage-img--space {
+  aspect-ratio: 4 / 3;
+  object-position: center;
 }
 
 /* Section spacing — tighter than global default */
@@ -420,12 +477,124 @@
   align-items: center;
 }
 
-.facilities-img {
-  border-radius: var(--radius-xl);
+.facilities-gallery-wrap {
+  min-width: 0;
+}
+
+.facilities-carousel {
   width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
+  margin: 0;
+  max-width: none;
+  gap: 1.6rem;
+}
+
+.facilities-carousel .comp-carousel-main {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--blush);
+  width: 100%;
+  min-width: 0;
   box-shadow: var(--shadow-md);
+}
+
+.facilities-carousel .comp-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.facilities-carousel .comp-carousel-img.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.facilities-carousel .comp-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--plum);
+  box-shadow: var(--shadow-md);
+  transition: background var(--duration) var(--ease), color var(--duration) var(--ease);
+  z-index: 2;
+}
+
+.facilities-carousel .comp-carousel-btn:hover {
+  background: var(--white);
+  color: var(--magenta);
+}
+
+.facilities-carousel .comp-carousel-prev { left: var(--space-md); }
+.facilities-carousel .comp-carousel-next { right: var(--space-md); }
+
+.facilities-carousel .comp-carousel-counter {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  background: rgba(0, 0, 0, 0.45);
+  color: var(--white);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  z-index: 2;
+}
+
+.facilities-carousel .comp-carousel-thumbs {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin-top: 1rem;
+  padding-bottom: 2px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.facilities-carousel .comp-carousel-thumbs::-webkit-scrollbar { display: none; }
+
+.facilities-carousel .comp-thumb {
+  flex-shrink: 0;
+  width: 80px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  scroll-snap-align: start;
+  transition: border-color var(--duration) var(--ease);
+}
+
+.facilities-carousel .comp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.facilities-carousel .comp-thumb.is-active,
+.facilities-carousel .comp-thumb:hover {
+  border-color: var(--magenta);
 }
 
 .facilities-content .section-label,
@@ -533,6 +702,41 @@
    Responsive
    ======================================== */
 @media (max-width: 1024px) {
+  .hero-inner {
+    gap: var(--space-xl);
+  }
+
+  .hero-visual {
+    min-height: 29rem;
+  }
+
+  .hero-collage {
+    width: min(100%, 31rem);
+    min-height: 29rem;
+  }
+
+  .hero-collage-card--main {
+    top: 1.1rem;
+    left: 1.4rem;
+    width: min(100%, 20rem);
+    transform: rotate(-2deg);
+  }
+
+  .hero-collage-card--archive {
+    top: 0.2rem;
+    right: 0.8rem;
+    left: auto;
+    width: 9.25rem;
+    transform: rotate(5deg);
+  }
+
+  .hero-collage-card--space {
+    right: 1rem;
+    bottom: 1.1rem;
+    width: 11.5rem;
+    transform: rotate(3deg);
+  }
+
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -542,7 +746,7 @@
     text-align: center;
     padding-bottom: var(--space-lg);
     min-height: auto;
-    gap: var(--space-2xl);
+    gap: 0.125rem;
   }
 
   .hero-eyebrow { justify-content: center; }
@@ -568,6 +772,7 @@
   .hero-visual {
     order: 1;
     justify-content: center;
+    min-height: auto;
   }
 
   .hero-blob {
@@ -575,9 +780,37 @@
     height: 300px;
   }
 
-  .hero-gymnast-img {
-    max-width: 320px;
+  .hero-collage {
+    width: min(100%, 21.5rem);
+    min-height: 30rem;
     margin: 0 auto;
+  }
+
+  .hero-collage-card--main {
+    left: 50%;
+    top: 0.4rem;
+    width: min(100%, 15.75rem);
+    transform: translateX(-50%) rotate(-4deg);
+  }
+
+  .hero-collage-card--archive {
+    top: 11.3rem;
+    left: -0.2rem;
+    right: auto;
+    width: 9rem;
+    transform: rotate(-9deg);
+    z-index: 3;
+  }
+
+  .hero-collage-card--space {
+    right: 0.15rem;
+    bottom: 5.2rem;
+    width: 12.4rem;
+    transform: rotate(7deg);
+  }
+
+  .hero-collage-card {
+    border-radius: 1.25rem;
   }
 
   .class-cards-grid { grid-template-columns: 1fr; }
@@ -585,8 +818,14 @@
   .classes-header { flex-direction: column; align-items: flex-start; }
   .classes-header-sub { text-align: left; max-width: 100%; }
 
-  .facilities-layout { grid-template-columns: 1fr; }
+  .facilities-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
   .facilities-features { grid-template-columns: 1fr 1fr; }
+  .facilities-content { order: 1; }
+  .facilities-gallery-wrap { order: 2; }
+  .facilities-carousel .comp-carousel-main { aspect-ratio: 5 / 4; }
 
   .location-layout { grid-template-columns: 1fr; }
   .location-map-wrap { height: 280px; }
