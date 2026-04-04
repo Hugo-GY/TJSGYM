@@ -38,6 +38,43 @@ assert_text_regex() {
   fi
 }
 
+first_line_number() {
+  local pattern="$1"
+  local file="$2"
+
+  if command -v rg >/dev/null 2>&1; then
+    rg -n -m 1 "$pattern" "$file" | cut -d: -f1
+  else
+    grep -n -m 1 "$pattern" "$file" | cut -d: -f1
+  fi
+}
+
+assert_current_term_precedes_next_terms() {
+  local file="$1"
+  local current_line
+  local next_line
+  local competition_line
+
+  current_line=$(first_line_number '<section class="cd-booking-term-current"' "$file")
+  next_line=$(first_line_number '<section class="cd-booking-term-upcoming"' "$file")
+  competition_line=$(first_line_number '<section class="competition-section' "$file")
+
+  if [[ -z "$current_line" || -z "$next_line" || -z "$competition_line" ]]; then
+    echo "Expected current term, next terms and competition sections in $file" >&2
+    exit 1
+  fi
+
+  if (( current_line >= next_line )); then
+    echo "Expected current term section to appear before next terms in $file" >&2
+    exit 1
+  fi
+
+  if (( current_line >= competition_line )); then
+    echo "Expected current term section to stay inside booking content before competition in $file" >&2
+    exit 1
+  fi
+}
+
 if [[ ! -f "$HTML_FILE" ]]; then
   echo "classes/gymnastics.html missing" >&2
   exit 1
@@ -60,6 +97,9 @@ assert_regex '<div class="cd-hero-actions">' "$HTML_FILE"
 assert_regex '<a href="#book" class="btn btn-magenta">View Class Times</a>' "$HTML_FILE"
 assert_regex 'Current Term' "$HTML_FILE"
 assert_regex '<h2><em>Next</em> Terms</h2>' "$HTML_FILE"
+assert_regex 'Our Gymnastics classes are for children aged 5 years\.' "$HTML_FILE"
+assert_regex 'Sessions are built around floor and vault work, helping gymnasts develop confidence, technique, body control and strength in a structured but encouraging environment\.' "$HTML_FILE"
+assert_regex 'We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards\.' "$HTML_FILE"
 assert_regex 'Summer 2026 Gymnastics sessions' "$HTML_FILE"
 assert_regex 'Winter 2026' "$HTML_FILE"
 assert_regex 'Spring 2027' "$HTML_FILE"
@@ -95,3 +135,4 @@ assert_regex '@media \(max-width: 640px\)[\s\S]*\.comp-carousel-main \{[\s\S]*as
 assert_regex '@media \(max-width: 640px\)[\s\S]*\.comp-carousel-img \{[\s\S]*object-fit: contain;' "$CSS_FILE"
 assert_regex '@media \(max-width: 640px\)[\s\S]*\.cd-booking-header \{[\s\S]*margin-bottom: var\(--space-lg\);' "$CSS_FILE"
 assert_regex '\.cd-table-note--highlight \{[\s\S]*border-left:' "$CSS_FILE"
+assert_current_term_precedes_next_terms "$HTML_FILE"
