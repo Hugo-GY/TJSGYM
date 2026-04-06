@@ -7,6 +7,15 @@ get_header();
 $hero_kicker = get_field('hero_kicker') ?: 'Helpful information for parents';
 $hero_title = get_field('hero_title') ?: 'Frequently Asked <em>Questions</em>';
 $hero_subtitle = get_field('hero_subtitle') ?: 'Answers to the practical questions parents usually ask about joining, trial classes and changes during the term.';
+
+// Query FAQ posts
+$faq_query = new WP_Query(array(
+    'post_type' => 'post',
+    'posts_per_page' => -1,
+    'category_name' => 'faq',
+    'orderby' => 'date',
+    'order' => 'ASC',
+));
 ?>
 
 <section class="faq-hero" aria-label="<?php _e('Frequently asked questions', 'tjs-gymnastics'); ?>">
@@ -22,11 +31,11 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'Answers to the practical questio
         <div class="faq-shell">
             <div class="tc-accordion faq-accordion" role="list">
                 <?php
-                if (have_rows('faq_items')):
+                if ($faq_query->have_posts()):
                     $faq_index = 1;
-                    while (have_rows('faq_items')): the_row();
-                        $question = get_sub_field('question');
-                        $answer = get_sub_field('answer');
+                    while ($faq_query->have_posts()): $faq_query->the_post();
+                        $question = get_the_title();
+                        $answer = get_the_content();
                 ?>
                     <div class="tc-item faq-item" role="listitem">
                         <button class="tc-trigger faq-trigger" aria-expanded="false" aria-controls="faq-<?php echo $faq_index; ?>">
@@ -34,12 +43,13 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'Answers to the practical questio
                             <span class="tc-icon" aria-hidden="true"></span>
                         </button>
                         <div class="tc-panel faq-panel" id="faq-<?php echo $faq_index; ?>" hidden>
-                            <p><?php echo wp_kses_post($answer); ?></p>
+                            <?php echo wp_kses_post($answer); ?>
                         </div>
                     </div>
                 <?php
                         $faq_index++;
                     endwhile;
+                    wp_reset_postdata();
                 else:
                     // Default FAQ items
                     $default_faqs = array(

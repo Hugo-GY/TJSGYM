@@ -105,6 +105,11 @@ function tjs_scripts() {
         wp_enqueue_style('tjs-child-info-sheet', get_template_directory_uri() . '/assets/css/child-info-sheet.css', array(), '1.0.0');
     }
     
+    // News article styles (for single post)
+    if (is_singular('post')) {
+        wp_enqueue_style('tjs-news-article', get_template_directory_uri() . '/assets/css/news-article.css', array(), '1.0.0');
+    }
+    
     // Theme JavaScript
     wp_enqueue_script('tjs-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
 }
