@@ -1,0 +1,741 @@
+/* ========================================
+   TJ's Gymnastics Club — Classes Page
+   ======================================== */
+
+/* ── Heading colours (plum base, magenta em) ─────────── */
+h2 { color: var(--plum); }
+h2 em { color: var(--magenta); font-style: normal; }
+
+/* ── Page Hero ────────────────────────────────────────── */
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  letter-spacing: -0.01em;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero-sub {
+  max-width: 760px;
+  margin: 0 auto var(--space-2xl);
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+/* ── Class Cards Grid ────────────────────────────────── */
+.class-cards-section {
+  padding-bottom: var(--space-3xl);
+}
+
+.class-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.class-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    8px 16px 24px rgba(0, 0, 0, 0.03),
+    0 32px 64px rgba(217, 74, 159, 0.10),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.07);
+  transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.class-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    2px 4px 8px rgba(0, 0, 0, 0.02),
+    8px 16px 32px rgba(0, 0, 0, 0.04),
+    0 40px 80px rgba(217, 74, 159, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(217, 74, 159, 0.12);
+}
+
+/* Image placeholder area */
+.class-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+/* White background behind illustration images */
+.class-card--tiddler .class-card-img-wrap,
+.class-card--toddler .class-card-img-wrap,
+.class-card--minigym .class-card-img-wrap,
+.class-card--gym     .class-card-img-wrap { background: #ffffff; }
+
+/* Card illustration images */
+.class-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.class-card--tiddler .class-card-img { object-position: center 52%; }
+.class-card--toddler .class-card-img { object-position: center 38%; }
+.class-card--minigym .class-card-img { object-position: center 44%; }
+.class-card--gym     .class-card-img { object-position: center 20%; }
+
+/* Age pill overlaid top-right */
+.age-pill-overlay {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--pink-wash);
+  color: var(--plum);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0.2rem var(--space-md);
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+  z-index: 1;
+}
+
+/* Card body */
+.class-card-body {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: linear-gradient(160deg, #ffffff 0%, var(--pink-wash) 100%);
+}
+
+.class-card-body h3 {
+  font-size: var(--text-2xl);
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.class-card-desc {
+  font-size: var(--text-sm);
+  color: var(--text-light);
+  line-height: 1.65;
+  margin-bottom: var(--space-md);
+}
+
+.class-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  flex: 1;
+}
+
+.class-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+.class-features li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 0.45em;
+}
+
+/* Card CTA row — price left, button right */
+.class-card-cta {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--blush);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.class-pricing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.class-pricing-amount {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--plum);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.class-pricing-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.class-pricing-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.class-pricing-note {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  line-height: 1.2;
+}
+
+/* ── Terms & Conditions on Bookings ─────────────────── */
+.terms-bookings-section {
+  padding-bottom: var(--space-2xl);
+}
+
+.terms-bookings-section .container {
+  max-width: 62rem;
+}
+
+.terms-bookings-card {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 233, 245, 0.95) 100%);
+  border: 1px solid rgba(217, 74, 159, 0.1);
+  box-shadow:
+    0 18px 42px rgba(122, 42, 122, 0.07),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.82);
+}
+
+.terms-bookings-card h2 {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.01em;
+}
+
+.terms-bookings-body {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.terms-bookings-body p {
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.82;
+}
+
+.terms-bookings-date {
+  margin-top: var(--space-lg);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* ── Competition & Displays ──────────────────────────── */
+.competition-section {
+  padding: var(--space-3xl) 0;
+}
+
+.competition-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: end;
+  min-width: 0;
+}
+
+.competition-content,
+.comp-carousel {
+  min-width: 0;
+}
+
+.competition-content .section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.competition-content h2 {
+  color: var(--text-dark);
+  margin-bottom: var(--space-md);
+}
+
+.competition-content p {
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.competition-content p + p {
+  margin-top: var(--space-md);
+}
+
+.competition-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.competition-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+.competition-list li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--magenta);
+  flex-shrink: 0;
+  margin-top: 0.45em;
+}
+
+/* ── Competition photo carousel ──────────────────────── */
+.comp-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Main image stage */
+.comp-carousel-main {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--plum-dark);
+  box-shadow:
+    0 8px 32px rgba(122, 42, 122, 0.18),
+    0 0 0 1px rgba(217, 74, 159, 0.10);
+}
+
+.comp-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.comp-carousel-img.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Prev / Next arrow buttons */
+.comp-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-circle);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--plum);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background var(--duration) var(--ease), color var(--duration) var(--ease), transform var(--duration) var(--ease);
+  backdrop-filter: blur(4px);
+}
+
+.comp-carousel-btn:hover {
+  background: var(--magenta);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.comp-carousel-prev { left: var(--space-md); }
+.comp-carousel-next { right: var(--space-md); }
+
+/* Counter badge */
+.comp-carousel-counter {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+  background: rgba(45, 10, 45, 0.6);
+  color: rgba(255,255,255,0.9);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 0.2rem var(--space-sm);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.03em;
+}
+
+/* Thumbnail strip */
+.comp-carousel-thumbs {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+
+.comp-thumb {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: none;
+  outline: none;
+  position: relative;
+  opacity: 0.55;
+  transition: opacity var(--duration) var(--ease);
+}
+
+.comp-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  border: 2.5px solid transparent;
+  transition: border-color var(--duration) var(--ease);
+  pointer-events: none;
+}
+
+.comp-thumb:hover { opacity: 0.85; }
+
+.comp-thumb.is-active {
+  opacity: 1;
+}
+
+.comp-thumb.is-active::after {
+  border-color: var(--magenta);
+}
+
+.comp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* ── FAQ Teaser ─────────────────────────────────────── */
+.faq-teaser {
+  padding: 0 0 var(--space-3xl);
+}
+
+.faq-teaser .container {
+  max-width: 62rem;
+}
+
+.faq-teaser-card {
+  margin: 0;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.faq-teaser-card h2 {
+  margin-bottom: var(--space-md);
+}
+
+.faq-teaser-copy {
+  max-width: 42rem;
+  margin: 0 auto;
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.78;
+}
+
+.faq-teaser-actions {
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* ── Terms & Conditions Accordion ────────────────────── */
+.tc-section {
+  padding: var(--space-3xl) 0;
+}
+
+.tc-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.tc-header .section-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  margin-bottom: var(--space-sm);
+}
+
+.tc-header h2 {
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.tc-intro {
+  color: var(--text-light);
+  font-size: var(--text-base);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.tc-accordion {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.tc-item {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(122,42,122,0.06), 0 0 0 1px rgba(217,74,159,0.06);
+}
+
+.tc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text-dark);
+  text-align: left;
+  transition: color var(--duration) var(--ease);
+}
+
+.tc-trigger:hover {
+  color: var(--plum);
+}
+
+.tc-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-circle);
+  background: var(--pink-wash);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+
+.tc-icon::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--plum);
+  border-bottom: 2px solid var(--plum);
+  transform: rotate(45deg) translate(-1px, -1px);
+  transition: transform var(--duration) var(--ease);
+}
+
+.tc-trigger[aria-expanded="true"] .tc-icon {
+  background: var(--blush);
+}
+
+.tc-trigger[aria-expanded="true"] .tc-icon::after {
+  transform: rotate(-135deg) translate(-1px, -1px);
+}
+
+.tc-panel {
+  padding: 0 var(--space-xl) var(--space-lg);
+  border-top: 1px solid var(--pink-wash);
+}
+
+.tc-panel p {
+  color: var(--text-body);
+  font-size: var(--text-sm);
+  line-height: 1.75;
+}
+
+/* ── Timetable CTA ───────────────────────────────────── */
+.timetable-cta {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+}
+
+.timetable-cta-inner {
+  background: var(--plum);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl) var(--space-4xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.timetable-cta-inner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+
+.timetable-cta-inner::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: var(--radius-circle);
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+
+.timetable-cta-inner h2 {
+  color: var(--white);
+  margin-bottom: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.timetable-cta-inner p {
+  color: rgba(255,255,255,0.82);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xl);
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.timetable-cta-btns {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .class-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .terms-bookings-section {
+    padding-bottom: var(--space-xl);
+  }
+
+  .faq-teaser {
+    padding: 0 0 var(--space-2xl);
+  }
+
+  .timetable-cta-inner {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .competition-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .comp-carousel-thumbs {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .terms-bookings-date {
+    text-align: left;
+  }
+
+  .faq-teaser-actions {
+    flex-direction: column;
+  }
+
+  .faq-teaser-actions .btn {
+    width: 100%;
+  }
+
+  .class-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .class-card-footer .btn {
+    text-align: center;
+  }
+}

@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TJSGYM Colour Palette</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --plum: #7A2A7A;
+      --magenta: #D94A9F;
+      --blush: #F3C7E7;
+      --pink-wash: #F7E9F5;
+      --mint: #39C39A;
+      --lime: #DDEB3C;
+      --cream: #F5EFE7;
+      --ink: #4a1d49;
+      --paper: #fbf7f1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", "Avenir Next", "Trebuchet MS", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(217, 74, 159, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(57, 195, 154, 0.18), transparent 24%),
+        linear-gradient(180deg, #fff8fd 0%, var(--paper) 100%);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 32px;
+      padding: 32px;
+      border-radius: 32px;
+      background: rgba(255, 251, 253, 0.82);
+      border: 1px solid rgba(122, 42, 122, 0.12);
+      box-shadow: 0 24px 60px rgba(122, 42, 122, 0.08);
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(74, 29, 73, 0.72);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.94;
+      letter-spacing: -0.025em;
+      font-weight: 500;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 720px;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: rgba(74, 29, 73, 0.8);
+    }
+
+    .swatch-ribbon {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .swatch-ribbon span {
+      display: block;
+      height: 18px;
+      border-radius: 999px;
+    }
+
+    .section {
+      margin-top: 26px;
+      padding: 28px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(122, 42, 122, 0.1);
+      box-shadow: 0 20px 48px rgba(122, 42, 122, 0.06);
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      padding: 34px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top right, rgba(243, 199, 231, 0.9) 0, rgba(243, 199, 231, 0.9) 120px, transparent 121px),
+        radial-gradient(circle at bottom center, rgba(243, 199, 231, 0.72) 0, rgba(243, 199, 231, 0.72) 120px, transparent 121px),
+        #F7E9F5;
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.95fr) 1.15fr;
+      gap: 30px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .dog-panel {
+      position: relative;
+      height: 100%;
+      min-height: 300px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #efadc6 0%, #e998b7 100%);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(122, 42, 122, 0.05);
+    }
+
+    .dog-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto 34px 0 34px;
+      height: 72%;
+      border-radius: 999px 999px 18px 18px;
+      background: linear-gradient(180deg, #fffefe 0%, #f4eef2 100%);
+      filter: drop-shadow(0 12px 24px rgba(122, 42, 122, 0.08));
+    }
+
+    .dog-panel::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      width: 138px;
+      height: 138px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background:
+        radial-gradient(circle at 36% 44%, #3f312f 0 7px, transparent 8px),
+        radial-gradient(circle at 64% 44%, #3f312f 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 62%, #2a2222 0 10px, transparent 11px),
+        radial-gradient(circle at 50% 73%, #f8d4df 0 18px, transparent 19px),
+        #fffdfd;
+      box-shadow: 0 18px 28px rgba(122, 42, 122, 0.08);
+    }
+
+    .badge {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: #7A2A7A;
+      color: #F7E9F5;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 16px 30px rgba(122, 42, 122, 0.18);
+    }
+
+    .copy h3 {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      color: #7A2A7A;
+      font-size: clamp(2rem, 4vw, 4.1rem);
+      line-height: 0.94;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 230px;
+      max-width: 100%;
+      height: 4px;
+      margin: 26px 0 24px;
+      border-radius: 999px;
+      background: #7A2A7A;
+    }
+
+    .copy p {
+      margin: 0;
+      max-width: 32ch;
+      color: rgba(74, 29, 73, 0.78);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+    }
+
+    .alt-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      padding: 34px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top right, rgba(221, 235, 60, 0.18) 0, rgba(221, 235, 60, 0.18) 92px, transparent 93px),
+        radial-gradient(circle at bottom left, rgba(57, 195, 154, 0.14) 0, rgba(57, 195, 154, 0.14) 108px, transparent 109px),
+        radial-gradient(circle at top left, rgba(243, 199, 231, 0.82) 0, rgba(243, 199, 231, 0.82) 110px, transparent 111px),
+        #F7E9F5;
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .stat-panel {
+      padding: 22px;
+      border-radius: 28px;
+      min-height: 220px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+      box-shadow: inset 0 0 0 1px rgba(122, 42, 122, 0.05);
+    }
+
+    .ring {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      margin: 0 auto 2px;
+      position: relative;
+      background: conic-gradient(var(--ring-a) 0 72%, var(--ring-b) 72% 100%);
+      display: grid;
+      place-items: center;
+    }
+
+    .ring::before {
+      content: "";
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      background: rgba(255, 252, 254, 0.92);
+      box-shadow: inset 0 0 0 1px rgba(122, 42, 122, 0.05);
+    }
+
+    .ring strong {
+      position: absolute;
+      font-size: 1.1rem;
+      color: #7A2A7A;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-panel h4 {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+      color: #7A2A7A;
+    }
+
+    .stat-panel p {
+      margin: 0;
+      color: rgba(74, 29, 73, 0.72);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .note-card {
+      padding: 18px 18px 20px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .note-card h4 {
+      margin: 0 0 8px;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+    }
+
+    .note-card p,
+    .note-card li {
+      margin: 0;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: rgba(74, 29, 73, 0.72);
+    }
+
+    .note-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      letter-spacing: -0.015em;
+      font-weight: 500;
+    }
+
+    .font-preview {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .font-card {
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+      box-shadow: 0 20px 48px rgba(122, 42, 122, 0.05);
+    }
+
+    .font-card h3 {
+      margin: 0 0 10px;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+      color: #7A2A7A;
+    }
+
+    .font-card p {
+      margin: 0;
+      color: rgba(74, 29, 73, 0.75);
+      line-height: 1.68;
+    }
+
+    .spec-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .spec-item {
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: #F7E9F5;
+      color: rgba(74, 29, 73, 0.8);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .type-stage {
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(57, 195, 154, 0.12) 0, rgba(57, 195, 154, 0.12) 120px, transparent 121px),
+        radial-gradient(circle at bottom left, rgba(217, 74, 159, 0.14) 0, rgba(217, 74, 159, 0.14) 140px, transparent 141px),
+        #fffdfd;
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .type-kicker {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(74, 29, 73, 0.58);
+    }
+
+    .type-heading {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: clamp(2.3rem, 4.7vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+      color: #7A2A7A;
+    }
+
+    .type-sub {
+      margin: 0;
+      max-width: 34ch;
+      font-size: 1.04rem;
+      line-height: 1.72;
+      color: rgba(74, 29, 73, 0.8);
+    }
+
+    .type-body {
+      margin: 0;
+      max-width: 60ch;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.78;
+      color: rgba(74, 29, 73, 0.78);
+    }
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .wide-preview {
+      display: grid;
+      gap: 18px;
+    }
+
+    .system-card {
+      padding: 24px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+      box-shadow: 0 20px 48px rgba(122, 42, 122, 0.05);
+    }
+
+    .system-card h3 {
+      margin: 0 0 12px;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: 1.28rem;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+      color: #7A2A7A;
+    }
+
+    .system-card ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .system-card li {
+      color: rgba(74, 29, 73, 0.76);
+      line-height: 1.6;
+    }
+
+    .mini-ui {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(243, 199, 231, 0.3) 0, rgba(243, 199, 231, 0.3) 110px, transparent 111px),
+        #F7E9F5;
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .header-preview {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 22px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+      box-shadow: 0 20px 48px rgba(122, 42, 122, 0.05);
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 18px;
+      margin-left: auto;
+      color: rgba(74, 29, 73, 0.76);
+      font-size: 0.95rem;
+    }
+
+    .header-actions span {
+      white-space: nowrap;
+    }
+
+    .mini-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .mini-nav-main {
+      display: flex;
+      flex: 1 1 420px;
+      min-width: 0;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .mini-brand {
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #7A2A7A;
+      flex: 0 0 auto;
+    }
+
+    .mini-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      min-width: 0;
+      color: rgba(74, 29, 73, 0.76);
+      font-size: 0.94rem;
+    }
+
+    .mini-links span {
+      white-space: nowrap;
+    }
+
+    .mini-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex: 0 0 auto;
+      justify-content: flex-end;
+    }
+
+    .mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .mini-btn.primary {
+      background: #D94A9F;
+      color: #fff7fb;
+    }
+
+    .mini-btn.secondary {
+      background: rgba(122, 42, 122, 0.08);
+      color: #7A2A7A;
+    }
+
+    .mini-card-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #7A2A7A;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: rgba(74, 29, 73, 0.74);
+      line-height: 1.58;
+      font-size: 0.94rem;
+    }
+
+    .mini-form {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .mini-form label {
+      display: grid;
+      gap: 6px;
+      color: rgba(74, 29, 73, 0.8);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .mini-form span {
+      color: #7A2A7A;
+    }
+
+    .mini-input {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(122, 42, 122, 0.14);
+      background: #fffdfd;
+      color: rgba(74, 29, 73, 0.62);
+      font-size: 0.94rem;
+    }
+
+    .footer-preview {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      gap: 26px;
+      padding: 34px 30px 22px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(243, 199, 231, 0.24) 0, rgba(243, 199, 231, 0.24) 130px, transparent 131px),
+        linear-gradient(180deg, #F7E9F5 0%, #F3C7E7 100%);
+      border: 1px solid rgba(122, 42, 122, 0.08);
+      box-shadow: 0 22px 56px rgba(122, 42, 122, 0.06);
+      isolation: isolate;
+    }
+
+    .footer-preview::before {
+      content: "TJSGYM";
+      position: absolute;
+      left: -2%;
+      top: -10%;
+      width: 112%;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: clamp(12rem, 34vw, 30rem);
+      line-height: 0.68;
+      letter-spacing: -0.11em;
+      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.74);
+      z-index: -1;
+      user-select: none;
+      pointer-events: none;
+      transform: scaleY(1.1);
+    }
+
+    .footer-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(247, 233, 245, 0.08) 0 9%, transparent 9% 28%, rgba(247, 233, 245, 0.12) 28% 36%, transparent 36% 58%, rgba(247, 233, 245, 0.08) 58% 68%, transparent 68% 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: grid;
+      gap: 16px;
+    }
+
+    .footer-brandmark {
+      margin: 0;
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      font-size: clamp(2rem, 3vw, 3.1rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+      color: #7A2A7A;
+    }
+
+    .footer-copy {
+      margin: 0;
+      max-width: 26ch;
+      color: rgba(74, 29, 73, 0.76);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .footer-block {
+      display: grid;
+      gap: 14px;
+    }
+
+    .footer-label {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(74, 29, 73, 0.7);
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, max-content));
+      gap: 14px 28px;
+      color: rgba(74, 29, 73, 0.82);
+      font-size: 0.98rem;
+    }
+
+    .footer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.42);
+      color: rgba(74, 29, 73, 0.72);
+      font-size: 0.92rem;
+    }
+
+    .section-head p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: rgba(74, 29, 73, 0.68);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid.secondary {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.tertiary {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card {
+      overflow: hidden;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(122, 42, 122, 0.08);
+    }
+
+    .chip {
+      min-height: 190px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .chip::after {
+      content: "";
+      position: absolute;
+      right: -24px;
+      bottom: -34px;
+      width: 128px;
+      height: 128px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.16);
+      transform: rotate(16deg);
+      z-index: -1;
+    }
+
+    .index {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .meta {
+      display: grid;
+      gap: 6px;
+      padding: 18px;
+    }
+
+    .label {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .hex {
+      margin: 0;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: rgba(74, 29, 73, 0.78);
+    }
+
+    .role {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(74, 29, 73, 0.62);
+    }
+
+    .dark-text {
+      color: #fffafc;
+    }
+
+    .dark-text .index {
+      color: #fffafc;
+    }
+
+    .light-text {
+      color: var(--ink);
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .showcase,
+      .hero-grid,
+      .stats-grid,
+      .font-preview,
+      .system-grid,
+      .mini-card-row,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-nav,
+      .mini-nav-main {
+        align-items: flex-start;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding: 20px 0 40px;
+      }
+
+      .hero,
+      .section {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .swatch-ribbon {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid,
+      .grid.secondary,
+      .grid.tertiary {
+        grid-template-columns: 1fr;
+      }
+
+      .chip {
+        min-height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">TJSGYM Branding Upgrade</p>
+      <h1>Colour System Preview</h1>
+      <p>
+        Grouped exactly as requested: four main colours, two secondary colours, and one tertiary neutral.
+        Names and hex codes are shown on each card for direct design handoff.
+      </p>
+      <div class="swatch-ribbon" aria-hidden="true">
+        <span style="background:#7A2A7A"></span>
+        <span style="background:#D94A9F"></span>
+        <span style="background:#F3C7E7"></span>
+        <span style="background:#F7E9F5"></span>
+        <span style="background:#39C39A"></span>
+        <span style="background:#DDEB3C"></span>
+        <span style="background:#F5EFE7"></span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Main Colours</h2>
+        <p>Primary brand anchors and hero-use colours</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="chip dark-text" style="background:#7A2A7A">
+            <span class="index">Main 01</span>
+          </div>
+          <div class="meta">
+            <p class="label">Deep Plum</p>
+            <p class="hex">#7A2A7A</p>
+            <p class="role">Strong anchor colour for headings, logo, contrast blocks, and key UI moments.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="chip dark-text" style="background:#D94A9F">
+            <span class="index">Main 02</span>
+          </div>
+          <div class="meta">
+            <p class="label">Bright Magenta</p>
+            <p class="hex">#D94A9F</p>
+            <p class="role">Energetic call-to-action colour for buttons, highlights, and promotional panels.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="chip light-text" style="background:#F3C7E7">
+            <span class="index">Main 03</span>
+          </div>
+          <div class="meta">
+            <p class="label">Soft Blush Pink</p>
+            <p class="hex">#F3C7E7</p>
+            <p class="role">Gentle emotional base for surfaces, supporting sections, and family-friendly warmth.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="chip light-text" style="background:#F7E9F5">
+            <span class="index">Main 04</span>
+          </div>
+          <div class="meta">
+            <p class="label">Light Pink Wash</p>
+            <p class="hex">#F7E9F5</p>
+            <p class="role">Soft background layer for clean layouts, cards, and whitespace-heavy sections.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Secondary Colours</h2>
+        <p>Fresh supporting accents with selective, high-visibility use</p>
+      </div>
+      <div class="grid secondary">
+        <article class="card">
+          <div class="chip light-text" style="background:#39C39A">
+            <span class="index">Secondary 01</span>
+          </div>
+          <div class="meta">
+            <p class="label">Mint Green</p>
+            <p class="hex">#39C39A</p>
+            <p class="role">Playful accent for secondary CTAs, tags, categories, and feature highlights.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="chip light-text" style="background:#DDEB3C">
+            <span class="index">Secondary 02</span>
+          </div>
+          <div class="meta">
+            <p class="label">Acid Lime</p>
+            <p class="hex">#DDEB3C</p>
+            <p class="role">Punchy highlight colour best used sparingly for emphasis and energetic contrast.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Tertiary Colour</h2>
+        <p>Neutral foundation for calm spacing and balance</p>
+      </div>
+      <div class="grid tertiary">
+        <article class="card">
+          <div class="chip light-text" style="background:#F5EFE7">
+            <span class="index">Tertiary 01</span>
+          </div>
+          <div class="meta">
+            <p class="label">Warm Cream</p>
+            <p class="hex">#F5EFE7</p>
+            <p class="role">Neutral background colour for page base layers, content breathing room, and soft contrast.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Page Colour Scheme Option 1</h2>
+        <p>Primary page direction using the strongest main-colour combination</p>
+      </div>
+      <div class="showcase">
+        <article class="hero-card">
+          <div class="hero-grid">
+            <div class="dog-panel">
+              <div class="badge">Deep Plum Brand Accent</div>
+            </div>
+            <div class="copy">
+              <h3>Pawsitively<br>Cared For</h3>
+              <div class="divider"></div>
+              <p>
+                This preview recreates the `colour3` composition using only system-approved colours.
+                The headline and divider are now Deep Plum, while the pink background tones are normalized
+                to Soft Blush Pink and Light Pink Wash.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <aside class="notes">
+          <section class="note-card">
+            <h4>Applied Colour Mapping</h4>
+            <ul>
+              <li>Headline: <strong>Deep Plum</strong> `#7A2A7A`</li>
+              <li>Divider line: <strong>Deep Plum</strong> `#7A2A7A`</li>
+              <li>Main background: <strong>Light Pink Wash</strong> `#F7E9F5`</li>
+              <li>Corner circles: <strong>Soft Blush Pink</strong> `#F3C7E7`</li>
+              <li>Image panel pink: normalized into the main pink family</li>
+            </ul>
+          </section>
+
+          <section class="note-card">
+            <h4>Why This Now Fits</h4>
+            <p>
+              The original off-palette deep green has been removed. With plum as the dominant text
+              colour and all pinks pulled into the approved system, this composition now sits inside
+              the defined TJSGYM colour framework.
+            </p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Page Colour Scheme Option 2</h2>
+        <p>Main-colour led internal page direction with selective secondary-colour accents</p>
+      </div>
+      <div class="showcase">
+        <article class="alt-card">
+          <p class="eyebrow">Secondary Palette Application</p>
+          <h3 style="margin:0; color:#7A2A7A; font-size:clamp(1.9rem, 3vw, 3.1rem); letter-spacing:-0.04em;">Fresh, bright and playful supporting pages</h3>
+          <div class="stats-grid">
+            <section class="stat-panel" style="background:#F7E9F5;">
+              <div class="ring" style="--ring-a:#39C39A; --ring-b:#DDEB3C;">
+                <strong>Mint-led</strong>
+              </div>
+              <h4>Activity Pages</h4>
+              <p>
+                Use Mint Green for diagrams, icons, progress elements, category highlights, and secondary calls to action.
+              </p>
+            </section>
+
+            <section class="stat-panel" style="background:#F3C7E7;">
+              <div class="ring" style="--ring-a:#7A2A7A; --ring-b:#DDEB3C;">
+                <strong>Plum-led</strong>
+              </div>
+              <h4>Feature & Promo Pages</h4>
+              <p>
+                Keep pink and plum as the dominant story, with Acid Lime reserved for energetic highlight moments only.
+              </p>
+            </section>
+          </div>
+        </article>
+
+        <aside class="notes">
+          <section class="note-card">
+            <h4>Rebalanced Colour Roles</h4>
+            <ul>
+              <li><strong>Main Colours</strong> now carry most of the page: `#7A2A7A`, `#F3C7E7`, `#F7E9F5`</li>
+              <li><strong>Mint Green</strong> `#39C39A` is reduced to accent use only</li>
+              <li><strong>Acid Lime</strong> `#DDEB3C` is limited to small highlight moments</li>
+              <li><strong>Warm Cream</strong> is no longer the dominant page base in this version</li>
+            </ul>
+          </section>
+
+          <section class="note-card">
+            <h4>Recommended Use</h4>
+            <p>
+              This version is better aligned with your system: it keeps other pages visually connected to the homepage by using the main pink-plum palette first, then adding green and lime as controlled accents rather than large colour fields.
+            </p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Typography Proposal</h2>
+        <p>Recommended direction for a cuddly, parent-friendly, mobile-first TJSGYM site</p>
+      </div>
+      <div class="font-preview">
+        <aside class="font-card">
+          <h3>Recommended Font Pairing</h3>
+          <p>
+            This proposal aims for warmth and approachability first. The heading font feels soft and playful without becoming childish,
+            while the body font stays clean and easy to read on phones.
+          </p>
+          <div class="spec-list">
+            <div class="spec-item"><strong>Headings:</strong> Fredoka</div>
+            <div class="spec-item"><strong>Body:</strong> DM Sans</div>
+            <div class="spec-item"><strong>Tone:</strong> cuddly, friendly, confident, family-oriented</div>
+            <div class="spec-item"><strong>Why not Playfair:</strong> too editorial and formal for this brand direction</div>
+          </div>
+        </aside>
+
+        <article class="type-stage">
+          <p class="type-kicker">Live Preview</p>
+          <h3 class="type-heading">A happy, confident place for little gymnasts to grow</h3>
+          <p class="type-sub">
+            Fredoka gives headings a rounded, welcoming voice that feels much more aligned with a child-focused club and parent audience.
+          </p>
+          <p class="type-body">
+            DM Sans works well for schedules, programme details, FAQs, booking flows, and mobile reading. It stays clear at smaller sizes,
+            feels modern without being cold, and supports trust and ease of use. Together, Fredoka and DM Sans create a warmer, softer,
+            more approachable identity than a Playfair Display based system.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>UI Component Rules Preview</h2>
+        <p>Design-system review block based on the newly added component guidance</p>
+      </div>
+      <div class="wide-preview">
+        <div class="header-preview">
+          <div class="mini-brand">TJSGYM</div>
+          <div class="header-actions">
+            <span>Home</span>
+            <span>Our Coaches</span>
+            <span>Facilities &amp; Location</span>
+            <span>About</span>
+            <span>Contact Us</span>
+          </div>
+        </div>
+
+        <div class="system-grid">
+        <article class="mini-ui">
+          <div class="mini-card-row">
+            <section class="mini-card">
+              <strong>Soft Card Panels</strong>
+              <p>Rounded corners, generous padding, light pink surfaces, and soft separation instead of heavy borders.</p>
+            </section>
+            <section class="mini-card">
+              <strong>Friendly CTAs</strong>
+              <p>Primary actions use pill buttons with bright magenta or deep plum and simple, parent-friendly wording.</p>
+            </section>
+          </div>
+
+          <form class="mini-form">
+            <label>
+              <span>Child's Age</span>
+              <div class="mini-input">Select an age group</div>
+            </label>
+            <label>
+              <span>Preferred Class Day</span>
+              <div class="mini-input">Choose a day</div>
+            </label>
+            <div class="mini-btns">
+              <a class="mini-btn primary" href="#">Check Availability</a>
+            </div>
+          </form>
+        </article>
+
+        <div class="system-grid" style="grid-template-columns:1fr; gap:18px;">
+          <section class="system-card">
+            <h3>Buttons, Cards, Navigation</h3>
+            <ul>
+              <li>Primary actions should feel clear and reassuring, not sales-heavy.</li>
+              <li>Cards should use soft surfaces, `12-20px` radius, and generous padding.</li>
+              <li>Navigation should stay simple, uncluttered, and booking-first.</li>
+              <li>Desktop and mobile both need an obvious path to classes, timetable, and booking.</li>
+            </ul>
+          </section>
+
+          <section class="system-card">
+            <h3>Forms, Imagery, Layout</h3>
+            <ul>
+              <li>Booking forms must be touch-friendly, calm, and easy to scan on mobile.</li>
+              <li>Use warm, joyful, real photography wherever possible.</li>
+              <li>Decorative details should stay soft and controlled, never gimmicky.</li>
+              <li>Layouts should feel open and breathable, with hierarchy driven by spacing and colour.</li>
+            </ul>
+          </section>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Footer Preview</h2>
+        <p>Inspired by the reference composition, rebuilt using the TJSGYM brand palette</p>
+      </div>
+      <div class="footer-preview">
+        <div class="footer-grid">
+          <section class="footer-brand">
+            <h3 class="footer-brandmark">TJS GYM</h3>
+            <p class="footer-copy">
+              Warm, welcoming gymnastics classes for little ones and growing children. Built for parents who want clarity, trust, and an easy next step.
+            </p>
+          </section>
+
+          <section class="footer-block">
+            <p class="footer-label">Useful Links</p>
+            <div class="footer-links">
+              <span>Home</span>
+              <span>About</span>
+              <span>Our Coaches</span>
+              <span>Contact Us</span>
+              <span>Facilities</span>
+              <span>Timetable</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="footer-meta">
+          <span>© 2026 TJS Gym. All rights reserved.</span>
+          <span>Designed in the TJSGYM cuddly brand system</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

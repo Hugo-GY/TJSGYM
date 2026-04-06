@@ -1,0 +1,122 @@
+{
+  "_meta": {
+    "source": "Original website + costs page (tjsgymclub.co.uk)",
+    "woocommerce_notes": "Each bookable session = 1 WooCommerce product (Bookings plugin). PAYG model: no term-block purchase for Tiddler. 'Book now' button links to individual session product. 'Book a trial' is the same product (every class IS a trial at £10). Tiddler Card (6-class stamp card) may be implemented as a WooCommerce voucher/subscription product."
+  },
+
+  "class": {
+    "id": "tiddler-gym",
+    "name": "Tiddler Gym",
+    "slug": "tiddler",
+    "age_range": "6–12 months",
+    "age_min_months": 6,
+    "age_max_months": 12,
+    "type": "parent_accompanied",
+    "tagline": "Parent & baby movement, music and play — a new circuit every week.",
+    "description_original": "This class is designed to offer a fun environment for Parent/Carer and Baby, to encourage physical play & interaction between Parent/Carer & Baby using music, rolling, rocking, crawling & balancing in a safe friendly environment! The equipment we use is more specific to the Tiddler age range, tactile, bright and interesting to the younger age group and is set up in a different circuit each week. A chance for Parents/carers to have a chat and for babies to have heaps of fun!",
+    "description_redesign": "A parent-and-baby activity class designed to encourage physical play and interaction between parent and baby. The tactile, bright and stimulating environment changes every week so there's always something fresh to explore.",
+    "highlights": [
+      "Music, rolling, rocking, crawling and balancing activities",
+      "New circuit layout every week — always something fresh",
+      "Informal social time for parents and carers",
+      "No term commitment — pay as you go, or save with a 6-class card"
+    ],
+    "location": "Raynes Park Sports Pavilion, Taunton Avenue, London SW20 0BH",
+    "british_gymnastics_required": false
+  },
+
+  "pricing": {
+    "model": "payg",
+    "per_class": 10,
+    "currency": "GBP",
+    "tiddler_card": {
+      "classes": 6,
+      "price": null,
+      "note": "Price not listed on original site — confirm with club"
+    }
+  },
+
+  "schedule": [
+    {
+      "day": "Thursday",
+      "time_start": "10:30",
+      "time_end": "11:10",
+      "duration_minutes": 40
+    }
+  ],
+
+  "terms": [
+    {
+      "id": "summer-2026",
+      "label": "Summer 2026",
+      "display_name": "Current term",
+      "status": "current",
+      "weeks": 13,
+      "dates": [
+        { "from": "2026-04-13", "to": "2026-05-21", "note": "4 May is a bank holiday" },
+        { "from": "2026-06-01", "to": "2026-07-16" }
+      ],
+      "half_term": "Week beginning 25 May 2026",
+      "payment_deadline": "2026-03-12",
+      "price_per_class": 10,
+      "price_per_class_note": "Pay as you go — £10 per class"
+    },
+    {
+      "id": "winter-2026",
+      "label": "Winter 2026",
+      "display_name": "Next term",
+      "status": "next",
+      "weeks": 12,
+      "dates": [
+        { "from": "2026-09-07", "to": "2026-10-15" },
+        { "from": "2026-11-02", "to": "2026-12-10" }
+      ],
+      "half_term": "2-week half term, week beginning 19 October 2026",
+      "payment_deadline": "2026-06-26",
+      "price_per_class": 10,
+      "price_per_class_note": "Pay as you go — £10 per class"
+    },
+    {
+      "id": "spring-2027",
+      "label": "Spring 2027",
+      "display_name": "Planning ahead",
+      "status": "future",
+      "weeks": 11,
+      "dates": [
+        { "from": "2027-01-04", "to": "2027-02-11" },
+        { "from": "2027-02-22", "to": "2027-03-25" }
+      ],
+      "half_term": "Week beginning 15 February 2027",
+      "payment_deadline": "2026-11-27",
+      "price_per_class": 10,
+      "price_per_class_note": "Pay as you go — £10 per class"
+    }
+  ],
+
+  "booking_table": {
+    "columns": ["day", "time", "sessions", "availability", "price", "book_now"],
+    "note": "No 'Book a trial' column for Tiddler — every class is PAYG so trial = standard booking. WooCommerce: each row maps to one bookable product (day + time slot). Availability to be pulled live from WooCommerce Bookings.",
+    "rows": [
+      {
+        "day": "Thursday",
+        "time": "10:30–11:10",
+        "sessions_spring": 11,
+        "sessions_summer": 13,
+        "sessions_winter": 12,
+        "price": "£10 / class",
+        "woocommerce_product_id": null,
+        "availability": "TBC"
+      }
+    ]
+  },
+
+  "images": {
+    "hero": "images/classes/tiddler/hero.jpg",
+    "gallery": [
+      "images/classes/tiddler/gallery-1.jpg",
+      "images/classes/tiddler/gallery-2.jpg",
+      "images/classes/tiddler/gallery-3.jpg",
+      "images/classes/tiddler/gallery-4.jpg"
+    ]
+  }
+}

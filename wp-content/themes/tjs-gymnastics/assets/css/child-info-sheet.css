@@ -1,0 +1,135 @@
+/* ========================================
+   TJ's Gymnastics Club — Child Info Sheet
+   ======================================== */
+
+.page-child-sheet {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-child-sheet main {
+  flex: 1;
+}
+
+.child-sheet-section {
+  padding: var(--space-4xl) 0 var(--space-5xl);
+  min-height: calc(100vh - 22rem);
+  display: flex;
+  align-items: center;
+}
+
+.child-sheet-section .container {
+  max-width: 42rem;
+}
+
+.child-sheet-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+  margin: 0 auto;
+}
+
+.child-sheet-eyebrow {
+  margin: 0;
+  color: var(--magenta);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.child-sheet-content h1 {
+  margin: 0;
+  color: var(--plum);
+  font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.child-sheet-content h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.child-sheet-copy {
+  margin: 0;
+  color: var(--text-body);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  max-width: 34rem;
+}
+
+.child-sheet-copy a {
+  color: var(--magenta);
+  text-decoration: none;
+}
+
+.child-sheet-copy a:hover {
+  color: var(--plum);
+}
+
+.child-sheet-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 1.35rem;
+  border-radius: 999px;
+  background: var(--magenta);
+  color: var(--white);
+  font-size: var(--text-base);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform var(--duration) var(--ease),
+    background-color var(--duration) var(--ease),
+    color var(--duration) var(--ease);
+  flex-shrink: 0;
+}
+
+.child-sheet-download-link:hover {
+  transform: translateY(-1px);
+  background: var(--plum);
+  color: var(--white);
+}
+
+.child-sheet-download-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .child-sheet-section {
+    align-items: flex-start;
+    min-height: auto;
+    padding: var(--space-3xl) 0 var(--space-4xl);
+  }
+
+  .child-sheet-content {
+    gap: var(--space-md);
+  }
+
+  .child-sheet-content h1 {
+    font-size: clamp(2.2rem, 12vw, 3.4rem);
+    white-space: normal;
+  }
+
+  .child-sheet-copy {
+    font-size: var(--text-base);
+  }
+
+  .child-sheet-download-link {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "source": "Original website + costs page (tjsgymclub.co.uk)",
+    "woocommerce_notes": "Term-block model: each term = 1 WooCommerce Bookings product per day/time slot. Customer books a slot for the full term. 'Book a trial' links to a single-session trial product (price TBC with club). Winter 2026 prices not yet confirmed."
+  },
+
+  "class": {
+    "id": "toddler-gym",
+    "name": "Toddler Gym",
+    "slug": "toddler",
+    "age_range": "1–3 years",
+    "age_min_months": 12,
+    "age_max_months": 33,
+    "type": "parent_accompanied",
+    "tagline": "Action songs, circuits and adventure — together.",
+    "description_original": "Parents/Carers assist their Toddler during the warm up time where we use action songs to open the class, encourage the toddlers to listen, copy and join in with the Lead Coaches' activities. This lasts for a maximum of 10 mins. No use of the equipment is permitted until guidance has been given by the Lead Coach. Following the warm up everyone uses the equipment which is set up in one large circuit and is a different set up each week. Coaches will assist with the climbing, making friends with the toddlers and encouraging safe and varied use of the equipment. To close the class, we all come back to the middle of the gym and we use a couple of songs to help calm the children down at the end of the class.",
+    "description_redesign": "A parent-accompanied class for 1 to 3 year olds. Each session opens with action songs and a structured warm-up — teaching toddlers to listen, copy and join in before the equipment circuit begins. The gym layout changes every single week, so there's always something new to climb, balance on and explore.",
+    "description_para2": "Coaches are on hand throughout, helping with climbing, encouraging safe and varied use of the equipment, and building a warm rapport with the children. Sessions close with calming songs to bring little ones together gently before the end of class.",
+    "highlights": [
+      "Action songs and structured warm-up to start every class",
+      "A new large circuit of equipment each week",
+      "Coaches supporting climbing and safe exploration throughout",
+      "Gentle cool-down with songs to close every session"
+    ],
+    "location": "Raynes Park Sports Pavilion, Taunton Avenue, London SW20 0BH",
+    "british_gymnastics_required": false,
+    "duration_minutes": 40
+  },
+
+  "pricing": {
+    "model": "term_block",
+    "currency": "GBP",
+    "spring_2026": { "weeks": 11, "price": 143 },
+    "summer_2026": { "weeks": 13, "price": 169 },
+    "winter_2026": { "weeks": 12, "price": null, "note": "Price TBC — contact club" },
+    "spring_2027": { "weeks": 11, "price": null, "note": "Price TBC — contact club" }
+  },
+
+  "schedule": [
+    { "day": "Tuesday",   "time_start": "9:40",  "time_end": "10:20", "duration_minutes": 40 },
+    { "day": "Tuesday",   "time_start": "10:30", "time_end": "11:10", "duration_minutes": 40 },
+    { "day": "Wednesday", "time_start": "9:30",  "time_end": "10:10", "duration_minutes": 40 },
+    { "day": "Thursday",  "time_start": "9:40",  "time_end": "10:20", "duration_minutes": 40 },
+    { "day": "Thursday",  "time_start": "10:30", "time_end": "11:10", "duration_minutes": 40, "note": "Spring term only" }
+  ],
+
+  "terms": [
+    {
+      "id": "summer-2026",
+      "label": "Summer 2026",
+      "display_name": "Current term",
+      "status": "current",
+      "weeks": 13,
+      "dates": [
+        { "from": "2026-04-13", "to": "2026-05-21", "note": "4 May is a bank holiday" },
+        { "from": "2026-06-01", "to": "2026-07-16" }
+      ],
+      "half_term": "Week beginning 25 May 2026",
+      "price": 169,
+      "price_note": "£169 per term — 13 sessions"
+    },
+    {
+      "id": "winter-2026",
+      "label": "Winter 2026",
+      "display_name": "Next term",
+      "status": "next",
+      "weeks": 12,
+      "dates": [
+        { "from": "2026-09-07", "to": "2026-10-15" },
+        { "from": "2026-11-02", "to": "2026-12-10" }
+      ],
+      "half_term": "2-week half term, week beginning 19 October 2026",
+      "price": null,
+      "price_note": "Price TBC — contact the club"
+    },
+    {
+      "id": "spring-2027",
+      "label": "Spring 2027",
+      "display_name": "Planning ahead",
+      "status": "future",
+      "weeks": 11,
+      "dates": [
+        { "from": "2027-01-04", "to": "2027-02-11" },
+        { "from": "2027-02-22", "to": "2027-03-25" }
+      ],
+      "half_term": "Week beginning 15 February 2027",
+      "price": null,
+      "price_note": "Price TBC — contact the club"
+    }
+  ],
+
+  "booking_table": {
+    "columns": ["day", "time", "sessions", "availability", "price", "trial", "book_now"],
+    "note": "Term-block booking. Each row = one WooCommerce Bookings product per day/slot. Thu 10:30 Spring only. Winter prices TBC. Availability pulled live from WooCommerce.",
+    "rows": [
+      { "day": "Tuesday",   "time": "9:40–10:20",  "note": "" },
+      { "day": "Tuesday",   "time": "10:30–11:10", "note": "" },
+      { "day": "Wednesday", "time": "9:30–10:10",  "note": "" },
+      { "day": "Thursday",  "time": "9:40–10:20",  "note": "" },
+      { "day": "Thursday",  "time": "10:30–11:10", "note": "Spring term only" }
+    ]
+  },
+
+  "images": {
+    "hero": "images/classes/toddler/hero.jpg",
+    "gallery": [
+      "images/classes/toddler/gallery-1.jpg",
+      "images/classes/toddler/gallery-2.jpg",
+      "images/classes/toddler/gallery-3.jpg",
+      "images/classes/toddler/gallery-4.jpg",
+      "images/classes/toddler/gallery-5.jpg"
+    ]
+  }
+}

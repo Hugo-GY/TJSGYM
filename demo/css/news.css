@@ -1,0 +1,108 @@
+/* ========================================
+   TJ's Gymnastics Club — News Page
+   ======================================== */
+
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  color: var(--magenta);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  letter-spacing: -0.01em;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero-sub {
+  max-width: 42rem;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.75;
+}
+
+.news-list-section {
+  padding: var(--space-sm) 0 var(--space-5xl);
+}
+
+.news-list-section .container {
+  max-width: 56rem;
+}
+
+.news-list {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-height: 13.5rem;
+}
+
+.news-card h3 {
+  font-family: var(--font-body);
+  color: var(--plum);
+  font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+  line-height: 1.18;
+  max-width: 36rem;
+}
+
+.news-card p {
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.72;
+  max-width: 40rem;
+}
+
+.news-card .btn {
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+@media (max-width: 640px) {
+  .news-card {
+    min-height: auto;
+  }
+
+  .news-card .btn {
+    align-self: flex-start;
+    margin-top: var(--space-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-hero {
+    padding: var(--space-3xl) 0 var(--space-lg);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.4rem, 10vw, 3.6rem);
+  }
+
+  .page-hero-sub,
+  .news-card p {
+    font-size: var(--text-base);
+    line-height: 1.72;
+  }
+
+  .news-list-section {
+    padding: 0 0 var(--space-4xl);
+  }
+}

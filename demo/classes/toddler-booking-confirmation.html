@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Toddler Gym booking confirmation for TJ's Gymnastics Club. Review the selected session and submitted details from your booking request.">
+  <title>Booking Request Received | Toddler Gym | TJ's Gymnastics Club</title>
+  <link rel="icon" type="image/png" href="../images/shared/favicon.png">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/class-detail.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Main navigation">
+      <a href="../index.html" class="logo-link">
+        <img src="../images/shared/logo.png" alt="TJ's Gymnastics Club" class="logo-img" width="120" height="44">
+      </a>
+      <div class="nav-overlay"></div>
+      <div class="nav-links" id="primary-navigation">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../pages/classes.html" class="nav-link active" aria-current="page">Classes Info</a>
+        <a href="../pages/timetable.html" class="nav-link">Timetable</a>
+        <a href="../pages/coaches.html" class="nav-link">Coaches</a>
+        <a href="../pages/history.html" class="nav-link">History</a>
+        <a href="../pages/club-kit.html" class="nav-link">Club Kit</a>
+        <a href="../pages/faq.html" class="nav-link">FAQ</a>
+        <a href="../pages/news.html" class="nav-link">News</a>
+        <a href="../pages/club-policy.html" class="nav-link">Club Policies</a>
+        <a href="../pages/child-info-sheet.html" class="nav-link">Child Info Sheet</a>
+        <a href="../pages/contact.html" class="nav-link">Contact Us</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main data-page-root="toddler-booking-confirmation">
+    <div class="cd-back-wrap">
+      <div class="container">
+        <a href="../classes/toddler-booking.html" class="cd-back-btn" data-confirmation-back-link>← Back to Booking Form</a>
+      </div>
+    </div>
+
+    <section class="cd-booking-confirmation-hero" aria-label="Booking confirmation">
+      <div class="container">
+        <p class="page-hero-eyebrow" data-confirmation-class-label>Toddler Gym</p>
+        <h1>Booking Request Received</h1>
+        <p class="page-hero-sub">Review your selected session and any available booking details below.</p>
+      </div>
+    </section>
+
+    <section class="cd-booking-confirmation section" aria-label="Toddler Gym booking confirmation details">
+      <div class="container">
+        <div class="cd-confirmation-fallback contact-card" data-confirmation-fallback hidden>
+          <h2 data-confirmation-fallback-title>Booking details unavailable</h2>
+          <p data-confirmation-fallback-session hidden>We could not find a selected Toddler Gym session for this confirmation page.</p>
+          <p data-confirmation-fallback-booking hidden>We could not find the submitted booking form details for this confirmation page.</p>
+          <p data-confirmation-fallback-copy>You can return to the booking form and complete the enquiry again, or go back to the Toddler Gym timetable.</p>
+          <div class="contact-submit-row">
+            <a href="../classes/toddler-booking.html" class="btn btn-ghost-magenta cd-fallback-link" data-confirmation-form-link>Return to Booking Form</a>
+            <a href="../classes/toddler.html#book" class="btn btn-ghost-magenta cd-fallback-link" data-confirmation-class-link>Return to Toddler Gym</a>
+          </div>
+        </div>
+
+        <div class="cd-flow-grid" data-confirmation-session-shell>
+          <div class="cd-submitted-summary" aria-labelledby="confirmation-session-title">
+            <h2 id="confirmation-session-title">Selected Session</h2>
+            <dl class="cd-session-summary-list">
+              <div>
+                <dt>Class</dt>
+                <dd data-session-field="class">No session selected</dd>
+              </div>
+              <div>
+                <dt>Booking Type</dt>
+                <dd data-session-field="bookingType">No session selected</dd>
+              </div>
+              <div>
+                <dt>Term</dt>
+                <dd data-session-field="term">No session selected</dd>
+              </div>
+              <div>
+                <dt>Day</dt>
+                <dd data-session-field="day">No session selected</dd>
+              </div>
+              <div>
+                <dt>Time</dt>
+                <dd data-session-field="time">No session selected</dd>
+              </div>
+              <div>
+                <dt>Price</dt>
+                <dd data-session-field="price">No session selected</dd>
+              </div>
+              <div>
+                <dt>Availability</dt>
+                <dd data-session-field="availability">No session selected</dd>
+              </div>
+            </dl>
+
+            <div class="cd-confirmation-section" aria-labelledby="submitted-details-title" data-confirmation-submitted-shell>
+              <h2 id="submitted-details-title">Submitted Details</h2>
+              <dl class="cd-submitted-summary-list">
+                <div>
+                  <dt>Child's Name</dt>
+                  <dd data-submitted-field="childName">No details available</dd>
+                </div>
+                <div>
+                  <dt>Child's date of birth</dt>
+                  <dd data-submitted-field="childDob">No details available</dd>
+                </div>
+                <div>
+                  <dt>Parent / Carer Name</dt>
+                  <dd data-submitted-field="parentName">No details available</dd>
+                </div>
+                <div>
+                  <dt>Email Address</dt>
+                  <dd data-submitted-field="email">No details available</dd>
+                </div>
+                <div>
+                  <dt>Phone Number</dt>
+                  <dd data-submitted-field="phone">No details available</dd>
+                </div>
+                <div>
+                  <dt>Additional Message</dt>
+                  <dd data-submitted-field="message">No details available</dd>
+                </div>
+              </dl>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-watermark" aria-hidden="true">TJSGYM</span>
+    <div class="footer-inner">
+      <div class="footer-section">
+        <h4>TJ's Gymnastics Club</h4>
+        <p>Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Our Partners</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.british-gymnastics.org" target="_blank" rel="noopener">British Gymnastics</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Find Us</h4>
+        <div class="footer-find-us">
+          <address>
+            Raynes Park Sports Pavilion<br>
+            Taunton Avenue<br>
+            London SW20 0BH
+          </address>
+          <div class="footer-find-us-contact">
+            <a href="tel:01252702295">01252 702295</a>
+            <a href="tel:07885103080">07885 103080</a>
+            <a href="mailto:info@tjsgymclub.co.uk">info@tjsgymclub.co.uk</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 TJ's Gymnastics Club, Wimbledon. All rights reserved.</p>
+      <a href="../pages/privacy-policy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash /Users/sharktopia/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5/skills/brainstorming/scripts/start-server.sh --project-dir \"/Users/sharktopia/Desktop/TJGYM\")",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v2-r1)",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v2-hero)",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v2-r2)",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v3-r1)",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v3-r2)",
+      "Bash(node screenshot.mjs http://localhost:3000/coaches.html coaches-v4)"
+    ]
+  }
+}

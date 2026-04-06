@@ -1,0 +1,118 @@
+.page-news-article {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-news-article main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========================================
+   TJ's Gymnastics Club — News Article Template
+   ======================================== */
+
+.page-hero {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.page-hero-eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  color: var(--magenta);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  margin-bottom: var(--space-md);
+  color: var(--plum);
+  letter-spacing: -0.01em;
+}
+
+.page-hero h1 em {
+  color: var(--magenta);
+  font-style: normal;
+}
+
+.page-hero-sub {
+  max-width: 44rem;
+  margin: 0 auto;
+  color: var(--text-light);
+  font-size: var(--text-lg);
+  line-height: 1.75;
+}
+
+.news-article-section {
+  padding: 0 0 var(--space-4xl);
+}
+
+.news-article-section .container,
+.news-article-back-section .container {
+  max-width: 48rem;
+}
+
+.news-article-card {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.news-article-body {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.news-article-card h2,
+.news-article-card .news-article-intro,
+.news-article-body p,
+.news-article-body li {
+  font-family: var(--font-body);
+  color: var(--text-body);
+  font-size: var(--text-base);
+  line-height: 1.82;
+  font-weight: 400;
+}
+
+.news-article-card h2 {
+  margin: 0;
+}
+
+.news-article-body ul,
+.news-article-body ol {
+  display: grid;
+  gap: var(--space-sm);
+  padding-left: 1.25rem;
+}
+
+.news-article-back-section {
+  margin-top: auto;
+  padding: var(--space-lg) 0 var(--space-3xl);
+}
+
+@media (max-width: 640px) {
+  .page-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.4rem, 10vw, 3.6rem);
+  }
+
+  .page-hero-sub,
+  .news-article-card h2,
+  .news-article-card .news-article-intro,
+  .news-article-body p,
+  .news-article-body li {
+    font-size: var(--text-base);
+    line-height: 1.72;
+  }
+
+  .news-article-back-section {
+    padding: var(--space-md) 0 var(--space-2xl);
+  }
+}

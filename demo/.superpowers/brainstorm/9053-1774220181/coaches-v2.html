@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaches Page v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #FFF9FD; color: #2d2d2d; font-size: 14px; }
+
+  :root {
+    --plum: #7A2A7A;
+    --plum-dark: #5C1F5C;
+    --magenta: #D94A9F;
+    --blush: #F3C7E7;
+    --pink-wash: #F7E9F5;
+    --white: #fff;
+    --text-light: #888;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── MOCK NAV ── */
+  .mock-nav {
+    height: 56px; background: #fff; border-bottom: 1px solid var(--blush);
+    display: flex; align-items: center; padding: 0 24px; gap: 24px;
+    position: sticky; top: 0; z-index: 10; box-shadow: 0 1px 8px rgba(122,42,122,0.06);
+  }
+  .mock-logo { width: 80px; height: 28px; background: var(--blush); border-radius: 4px; }
+  .mock-nav-links { display: flex; gap: 20px; }
+  .mock-nav-link { font-size: 0.78rem; color: var(--text-light); font-weight: 500; }
+  .mock-nav-link.active { color: var(--plum); font-weight: 600; border-bottom: 2px solid var(--magenta); padding-bottom: 2px; }
+
+  /* ── HERO ── */
+  .page-hero { padding: 60px 0 44px; text-align: center; background: #FFF9FD; }
+  .eyebrow { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--magenta); margin-bottom: 10px; display: block; }
+  .hero-h1 { font-family: 'Fredoka', sans-serif; font-size: 2.6rem; font-weight: 500; color: var(--plum); margin-bottom: 14px; line-height: 1.1; }
+  .hero-h1 em { color: var(--magenta); font-style: normal; }
+  .hero-sub { max-width: 520px; margin: 0 auto; color: var(--text-light); font-size: 0.95rem; line-height: 1.75; }
+
+  /* ── SECTIONS — all same background ── */
+  .coaches-section { padding: 52px 0; background: #FFF9FD; }
+
+  /* Section divider line */
+  .coaches-section + .coaches-section { border-top: 1px solid var(--blush); }
+
+  .section-intro { text-align: center; margin-bottom: 32px; }
+  .section-label { display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--magenta); margin-bottom: 4px; }
+  .section-h2 { font-family: 'Fredoka', sans-serif; font-size: 1.8rem; font-weight: 500; color: var(--plum); }
+
+  /* ── GRIDS ── */
+  .grid-lead { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 580px; margin: 0 auto; }
+  .grid-std  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  /* ── CARDS ── */
+  .coach-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--blush);
+    box-shadow: 0 2px 12px rgba(122,42,122,0.07);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .coach-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(122,42,122,0.13); }
+
+  /* ── PHOTO: rounded rectangle, no arch ── */
+  .coach-photo-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--blush);
+  }
+  .coach-photo-placeholder {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  /* Lead: taller portrait */
+  .coach-photo-placeholder.lead-ph { aspect-ratio: 4 / 5; }
+  /* Std: standard portrait */
+  .coach-photo-placeholder.std-ph  { aspect-ratio: 1 / 1.15; }
+
+  /* Gradient fill — different shades per card */
+  .ph-a { background: linear-gradient(160deg, #dba8d5, #f0d8eb); }
+  .ph-b { background: linear-gradient(160deg, #c99ec8, #e8cee8); }
+  .ph-c { background: linear-gradient(160deg, #e0b4dc, #f5e0f5); }
+  .ph-d { background: linear-gradient(160deg, #cc9acc, #e8d0e8); }
+  .ph-e { background: linear-gradient(160deg, #d5a0d0, #eedaee); }
+  .ph-f { background: linear-gradient(160deg, #c094be, #e0c8e0); }
+
+  /* ── CARD BODY ── */
+  .coach-body { padding: 14px 16px 18px; text-align: center; }
+  .coach-body.sm { padding: 10px 12px 14px; }
+
+  .coach-name { font-family: 'Fredoka', sans-serif; font-weight: 500; color: var(--plum); margin-bottom: 3px; }
+  .coach-name.lg { font-size: 1.15rem; }
+  .coach-name.sm { font-size: 0.9rem; }
+
+  .coach-role { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--magenta); margin-bottom: 10px; }
+  .coach-role.sm { margin-bottom: 0; }
+
+  .coach-bio { font-size: 0.74rem; color: var(--text-light); line-height: 1.6; text-align: left; }
+
+  .coach-badge {
+    display: inline-block; margin-top: 10px;
+    padding: 3px 10px; border-radius: 999px;
+    background: var(--pink-wash); border: 1px solid var(--blush);
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--plum);
+  }
+
+  /* ── FOOTER ── */
+  .mock-footer { background: var(--plum-dark); padding: 32px 24px 16px; margin-top: 0; }
+  .mock-footer-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+  .mock-footer-col h4 { font-size: 0.8rem; color: #fff; font-weight: 600; margin-bottom: 8px; }
+  .mock-footer-col p, .mock-footer-col a { font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.7; display: block; }
+  .mock-footer-bottom { max-width: 900px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px; display: flex; justify-content: space-between; }
+  .mock-footer-bottom span { font-size: 0.68rem; color: rgba(255,255,255,0.4); }
+
+  .approve-banner { background: var(--plum); color: #fff; text-align: center; padding: 20px; font-size: 0.85rem; }
+  .approve-banner strong { display: block; font-size: 1rem; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<div class="mock-nav">
+  <div class="mock-logo"></div>
+  <div class="mock-nav-links">
+    <span class="mock-nav-link">Home</span>
+    <span class="mock-nav-link">Classes</span>
+    <span class="mock-nav-link">Timetable</span>
+    <span class="mock-nav-link active">Coaches</span>
+    <span class="mock-nav-link">History</span>
+    <span class="mock-nav-link">Club Info</span>
+    <span class="mock-nav-link">Contact Us</span>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">The people behind the magic</span>
+    <h1 class="hero-h1">Meet Our <em>Coaches</em></h1>
+    <p class="hero-sub">A passionate, close-knit team — many of whom started at TJ's as children themselves. Together we bring over a century of gymnastics experience to every class.</p>
+  </div>
+</section>
+
+<!-- Lead Team -->
+<section class="coaches-section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="section-label">The lead team</span>
+      <h2 class="section-h2">Heading Up the Club</h2>
+    </div>
+    <div class="grid-lead">
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder lead-ph ph-a"></div></div>
+        <div class="coach-body">
+          <div class="coach-name lg">Gill Holland</div>
+          <div class="coach-role">General Manager &amp; Head Coach</div>
+          <p class="coach-bio">Gill founded TJ's in September 1988 and has been running it for 36 wonderful years. Holds Level 3 qualifications in both General and Pre-school Club Coaching.</p>
+          <span class="coach-badge">Level 3 · General &amp; Pre-school</span>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder lead-ph ph-b"></div></div>
+        <div class="coach-body">
+          <div class="coach-name lg">Natalie Garlick</div>
+          <div class="coach-role">Head of Gymnastics &amp; SEN Co-ordinator</div>
+          <p class="coach-bio">Coached by Gill as a teenager, Natalie has been part of the team since 1997. She leads competitions, the display team, and is our Special Educational Needs Co-ordinator.</p>
+          <span class="coach-badge">Level 3 · General &amp; Pre-school</span>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder lead-ph ph-c"></div></div>
+        <div class="coach-body">
+          <div class="coach-name lg">Jade Shaw</div>
+          <div class="coach-role">Deputy Head Coach</div>
+          <p class="coach-bio">Jade first came to TJ's aged one in Toddler Gym and progressed all the way to squad — the ultimate TJ's story! Her two daughters, Kyla and Nyrah, attend the club too.</p>
+          <span class="coach-badge">Level 2 UKCC · Pre-school Add-on</span>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder lead-ph ph-d"></div></div>
+        <div class="coach-body">
+          <div class="coach-name lg">Nelum Samara</div>
+          <div class="coach-role">Safeguarding &amp; Welfare Officer</div>
+          <p class="coach-bio">Coached by Gill during her school days, Nelum reconnected via social media years later and joined as Welfare Officer in September 2024 — thrilled to be back in the sport she loves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coaches & Assistants -->
+<section class="coaches-section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="section-label">The coaching team</span>
+      <h2 class="section-h2">Coaches &amp; Assistants</h2>
+    </div>
+    <div class="grid-std">
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-e"></div></div>
+        <div class="coach-body sm">
+          <div class="coach-name sm">Hazel Pithers</div>
+          <div class="coach-role sm">Coach</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-a"></div></div>
+        <div class="coach-body sm">
+          <div class="coach-name sm">Hannah Pettit</div>
+          <div class="coach-role sm">Coach</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-b"></div></div>
+        <div class="coach-body sm">
+          <div class="coach-name sm">JV Mattei</div>
+          <div class="coach-role sm">Assistant Coach</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-c"></div></div>
+        <div class="coach-body sm">
+          <div class="coach-name sm">Nadine Henry</div>
+          <div class="coach-role sm">Assistant Coach</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Junior Helpers -->
+<section class="coaches-section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="section-label">The next generation</span>
+      <h2 class="section-h2">Our Junior Helpers</h2>
+    </div>
+    <div class="grid-std">
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-d"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Beth Drew</div><div class="coach-role sm">Junior Helper</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-e"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Lucy Garlick</div><div class="coach-role sm">Junior Helper</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-f"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Bea Gray</div><div class="coach-role sm">Junior Helper</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-a"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Maya Francis</div><div class="coach-role sm">Junior Helper</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-b"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Cara Kelly</div><div class="coach-role sm">Junior Helper</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-c"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Mio Nakashima</div><div class="coach-role sm">In Japan · Back in '25</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cover Coaches -->
+<section class="coaches-section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="section-label">Always there when needed</span>
+      <h2 class="section-h2">Cover Coaches</h2>
+    </div>
+    <div class="grid-std">
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-d"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Kate Harding</div><div class="coach-role sm">Cover Coach</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-e"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Joe Kelly</div><div class="coach-role sm">Cover Coach</div></div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-photo-wrap"><div class="coach-photo-placeholder std-ph ph-f"></div></div>
+        <div class="coach-body sm"><div class="coach-name sm">Ali Cuffe</div><div class="coach-role sm">Cover Coach</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="mock-footer">
+  <div class="mock-footer-inner">
+    <div class="mock-footer-col">
+      <h4>TJ's Gymnastics Club</h4>
+      <p>Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.</p>
+    </div>
+    <div class="mock-footer-col">
+      <h4>Our Partners</h4>
+      <a>British Gymnastics</a>
+      <a>London Gymnastics</a>
+    </div>
+    <div class="mock-footer-col">
+      <h4>Find Us</h4>
+      <p>Raynes Park Sports Pavilion<br>Taunton Avenue<br>London SW20 0BH</p>
+    </div>
+  </div>
+  <div class="mock-footer-bottom">
+    <span>© 2026 TJ's Gymnastics Club, Wimbledon. All rights reserved.</span>
+    <span>Privacy Policy</span>
+  </div>
+</footer>
+
+<div class="approve-banner">
+  <strong>Does this feel right?</strong>
+  Approve to build, or tell me what to adjust.
+</div>
+
+</body>
+</html>
