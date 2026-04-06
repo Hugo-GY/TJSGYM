@@ -102,21 +102,45 @@ endif;
         
         <div class="history-gallery-grid">
             <?php
-            if (have_rows('gallery_images')):
-                while (have_rows('gallery_images')): the_row();
-                    $image = get_sub_field('image');
-                    $caption = get_sub_field('caption');
-                    if ($image):
+            // Query Moments posts
+            $moments_query = new WP_Query(array(
+                'post_type' => 'post',
+                'posts_per_page' => -1,
+                'category_name' => 'moments',
+                'orderby' => 'date',
+                'order' => 'ASC',
+            ));
+            
+            if ($moments_query->have_posts()):
+                while ($moments_query->have_posts()): $moments_query->the_post();
+                    $moment_title = get_the_title();
+                    $post_content = get_the_content();
+                    
+                    // Try to get image from post_content (Gutenberg image block)
+                    $moment_image = '';
+                    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/', $post_content, $matches)) {
+                        $moment_image = $matches[1];
+                    }
+                    
+                    // Fallback to featured image if no image in content
+                    if (!$moment_image) {
+                        $moment_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                    }
+                    
+                    // Fallback to default image if no image found
+                    if (!$moment_image) {
+                        $moment_image = get_template_directory_uri() . '/assets/images/history/image_08.jpg';
+                    }
             ?>
                 <figure class="history-gallery-item">
-                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
+                    <img src="<?php echo esc_url($moment_image); ?>" alt="<?php echo esc_attr($moment_title); ?>">
                     <figcaption>
-                        <p><?php echo esc_html($caption); ?></p>
+                        <p><?php echo esc_html($moment_title); ?></p>
                     </figcaption>
                 </figure>
             <?php 
-                    endif;
                 endwhile;
+                wp_reset_postdata();
             else:
                 $default_gallery = array(
                     array('img' => 'image_08.jpg', 'caption' => 'Max growing up as part of the TJ\'s story.'),
