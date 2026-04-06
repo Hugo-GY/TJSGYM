@@ -145,4 +145,13 @@ $hero_title = get_field('hero_title') ?: 'Club <em>Kit</em>';
     </div>
 </section>
 
+<section class="kit-support-strip" id="kit-support" aria-label="<?php _e('Ordering support', 'tjs-gymnastics'); ?>">
+    <div class="container">
+        <p class="kit-support-text">
+            <?php _e('If you have any problems registering or ordering, please email your query to:', 'tjs-gymnastics'); ?>
+            <a href="mailto:online@printmykit.co.uk">online@printmykit.co.uk</a>
+        </p>
+    </div>
+</section>
+
 <?php get_footer(); ?>
