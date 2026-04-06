@@ -7,6 +7,47 @@ get_header();
 $hero_eyebrow = get_field('hero_eyebrow') ?: 'Since 1988';
 $hero_title = get_field('hero_title') ?: 'Our <em>History</em>';
 $hero_subtitle = get_field('hero_subtitle') ?: 'A few of the key moments that shaped TJ\'s, from its beginnings in 1988 to its new home in Raynes Park.';
+
+// Query History posts
+$history_query = new WP_Query(array(
+    'post_type' => 'post',
+    'posts_per_page' => -1,
+    'category_name' => 'history',
+    'orderby' => 'date',
+    'order' => 'ASC',
+));
+
+// Group posts by year tag
+$timeline_items = array();
+if ($history_query->have_posts()):
+    while ($history_query->have_posts()): $history_query->the_post();
+        $post_tags = get_the_tags();
+        $year = '';
+        if ($post_tags) {
+            foreach ($post_tags as $tag) {
+                // Use the first tag as the year/period identifier
+                // This supports both numeric years (1988) and text periods (Growth years)
+                $year = $tag->name;
+                break;
+            }
+        }
+        // If no year tag found, use empty string for sorting at the end
+        $sort_key = $year ?: 'ZZZ';
+        
+        $timeline_items[] = array(
+            'year' => $year ?: '',
+            'title' => get_the_title(),
+            'content' => get_the_content(),
+            'sort_key' => $sort_key,
+        );
+    endwhile;
+    wp_reset_postdata();
+    
+    // Sort by year
+    usort($timeline_items, function($a, $b) {
+        return strcmp($a['sort_key'], $b['sort_key']);
+    });
+endif;
 ?>
 
 <section class="page-hero">
@@ -22,21 +63,16 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'A few of the key moments that sh
         <h2 id="timeline-heading" class="history-timeline-title sr-only"><?php _e('Timeline', 'tjs-gymnastics'); ?></h2>
         
         <div class="history-timeline">
-            <?php
-            if (have_rows('timeline_items')):
-                while (have_rows('timeline_items')): the_row();
-                    $year = get_sub_field('year');
-                    $title = get_sub_field('title');
-                    $content = get_sub_field('content');
-            ?>
-                <article class="history-timeline-item">
-                    <p class="history-timeline-year"><?php echo esc_html($year); ?></p>
-                    <h3><?php echo esc_html($title); ?></h3>
-                    <p class="history-timeline-copy"><?php echo esc_html($content); ?></p>
-                </article>
-            <?php
-                endwhile;
-            else:
+            <?php if (!empty($timeline_items)): ?>
+                <?php foreach ($timeline_items as $item): ?>
+                    <article class="history-timeline-item">
+                        <p class="history-timeline-year"><?php echo esc_html($item['year']); ?></p>
+                        <h3><?php echo esc_html($item['title']); ?></h3>
+                        <p class="history-timeline-copy"><?php echo wp_kses_post($item['content']); ?></p>
+                    </article>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php
                 $default_timeline = array(
                     array('year' => '1988', 'title' => 'TJ\'s opens', 'content' => 'TJ\'s opened in September 1988. Gill Humby was leaving Roehampton University with a BSc in Sports Studies, wondering what employment she could find. Tricia and Joanna wrote an open letter to the Sports Department looking for a Gymnastics coach to run the children\'s gym club they wanted to open using the hall they rented for Aerobic classes. Gill gave them a call and TJ\'s was born!'),
                     array('year' => 'Growth years', 'title' => 'More coaches, more classes', 'content' => 'For a number of years Gill ran TJ\'s alone, but as the club became more popular and numbers increased it was clear more coaches and classes would be required. The timetable expanded, the staff team grew, and TJ\'s steadily developed into the welcoming club families know today.'),
@@ -45,13 +81,14 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'A few of the key moments that sh
                     array('year' => '2023', 'title' => 'A new home in Raynes Park', 'content' => 'In January 2023 TJ\'s moved from the hall in Wimbledon, which we had hired for 34 years, to Raynes Park Sports Pavilion, SW20. At the same time, Jade joined the senior coaching team to assist Gill and Natalie. We are very proud of TJ\'s: a small, friendly and caring club where some of the first children we taught have grown up, stayed involved in gymnastics, and now even bring their own children to TJ\'s.'),
                 );
                 foreach ($default_timeline as $item):
-            ?>
-                <article class="history-timeline-item">
-                    <p class="history-timeline-year"><?php echo esc_html($item['year']); ?></p>
-                    <h3><?php echo esc_html($item['title']); ?></h3>
-                    <p class="history-timeline-copy"><?php echo esc_html($item['content']); ?></p>
-                </article>
-            <?php endforeach; endif; ?>
+                ?>
+                    <article class="history-timeline-item">
+                        <p class="history-timeline-year"><?php echo esc_html($item['year']); ?></p>
+                        <h3><?php echo esc_html($item['title']); ?></h3>
+                        <p class="history-timeline-copy"><?php echo esc_html($item['content']); ?></p>
+                    </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
