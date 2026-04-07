@@ -179,16 +179,34 @@ $helpers_title = get_field('helpers_title') ?: 'Our Junior Helpers';
             <?php
                 endwhile;
             else:
+                // Default helpers data - matching demo page
                 $default_helpers = array(
                     array('name' => 'Bea Gray', 'bio' => 'Bea was a member of our Elite Squad until December 2022, assisted for her Duke of Edinburgh award, and has chosen to continue coaching. A keen rugby player and Ball Girl at Wimbledon 2024. Holds the Gymnastics Helper award.', 'photo' => '11_Bea_Gray.jpg'),
                     array('name' => 'Maya Francis', 'bio' => 'Maya was a member of our Elite Squad until April 2024 and has now chosen to focus on coaching. A keen dancer and Year 10 student, she holds the Gymnastics Helper award.', 'photo' => '12_Maya_Francis.jpg'),
                     array('name' => 'Cara Kelly', 'bio' => 'Cara also started TJ\'s aged 1! She was a member of our Girls\' Squad until July 2024 and has now chosen to focus on coaching. A Year 10 student, she holds the Gymnastics Helper award.', 'photo' => '13_Cara_Kelly.jpg'),
+                    array('name' => 'Mio Nakashima', 'bio' => 'Mio was a member of our Elite Squad until December 2022 and assisted for her Duke of Edinburgh award. In April 2024 she left to study for a year in Japan — we hope to see her back in 2025!', 'photo' => '14_Mio_Nakashima.jpg'),
+                    array('name' => 'Emily Runeckles', 'bio' => 'Junior coach profile to follow.', 'photo' => 'Emily.jpeg'),
+                    array('name' => 'Phoebe Dunnett', 'bio' => 'Junior coach profile and photo to follow.', 'photo' => '', 'placeholder' => true),
+                    array('name' => 'Jess Primrose', 'bio' => 'Junior coach profile to follow.', 'photo' => 'Jess.jpeg'),
+                    array('name' => 'Lucy Garlick', 'bio' => 'Natalie\'s daughter! Lucy is a member of the GB Climbing squad and has competed in the USA, Russia, South Korea and China. She is not currently coaching regularly but will return when available, and she holds the Gymnastics Helper award.', 'photo' => '10_Lucy_Garlick.jpg'),
                 );
                 foreach ($default_helpers as $coach):
+                    $is_placeholder = isset($coach['placeholder']) && $coach['placeholder'];
+                    $initials = '';
+                    if ($is_placeholder) {
+                        $name_parts = explode(' ', $coach['name']);
+                        foreach ($name_parts as $part) {
+                            $initials .= strtoupper(substr($part, 0, 1));
+                        }
+                    }
             ?>
-                <div class="coach-card">
-                    <div class="coach-photo-wrap coach-photo-wrap--std">
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/coaches/' . $coach['photo']); ?>" alt="<?php echo esc_attr($coach['name']); ?>">
+                <div class="coach-card<?php echo $is_placeholder ? ' coach-card--placeholder' : ''; ?>">
+                    <div class="coach-photo-wrap coach-photo-wrap--std<?php echo $is_placeholder ? ' coach-photo-wrap--placeholder' : ''; ?>"<?php echo $is_placeholder ? ' aria-hidden="true"' : ''; ?>>
+                        <?php if ($is_placeholder): ?>
+                            <span class="coach-placeholder-initials"><?php echo esc_html($initials); ?></span>
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/coaches/' . $coach['photo']); ?>" alt="<?php echo esc_attr($coach['name']); ?>">
+                        <?php endif; ?>
                     </div>
                     <div class="coach-body coach-body--sm">
                         <h3 class="coach-name coach-name--sm"><?php echo esc_html($coach['name']); ?></h3>

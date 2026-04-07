@@ -65,7 +65,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'Classes run Monday to Thursday a
                                 <?php
                                     endwhile;
                                 else:
-                                    // Default timetable data
+                                    // Default timetable data - matching demo page
                                     $default_classes = array(
                                         'monday' => array(
                                             array('time' => '1:20 – 2:00', 'class' => 'Mini Gym', 'price' => '£168 / term', 'age' => '3 – 4½ years'),
@@ -89,8 +89,17 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'Classes run Monday to Thursday a
                                             array('time' => '1:20 – 2:00', 'class' => 'Mini Gym', 'price' => '£182 / term', 'age' => '3 – 4½ years'),
                                             array('time' => '2:10 – 2:50', 'class' => 'Mini Gym', 'price' => '£182 / term', 'age' => '3 – 4½ years'),
                                             array('time' => '4:00 – 4:45', 'class' => 'Gymnastics', 'price' => '£195 / term', 'age' => 'Beginners', 'note' => 'Ex Mini Gym only'),
+                                            array('time' => '4:30 – 5:30', 'class' => 'Gymnastics', 'price' => '£208 / term', 'age' => 'Girls Squad', 'note' => 'Warm-up in adjacent hall'),
                                         ),
-                                        'thursday' => array(),
+                                        'thursday' => array(
+                                            array('time' => '9:30 – 10:10', 'class' => 'Toddler Gym', 'price' => '£169 / term', 'age' => '1 – 3 years'),
+                                            array('time' => '10:30 – 11:10', 'class' => 'Tiddler Gym', 'price' => '£10 / class', 'age' => '6 – 12 months', 'note' => 'Starting 13 April'),
+                                            array('time' => '1:20 – 2:00', 'class' => 'Mini Gym', 'price' => '£182 / term', 'age' => '3 – 4½ years'),
+                                            array('time' => '2:10 – 2:50', 'class' => 'Mini Gym', 'price' => '£182 / term', 'age' => '3 – 4½ years'),
+                                            array('time' => '4:00 – 4:45', 'class' => 'Gymnastics', 'price' => '£195 / term', 'age' => 'Beginners', 'note' => 'Ex Mini Gym only'),
+                                            array('time' => '4:45 – 5:45', 'class' => 'Gymnastics', 'price' => '£208 / term', 'age' => 'Girls Junior Squad'),
+                                            array('time' => '4:45 – 6:45', 'class' => 'Gymnastics', 'price' => '£253 / term', 'age' => 'Girls Elite'),
+                                        ),
                                     );
                                     
                                     if (isset($default_classes[$day_lower])):
