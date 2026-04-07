@@ -39,3 +39,10 @@ assert_contains 'Natalie married Paul in 2004'
 assert_contains 'All four children attended TJ’s'
 assert_contains 'At the same time, Jade joined the senior coaching team'
 assert_contains 'bring their own children to TJ’s'
+assert_contains "Gill at TJ's 30yrs anniversary celebrations."
+assert_contains "../images/history/Jack!.JPG"
+assert_contains "../images/history/Cara.jpg"
+assert_contains "../images/history/mums.jpg"
+assert_contains "Jack reminiscing of his younger days at TJ's!"
+assert_contains "Cara couldn't resist trying out the new equipment"
+assert_contains "Ex gymnasts and coaches, now Mums, enjoying a TJ's class with their Toddlers"
