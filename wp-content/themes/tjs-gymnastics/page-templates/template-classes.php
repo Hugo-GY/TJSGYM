@@ -61,7 +61,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
             <?php
                 endwhile;
             else:
-                // Default class cards
+                // Default class cards - matching demo page with proper links
                 $default_classes = array(
                     array(
                         'name' => 'Tiddler Gym',
@@ -71,7 +71,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
                         'price_label' => 'per class',
                         'price_note' => 'Pay as you go',
                         'button' => 'Details & Book',
-                        'link' => '#',
+                        'link' => home_url('/tiddler-gym/'),
                         'image' => 'class-card-tiddler.png',
                         'modifier' => 'tiddler'
                     ),
@@ -83,7 +83,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
                         'price_label' => 'per term',
                         'price_note' => '11 sessions',
                         'button' => 'Details & Book',
-                        'link' => '#',
+                        'link' => home_url('/toddler-gym/'),
                         'image' => 'class-card-toddler.png',
                         'modifier' => 'toddler'
                     ),
@@ -95,7 +95,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
                         'price_label' => 'per term',
                         'price_note' => '11 sessions',
                         'button' => 'Details & Book',
-                        'link' => '#',
+                        'link' => home_url('/mini-gym/'),
                         'image' => 'class-card-mini-gym.png',
                         'modifier' => 'minigym'
                     ),
@@ -107,7 +107,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
                         'price_label' => 'per term',
                         'price_note' => 'Level dependent',
                         'button' => 'Details',
-                        'link' => '#',
+                        'link' => home_url('/gymnastics/'),
                         'image' => 'class-card-gymnastics.png',
                         'modifier' => 'gym'
                     ),
