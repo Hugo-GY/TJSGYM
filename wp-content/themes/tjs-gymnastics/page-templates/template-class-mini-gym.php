@@ -4,46 +4,56 @@
  */
 get_header();
 
+// Get product data
+$product = tjs_get_class_product('mini-gym-product');
+
+// Get ACF fields or use defaults
+$age_range = ($product && function_exists('get_field')) ? get_field('age_range', $product->get_id()) : '3–4½ Years';
+$about_title = ($product && function_exists('get_field')) ? get_field('about_title', $product->get_id()) : 'Independent gymnastics with <em>themes</em>, circuits and confidence';
+$about_lead = ($product && function_exists('get_field')) ? get_field('about_lead', $product->get_id()) : 'The Mini Gym is an independent class for children aged 3 to 4 years. Parents and carers do not come into the hall, but the doorways remain open to allow viewing.';
+$about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea.</p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility.</p>';
+
+// Get variations data
+$sessions = $product ? tjs_get_class_sessions($product, 10) : array();
+
+// Fallback sessions if no variations
+if (empty($sessions)) {
+    $sessions = array(
+        array('day' => 'Monday', 'time' => '1:20 – 2:00', 'price' => '£168 / term', 'availability' => '8 / 10', 'status' => 'available', 'variation_id' => 0),
+        array('day' => 'Monday', 'time' => '2:10 – 2:50', 'price' => '£168 / term', 'availability' => '8 / 10', 'status' => 'available', 'variation_id' => 0),
+        array('day' => 'Tuesday', 'time' => '1:20 – 2:00', 'price' => '£168 / term', 'availability' => 'Full', 'status' => 'full', 'variation_id' => 0),
+        array('day' => 'Tuesday', 'time' => '2:10 – 2:50', 'price' => '£168 / term', 'availability' => '6 / 10', 'status' => 'available', 'variation_id' => 0),
+        array('day' => 'Wednesday', 'time' => '10:30 – 11:10', 'price' => '£168 / term', 'availability' => 'Full', 'status' => 'full', 'variation_id' => 0),
+        array('day' => 'Wednesday', 'time' => '1:20 – 2:00', 'price' => '£168 / term', 'availability' => '7 / 10', 'status' => 'available', 'variation_id' => 0),
+        array('day' => 'Wednesday', 'time' => '2:10 – 2:50', 'price' => '£168 / term', 'availability' => 'Full', 'status' => 'full', 'variation_id' => 0),
+        array('day' => 'Thursday', 'time' => '1:20 – 2:00', 'price' => '£168 / term', 'availability' => '8 / 10', 'status' => 'available', 'variation_id' => 0),
+        array('day' => 'Thursday', 'time' => '2:10 – 2:50', 'price' => '£168 / term', 'availability' => 'Full', 'status' => 'full', 'variation_id' => 0),
+    );
+}
+
+$modifier = $product ? tjs_get_class_modifier($product->get_id()) : 'minigym';
+
 $class_data = array(
     'name' => 'Mini Gym',
-    'age' => '3–4 Years',
-    'about_title' => 'Independent gymnastics with <em>themes</em>, circuits and confidence',
-    'about_lead' => 'The Mini Gym is an independent class for children aged 3 to 4 years. Parents and carers do not come into the hall, but the doorways remain open to allow viewing. The last week of each term is our Watching Week, when families can come into the hall to watch the class.',
-    'about_content' => '<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea. Each week the set-up changes, and as the term progresses the equipment continues to challenge every child.</p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility. To close the class, all groups join together for a short discussion about what they have been doing, what they liked, what they found easy or hard, and an action song.</p>',
-    'modifier' => 'tiddler',
+    'age' => $age_range ?: '3–4½ Years',
+    'about_title' => $about_title ?: 'Independent gymnastics with <em>themes</em>, circuits and confidence',
+    'about_lead' => $about_lead ?: 'The Mini Gym is an independent class for children aged 3 to 4 years. Parents and carers do not come into the hall, but the doorways remain open to allow viewing. The last week of each term is our Watching Week, when families can come into the hall to watch the class.',
+    'about_content' => $about_content ?: '<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea. Each week the set-up changes, and as the term progresses the equipment continues to challenge every child.</p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility. To close the class, all groups join together for a short discussion about what they have been doing, what they liked, what they found easy or hard, and an action song.</p>',
+    'modifier' => $modifier,
 );
 
-$sessions = array(
-    array('day' => 'Monday', 'time' => '1:20 – 2:00', 'price' => '£168 / term', 'availability' => '8 / 10', 'status' => 'available'),
-    array('day' => 'Monday', 'time' => '2:10 – 2:50', 'price' => '£168 / term', 'availability' => '8 / 10', 'status' => 'available'),
-);
+$terms = tjs_get_default_terms();
+$current_term = $terms[0];
+$upcoming_terms = array_slice($terms, 1);
 
-$current_term = array(
-    'season' => 'Summer 2026',
-    'status' => 'Teaching now',
-    'weeks' => '13 weeks',
-    'dates' => array('13 Apr – 21 May', '1 Jun – 16 Jul'),
-    'halfterm' => 'Half term: w/k 25 May · No class 4 May',
-    'payment_due' => 'Payment due by 12 March'
-);
-
-$upcoming_terms = array(
-    array(
-        'season' => 'Winter 2026',
-        'status' => 'Next term',
-        'weeks' => '12 weeks',
-        'dates' => array('7 Sep – 16 Oct', '2 Nov – 10 Dec'),
-        'halfterm' => '2-week half term: w/k 19 October',
-        'payment_due' => 'Payment due by 26 June'
-    ),
-    array(
-        'season' => 'Spring 2027',
-        'status' => 'Planning ahead',
-        'weeks' => '11 weeks',
-        'dates' => array('4 Jan – 11 Feb', '22 Feb – 25 Mar'),
-        'halfterm' => 'Half term: w/k 15 February',
-        'payment_due' => 'Payment due by 27 November'
-    )
+// Gallery images
+$gallery_images = array(
+    array('src' => 'kids-mini-gym-6.jpg', 'alt' => 'Mini Gym children performing on the floor in front of the apparatus'),
+    array('src' => 'kids-mini-gym-5.jpg', 'alt' => 'Mini Gym class group gathered with their coaches'),
+    array('src' => 'kids-mini-gym-4.jpg', 'alt' => 'Mini Gym children standing together during class'),
+    array('src' => 'kids-mini-gym-3.jpg', 'alt' => 'Mini Gym children taking part in a themed activity'),
+    array('src' => 'kids-mini-gym-2.jpg', 'alt' => 'Mini Gym children lining up with their coaches'),
+    array('src' => 'kids-mini-gym-1.jpg', 'alt' => 'Mini Gym class group posing together in the gym'),
 );
 ?>
 
@@ -56,7 +66,7 @@ $upcoming_terms = array(
 
     <section class="cd-hero" aria-label="<?php echo esc_attr($class_data['name']); ?>">
         <div class="container">
-            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--<?php echo esc_attr($class_data['modifier']); ?> card-accent">
+            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--tiddler card-accent">
                 <div class="cd-hero-meta">
                     <span class="cd-hero-age"><?php echo esc_html($class_data['age']); ?></span>
                     <h1 class="cd-hero-title"><?php echo esc_html($class_data['name']); ?></h1>
@@ -92,8 +102,8 @@ $upcoming_terms = array(
             </div>
 
             <div class="cd-table-note cd-table-note--highlight">
-                <p><strong><?php _e('British Gymnastics membership required.', 'tjs-gymnastics'); ?></strong> <?php _e('All Mini Gym and Gymnastics members need British Gymnastics membership. For more information, please visit', 'tjs-gymnastics'); ?> <a href="https://mybg.british-gymnastics.org/Account.mvc/SignIn" target="_blank" rel="noopener">https://mybg.british-gymnastics.org/Account.mvc/SignIn</a>.</p>
-                <p><strong><?php _e('Watching Week:', 'tjs-gymnastics'); ?></strong> <?php _e('The final week of each term is our Watching Week, when parents and carers are invited into the hall.', 'tjs-gymnastics'); ?></p>
+                <p><strong>British Gymnastics membership required.</strong> All Mini Gym and Gymnastics members need British Gymnastics membership. For more information, please visit <a href="https://mybg.british-gymnastics.org/Account.mvc/SignIn" target="_blank" rel="noopener">https://mybg.british-gymnastics.org/Account.mvc/SignIn</a>.</p>
+                <p><strong>Watching Week:</strong> The final week of each term is our Watching Week, when parents and carers are invited into the hall.</p>
             </div>
 
             <div class="cd-booking-table-wrap">
@@ -122,7 +132,11 @@ $upcoming_terms = array(
                                 <td data-label="<?php _e('Price', 'tjs-gymnastics'); ?>"><?php echo esc_html($session['price']); ?></td>
                                 <td data-label="<?php _e('Availability', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php echo esc_html($session['availability']); ?></span></td>
                                 <td data-label="<?php _e('Book Now', 'tjs-gymnastics'); ?>">
-                                    <a href="<?php echo esc_url(home_url('/mini-gym-booking/')); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book now', 'tjs-gymnastics'); ?></a>
+                                    <?php if ($session['status'] !== 'full'): ?>
+                                        <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], home_url('/mini-gym-booking/'))); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <?php else: ?>
+                                        <a href="#waitlist" class="btn btn-secondary btn-sm cd-waitlist-btn"><?php _e('Join Waitlist', 'tjs-gymnastics'); ?></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -130,7 +144,7 @@ $upcoming_terms = array(
                 </table>
             </div>
 
-            <p class="cd-table-note cd-table-note--inline"><?php _e('Mini Gym trial classes are only available in the first two weeks of each term. Online booking is open during this time only. Please contact us for more information.', 'tjs-gymnastics'); ?></p>
+            <p class="cd-table-note cd-table-note--inline">Mini Gym trial classes are only available in the first two weeks of each term. Online booking is open during this time only. Please contact us for more information.</p>
 
             <section class="cd-booking-term-current" aria-label="<?php _e('Current term details', 'tjs-gymnastics'); ?>">
                 <span class="section-label"><?php _e('Current Term', 'tjs-gymnastics'); ?></span>
@@ -190,6 +204,36 @@ $upcoming_terms = array(
                 </div>
                 <p class="cd-terms-summary-date"><?php _e('March 2026', 'tjs-gymnastics'); ?></p>
             </article>
+        </div>
+    </section>
+
+    <section class="cd-gallery section" aria-label="<?php _e('Mini Gym photos', 'tjs-gymnastics'); ?>">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><?php _e('Gallery', 'tjs-gymnastics'); ?></span>
+                <h2><em><?php _e('Photos', 'tjs-gymnastics'); ?></em> <?php _e('of our Mini Gym', 'tjs-gymnastics'); ?></h2>
+            </div>
+
+            <div class="comp-carousel" aria-label="<?php _e('Mini Gym photos', 'tjs-gymnastics'); ?>" tabindex="0">
+                <div class="comp-carousel-main">
+                    <?php 
+                    $gallery_base_url = get_template_directory_uri() . '/assets/images/classes/mini-gym/';
+                    foreach ($gallery_images as $index => $img): 
+                    ?>
+                        <img class="comp-carousel-img <?php echo $index === 0 ? 'is-active' : ''; ?>" src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="<?php echo esc_attr($img['alt']); ?>" loading="lazy">
+                    <?php endforeach; ?>
+                    <button class="comp-carousel-btn comp-carousel-prev" aria-label="<?php _e('Previous photo', 'tjs-gymnastics'); ?>">&#8249;</button>
+                    <button class="comp-carousel-btn comp-carousel-next" aria-label="<?php _e('Next photo', 'tjs-gymnastics'); ?>">&#8250;</button>
+                    <span class="comp-carousel-counter" aria-live="polite">1 / <?php echo count($gallery_images); ?></span>
+                </div>
+                <div class="comp-carousel-thumbs" role="tablist" aria-label="<?php _e('Photo thumbnails', 'tjs-gymnastics'); ?>">
+                    <?php foreach ($gallery_images as $index => $img): ?>
+                        <button class="comp-thumb <?php echo $index === 0 ? 'is-active' : ''; ?>" data-index="<?php echo $index; ?>" role="tab" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-label="<?php printf(__('Photo %d', 'tjs-gymnastics'), $index + 1); ?>">
+                            <img src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="" loading="lazy">
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
     </section>
 </div>

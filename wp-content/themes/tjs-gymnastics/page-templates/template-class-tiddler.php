@@ -4,17 +4,65 @@
  */
 get_header();
 
+// Get product data
+$product = tjs_get_class_product('tiddler-gym');
+
+// Get ACF fields or use defaults
+$age_range = ($product && function_exists('get_field')) ? get_field('age_range', $product->get_id()) : '6–12 Months';
+$about_title = ($product && function_exists('get_field')) ? get_field('about_title', $product->get_id()) : '<em>Parent & Baby</em> movement, music and play';
+$about_lead = ($product && function_exists('get_field')) ? get_field('about_lead', $product->get_id()) : 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing.';
+$about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>';
+
+// Get variations data
+$sessions = array();
+if ($product && $product->is_type('variable')) {
+    $variations = $product->get_available_variations();
+    foreach ($variations as $variation_data) {
+        $variation = wc_get_product($variation_data['variation_id']);
+        if (!$variation) continue;
+        
+        $attributes = $variation->get_attributes();
+        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : 'Thursday';
+        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : '10:30 – 11:10';
+        $price = $variation->get_price();
+        $stock = $variation->get_stock_quantity();
+        
+        if ($stock === null || $stock === '') $stock = 10;
+        
+        $availability = $stock . ' / 10';
+        $status = 'available';
+        if ($stock <= 0) {
+            $availability = 'Full';
+            $status = 'full';
+        } elseif ($stock <= 3) {
+            $status = 'limited';
+        }
+        
+        $sessions[] = array(
+            'day' => $day,
+            'time' => $time,
+            'price' => '£' . $price . ' / class',
+            'availability' => $availability,
+            'status' => $status,
+            'variation_id' => $variation_data['variation_id']
+        );
+    }
+}
+
+// Fallback sessions if no variations
+if (empty($sessions)) {
+    $sessions = array(
+        array('day' => 'Thursday', 'time' => '10:30 – 11:10', 'price' => '£10 / class', 'availability' => '8 / 10', 'status' => 'available'),
+    );
+}
+
 $class_data = array(
     'name' => 'Tiddler Gym',
-    'age' => '6–12 Months',
-    'about_title' => '<em>Parent & Baby</em> movement, music and play',
-    'about_lead' => 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing. The equipment is carefully chosen for the Tiddler age range: tactile, bright and engaging for young explorers.',
-    'about_content' => '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>',
+    'age' => $age_range ?: '6–12 Months',
+    'about_title' => $about_title ?: '<em>Parent & Baby</em> movement, music and play',
+    'about_lead' => $about_lead ?: 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing. The equipment is carefully chosen for the Tiddler age range: tactile, bright and engaging for young explorers.',
+    'about_content' => $about_content ?: '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>',
     'modifier' => 'tiddler',
-);
-
-$sessions = array(
-    array('day' => 'Thursday', 'time' => '10:30 – 11:10', 'price' => '£10 / class', 'availability' => '8 / 10', 'status' => 'available'),
 );
 
 $current_term = array(
@@ -44,6 +92,15 @@ $upcoming_terms = array(
         'payment_due' => 'Payment due by 27 November'
     )
 );
+
+// Gallery images
+$gallery_images = array(
+    array('src' => 'gallery-1.jpg', 'alt' => 'Tiddler Gym class photo 1'),
+    array('src' => 'gallery-2.jpg', 'alt' => 'Tiddler Gym class photo 2'),
+    array('src' => 'gallery-3.jpg', 'alt' => 'Tiddler Gym class photo 3'),
+    array('src' => 'gallery-4.jpg', 'alt' => 'Tiddler Gym class photo 4'),
+    array('src' => 'hero.jpg', 'alt' => 'Tiddler Gym class photo 5'),
+);
 ?>
 
 <div data-page-root="tiddler-gym">
@@ -55,7 +112,7 @@ $upcoming_terms = array(
 
     <section class="cd-hero" aria-label="<?php echo esc_attr($class_data['name']); ?>">
         <div class="container">
-            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--<?php echo esc_attr($class_data['modifier']); ?> card-accent">
+            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--tiddler card-accent">
                 <div class="cd-hero-meta">
                     <span class="cd-hero-age"><?php echo esc_html($class_data['age']); ?></span>
                     <h1 class="cd-hero-title"><?php echo esc_html($class_data['name']); ?></h1>
@@ -116,7 +173,11 @@ $upcoming_terms = array(
                                 <td data-label="<?php _e('Price', 'tjs-gymnastics'); ?>"><?php echo esc_html($session['price']); ?></td>
                                 <td data-label="<?php _e('Availability', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php echo esc_html($session['availability']); ?></span></td>
                                 <td data-label="<?php _e('Book Now', 'tjs-gymnastics'); ?>">
-                                    <a href="<?php echo esc_url(home_url('/tiddler-gym-booking/')); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <?php if ($session['status'] !== 'full'): ?>
+                                        <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], home_url('/tiddler-gym-booking/'))); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <?php else: ?>
+                                        <a href="#waitlist" class="btn btn-secondary btn-sm cd-waitlist-btn"><?php _e('Join Waitlist', 'tjs-gymnastics'); ?></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -182,6 +243,36 @@ $upcoming_terms = array(
                 </div>
                 <p class="cd-terms-summary-date"><?php _e('March 2026', 'tjs-gymnastics'); ?></p>
             </article>
+        </div>
+    </section>
+
+    <section class="cd-gallery section" aria-label="<?php _e('Tiddler Gym photos', 'tjs-gymnastics'); ?>">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><?php _e('Gallery', 'tjs-gymnastics'); ?></span>
+                <h2><em><?php _e('Life', 'tjs-gymnastics'); ?></em> <?php _e('in the Gym', 'tjs-gymnastics'); ?></h2>
+            </div>
+
+            <div class="comp-carousel" aria-label="<?php _e('Tiddler Gym photos', 'tjs-gymnastics'); ?>" tabindex="0">
+                <div class="comp-carousel-main">
+                    <?php 
+                    $gallery_base_url = get_template_directory_uri() . '/assets/images/classes/tiddler/';
+                    foreach ($gallery_images as $index => $img): 
+                    ?>
+                        <img class="comp-carousel-img <?php echo $index === 0 ? 'is-active' : ''; ?>" src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="<?php echo esc_attr($img['alt']); ?>" loading="lazy">
+                    <?php endforeach; ?>
+                    <button class="comp-carousel-btn comp-carousel-prev" aria-label="<?php _e('Previous photo', 'tjs-gymnastics'); ?>">&#8249;</button>
+                    <button class="comp-carousel-btn comp-carousel-next" aria-label="<?php _e('Next photo', 'tjs-gymnastics'); ?>">&#8250;</button>
+                    <span class="comp-carousel-counter" aria-live="polite">1 / <?php echo count($gallery_images); ?></span>
+                </div>
+                <div class="comp-carousel-thumbs" role="tablist" aria-label="<?php _e('Photo thumbnails', 'tjs-gymnastics'); ?>">
+                    <?php foreach ($gallery_images as $index => $img): ?>
+                        <button class="comp-thumb <?php echo $index === 0 ? 'is-active' : ''; ?>" data-index="<?php echo $index; ?>" role="tab" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-label="<?php printf(__('Photo %d', 'tjs-gymnastics'), $index + 1); ?>">
+                            <img src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="" loading="lazy">
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
     </section>
 </div>

@@ -23,118 +23,134 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
     <div class="container">
         <div class="class-cards-grid">
             <?php
-            if (have_rows('class_cards')):
-                while (have_rows('class_cards')): the_row();
-                    $class_name = get_sub_field('class_name');
-                    $age_range = get_sub_field('age_range');
-                    $description = get_sub_field('description');
-                    $price = get_sub_field('price');
-                    $price_label = get_sub_field('price_label');
-                    $price_note = get_sub_field('price_note');
-                    $button_text = get_sub_field('button_text') ?: 'Details & Book';
-                    $button_link = get_sub_field('button_link');
-                    $image = get_sub_field('image');
-                    $class_modifier = get_sub_field('class_modifier'); // tiddler, toddler, minigym, gym
+            // Query WooCommerce products in Classes category
+            $args = array(
+                'post_type' => 'product',
+                'posts_per_page' => -1,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field' => 'slug',
+                        'terms' => 'classes',
+                        'include_children' => true
+                    )
+                ),
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            );
+            
+            $class_products = new WP_Query($args);
+            
+            if ($class_products->have_posts()):
+                while ($class_products->have_posts()): $class_products->the_post();
+                    $product = wc_get_product(get_the_ID());
+                    if (!$product) continue;
+                    
+                    $class_name = $product->get_name();
+                    $class_slug = $product->get_slug();
+                    $description = $product->get_short_description() ?: $product->get_description();
+                    
+                    // Map product slug to class detail page URL
+                    $class_page_map = array(
+                        'tiddler-gym' => '/tiddler-gym/',
+                        'toddler-gym-product' => '/toddler-gym/',
+                        'mini-gym-product' => '/mini-gym/',
+                        'gymnastics-product' => '/gymnastics/',
+                    );
+                    
+                    if (isset($class_page_map[$class_slug])) {
+                        $button_link = home_url($class_page_map[$class_slug]);
+                    } else {
+                        $button_link = get_permalink();
+                    }
+                    
+                    $image = $product->get_image_id() ? wp_get_attachment_image_src($product->get_image_id(), 'full') : null;
+                    
+                    // Get ACF fields if available
+                    $age_range = function_exists('get_field') ? get_field('age_range', get_the_ID()) : '';
+                    $class_type = function_exists('get_field') ? get_field('class_type', get_the_ID()) : '';
+                    $pay_type = function_exists('get_field') ? get_field('pay_type', get_the_ID()) : '';
+                    
+                    // Determine modifier based on class type or category
+                    $modifier = 'gym';
+                    $class_categories = wp_get_post_terms(get_the_ID(), 'product_cat');
+                    foreach ($class_categories as $cat) {
+                        if ($cat->slug === 'tiddler-gym') $modifier = 'tiddler';
+                        if ($cat->slug === 'toddler-gym') $modifier = 'toddler';
+                        if ($cat->slug === 'mini-gym') $modifier = 'minigym';
+                        if ($cat->slug === 'gymnastics') $modifier = 'gym';
+                    }
+                    
+                    // Get pricing info
+                    if ($product->is_type('variable')) {
+                        $prices = $product->get_variation_prices();
+                        $min_price = !empty($prices['price']) ? min($prices['price']) : 0;
+                        $max_price = !empty($prices['price']) ? max($prices['price']) : 0;
+                        
+                        if ($pay_type === 'per_class') {
+                            $price_display = '£' . $min_price;
+                            $price_label = 'per class';
+                            $price_note = 'Pay as you go';
+                        } else {
+                            if ($min_price == $max_price) {
+                                $price_display = '£' . $min_price;
+                            } else {
+                                $price_display = 'From £' . $min_price;
+                            }
+                            $price_label = 'per term';
+                            $price_note = '';
+                        }
+                    } else {
+                        $price_display = $product->get_price_html();
+                        $price_label = '';
+                        $price_note = '';
+                    }
+                    
+                    // Default image mapping
+                    $image_file = 'class-card-gymnastics.png';
+                    if ($modifier === 'tiddler') $image_file = 'class-card-tiddler.png';
+                    if ($modifier === 'toddler') $image_file = 'class-card-toddler.png';
+                    if ($modifier === 'minigym') $image_file = 'class-card-mini-gym.png';
+                    
+                    // Fallback age ranges if ACF not set
+                    if (empty($age_range)) {
+                        if ($modifier === 'tiddler') $age_range = '6–12 Months';
+                        if ($modifier === 'toddler') $age_range = '1–3 Years';
+                        if ($modifier === 'minigym') $age_range = '3–4½ Years';
+                        if ($modifier === 'gym') $age_range = '5+ Years';
+                    }
             ?>
-                <article class="class-card class-card--<?php echo esc_attr($class_modifier); ?>">
+                <article class="class-card class-card--<?php echo esc_attr($modifier); ?>">
                     <div class="class-card-img-wrap" aria-hidden="true">
                         <?php if ($image): ?>
-                            <img src="<?php echo esc_url($image['url']); ?>" alt="" class="class-card-img" loading="lazy">
+                            <img src="<?php echo esc_url($image[0]); ?>" alt="" class="class-card-img" loading="lazy">
+                        <?php else: ?>
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/' . $image_file); ?>" alt="" class="class-card-img" loading="lazy">
                         <?php endif; ?>
                         <span class="age-pill-overlay"><?php echo esc_html($age_range); ?></span>
                     </div>
                     <div class="class-card-body">
                         <h3><?php echo esc_html($class_name); ?></h3>
-                        <p class="class-card-desc"><?php echo esc_html($description); ?></p>
+                        <p class="class-card-desc"><?php echo esc_html(wp_trim_words($description, 30)); ?></p>
                         <div class="class-card-cta">
                             <div class="class-pricing">
-                                <span class="class-pricing-amount"><?php echo esc_html($price); ?></span>
+                                <span class="class-pricing-amount"><?php echo wp_kses_post($price_display); ?></span>
                                 <div class="class-pricing-meta">
                                     <span class="class-pricing-label"><?php echo esc_html($price_label); ?></span>
                                     <span class="class-pricing-note"><?php echo esc_html($price_note); ?></span>
                                 </div>
                             </div>
-                            <a href="<?php echo esc_url($button_link); ?>" class="btn btn-magenta btn-sm"><?php echo esc_html($button_text); ?></a>
+                            <a href="<?php echo esc_url($button_link); ?>" class="btn btn-magenta btn-sm">Details & Book</a>
                         </div>
                     </div>
                 </article>
-            <?php
+            <?php 
                 endwhile;
+                wp_reset_postdata();
             else:
-                // Default class cards - matching demo page with proper links
-                $default_classes = array(
-                    array(
-                        'name' => 'Tiddler Gym',
-                        'age' => '6–12 Months',
-                        'desc' => 'A parent-and-baby activity class designed to encourage physical play and interaction between parent and baby. The tactile, bright and stimulating environment changes every week so there\'s always something fresh to explore.',
-                        'price' => '£10',
-                        'price_label' => 'per class',
-                        'price_note' => 'Pay as you go',
-                        'button' => 'Details & Book',
-                        'link' => home_url('/tiddler-gym/'),
-                        'image' => 'class-card-tiddler.png',
-                        'modifier' => 'tiddler'
-                    ),
-                    array(
-                        'name' => 'Toddler Gym',
-                        'age' => '1–3 Years',
-                        'desc' => 'An active exploration class for toddlers with full parent and carer participation. Structured sessions build confidence, coordination and gross motor skills through guided equipment circuits — with a calm cool-down to close.',
-                        'price' => '£143',
-                        'price_label' => 'per term',
-                        'price_note' => '11 sessions',
-                        'button' => 'Details & Book',
-                        'link' => home_url('/toddler-gym/'),
-                        'image' => 'class-card-toddler.png',
-                        'modifier' => 'toddler'
-                    ),
-                    array(
-                        'name' => 'Mini Gym',
-                        'age' => '3–4½ Years',
-                        'desc' => 'An independent class where children continue learning the foundations of gymnastics. Parents observe from the doorway, with a dedicated watching week at the end of each term. Groups are kept small for maximum focus.',
-                        'price' => '£154',
-                        'price_label' => 'per term',
-                        'price_note' => '11 sessions',
-                        'button' => 'Details & Book',
-                        'link' => home_url('/mini-gym/'),
-                        'image' => 'class-card-mini-gym.png',
-                        'modifier' => 'minigym'
-                    ),
-                    array(
-                        'name' => 'Gymnastics',
-                        'age' => '5+ Years',
-                        'desc' => 'Our main programme for children who have progressed from Mini Gym. A progressive badge scheme takes gymnasts from Level 7 through to Diamond, with competition and display opportunities for those who want them.',
-                        'price' => 'From £154',
-                        'price_label' => 'per term',
-                        'price_note' => 'Level dependent',
-                        'button' => 'Details',
-                        'link' => home_url('/gymnastics/'),
-                        'image' => 'class-card-gymnastics.png',
-                        'modifier' => 'gym'
-                    ),
-                );
-                foreach ($default_classes as $class):
+                echo '<p>No classes found.</p>';
+            endif;
             ?>
-                <article class="class-card class-card--<?php echo esc_attr($class['modifier']); ?>">
-                    <div class="class-card-img-wrap" aria-hidden="true">
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/' . $class['image']); ?>" alt="" class="class-card-img" loading="lazy">
-                        <span class="age-pill-overlay"><?php echo esc_html($class['age']); ?></span>
-                    </div>
-                    <div class="class-card-body">
-                        <h3><?php echo esc_html($class['name']); ?></h3>
-                        <p class="class-card-desc"><?php echo esc_html($class['desc']); ?></p>
-                        <div class="class-card-cta">
-                            <div class="class-pricing">
-                                <span class="class-pricing-amount"><?php echo esc_html($class['price']); ?></span>
-                                <div class="class-pricing-meta">
-                                    <span class="class-pricing-label"><?php echo esc_html($class['price_label']); ?></span>
-                                    <span class="class-pricing-note"><?php echo esc_html($class['price_note']); ?></span>
-                                </div>
-                            </div>
-                            <a href="<?php echo esc_url($class['link']); ?>" class="btn btn-magenta btn-sm"><?php echo esc_html($class['button']); ?></a>
-                        </div>
-                    </div>
-                </article>
-            <?php endforeach; endif; ?>
         </div>
     </div>
 </section>

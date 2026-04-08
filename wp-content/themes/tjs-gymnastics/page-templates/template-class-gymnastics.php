@@ -4,52 +4,61 @@
  */
 get_header();
 
+// Get product data
+$product = tjs_get_class_product('gymnastics-product');
+
+// Get ACF fields or use defaults
+$age_range = ($product && function_exists('get_field')) ? get_field('age_range', $product->get_id()) : '5+ Years';
+$about_title = ($product && function_exists('get_field')) ? get_field('about_title', $product->get_id()) : '<em>Progressive</em> gymnastics for children aged 5+';
+$about_lead = ($product && function_exists('get_field')) ? get_field('about_lead', $product->get_id()) : 'Our Gymnastics classes are for children aged 5 years. Sessions are built around floor and vault work, helping gymnasts develop confidence, technique, body control and strength in a structured but encouraging environment.';
+$about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards.</p><p>We are limited with times and space as we accommodate a large age range after school. Children need to have attended a preschool class to be eligible for our Gymnastics classes.</p>';
+
+// Get variations data
+$sessions = $product ? tjs_get_class_sessions($product, 20) : array();
+
+// Fallback sessions if no variations
+if (empty($sessions)) {
+    $sessions = array(
+        array('day' => 'Monday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Mixed Intermediate', 'variation_id' => 0),
+        array('day' => 'Monday', 'time' => '4:30 – 5:15', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Girls Mini Squad', 'variation_id' => 0),
+        array('day' => 'Monday', 'time' => '5:00 – 6:00', 'price' => '£176 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Boys Elite', 'variation_id' => 0),
+        array('day' => 'Tuesday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Beginners', 'variation_id' => 0),
+        array('day' => 'Tuesday', 'time' => '4:45 – 5:30', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Mixed Intermediate', 'variation_id' => 0),
+        array('day' => 'Tuesday', 'time' => '5:30 – 6:30', 'price' => '£176 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Mixed Squad', 'variation_id' => 0),
+        array('day' => 'Wednesday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Beginners', 'variation_id' => 0),
+        array('day' => 'Wednesday', 'time' => '4:30 – 5:30', 'price' => '£176 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Girls Squad', 'variation_id' => 0),
+        array('day' => 'Thursday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Beginners', 'variation_id' => 0),
+        array('day' => 'Thursday', 'time' => '4:45 – 5:45', 'price' => '£176 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Girls Junior Squad', 'variation_id' => 0),
+        array('day' => 'Thursday', 'time' => '4:45 – 6:45', 'price' => '£209 / term', 'availability' => 'Full', 'status' => 'full', 'group' => 'Girls Elite', 'variation_id' => 0),
+    );
+}
+
+$modifier = $product ? tjs_get_class_modifier($product->get_id()) : 'gym';
+
 $class_data = array(
     'name' => 'Gymnastics',
-    'age' => '5+ Years',
-    'about_title' => '<em>Progressive</em> gymnastics for children aged 5+',
-    'about_lead' => 'Our Gymnastics classes are for children aged 5 years. Sessions are built around floor and vault work, helping gymnasts develop confidence, technique, body control and strength in a structured but encouraging environment.',
-    'about_content' => '<p>We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards.</p><p>We are limited with times and space as we accommodate a large age range after school. Children need to have attended a preschool class to be eligible for our Gymnastics classes. Anyone attending our Mini Gym classes in the Summer term who are starting Reception in the September will automatically be placed on our waiting list for a Beginners Gymnastics class. Spaces are allocated on a random name-out-of-the-hat basis, and all will be offered a space by the Summer term.</p><p>We also have a second waiting list for those who attend a TJ\'s class but leave before the Summer term before starting Reception. Spaces will only be offered to this list when everyone on the first list has been offered a space. WE THEREFORE SADLY CANNOT OFFER ANYONE A GYMNASTICS CLASS WHO HAS NOT ATTENDED OUR PRESCHOOL PROGRAMME.</p>',
-    'modifier' => 'tiddler',
+    'age' => $age_range ?: '5+ Years',
+    'about_title' => $about_title ?: '<em>Progressive</em> gymnastics for children aged 5+',
+    'about_lead' => $about_lead ?: 'Our Gymnastics classes are for children aged 5 years. Sessions are built around floor and vault work, helping gymnasts develop confidence, technique, body control and strength in a structured but encouraging environment.',
+    'about_content' => $about_content ?: '<p>We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards.</p><p>We are limited with times and space as we accommodate a large age range after school. Children need to have attended a preschool class to be eligible for our Gymnastics classes. Anyone attending our Mini Gym classes in the Summer term who are starting Reception in the September will automatically be placed on our waiting list for a Beginners Gymnastics class. Spaces are allocated on a random name-out-of-the-hat basis, and all will be offered a space by the Summer term.</p><p>We also have a second waiting list for those who attend a TJ\'s class but leave before the Summer term before starting Reception. Spaces will only be offered to this list when everyone on the first list has been offered a space. WE THEREFORE SADLY CANNOT OFFER ANYONE A GYMNASTICS CLASS WHO HAS NOT ATTENDED OUR PRESCHOOL PROGRAMME.</p>',
+    'modifier' => $modifier,
 );
 
-$sessions = array(
-    array('day' => 'Monday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'group' => 'Mixed Intermediate', 'status' => 'full'),
-    array('day' => 'Monday', 'time' => '4:30 – 5:15', 'price' => '£165 / term', 'group' => 'Girls Mini Squad', 'status' => 'full'),
-    array('day' => 'Monday', 'time' => '5:00 – 6:00', 'price' => '£176 / term', 'group' => 'Boys Elite', 'status' => 'full'),
-    array('day' => 'Tuesday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'group' => 'Beginners', 'status' => 'full'),
-    array('day' => 'Tuesday', 'time' => '4:45 – 5:30', 'price' => '£165 / term', 'group' => 'Mixed Intermediate', 'status' => 'full'),
-    array('day' => 'Tuesday', 'time' => '5:30 – 6:30', 'price' => '£176 / term', 'group' => 'Mixed Squad', 'status' => 'full'),
-    array('day' => 'Wednesday', 'time' => '4:00 – 4:45', 'price' => '£165 / term', 'group' => 'Beginners', 'status' => 'full'),
+// Gallery images
+$gallery_images = array(
+    array('src' => 'gallery-1.jpg', 'alt' => 'Gymnastics class photo 1'),
+    array('src' => 'gallery-2.jpg', 'alt' => 'Gymnastics class photo 2'),
+    array('src' => 'gallery-3.jpg', 'alt' => 'Gymnastics class photo 3'),
+    array('src' => 'gallery-4.jpg', 'alt' => 'Gymnastics class photo 4'),
+    array('src' => 'gallery-5.jpg', 'alt' => 'Gymnastics class photo 5'),
+    array('src' => 'gallery-6.jpg', 'alt' => 'Gymnastics class photo 6'),
+    array('src' => 'gallery-7.jpg', 'alt' => 'Gymnastics class photo 7'),
+    array('src' => 'gallery-8.jpg', 'alt' => 'Gymnastics class photo 8'),
 );
 
-$current_term = array(
-    'season' => 'Summer 2026',
-    'status' => 'Teaching now',
-    'weeks' => '13 weeks',
-    'dates' => array('13 Apr – 21 May', '1 Jun – 16 Jul'),
-    'halfterm' => 'Half term: w/k 25 May · No class 4 May',
-    'payment_due' => 'Payment due by 12 March'
-);
-
-$upcoming_terms = array(
-    array(
-        'season' => 'Winter 2026',
-        'status' => 'Next term',
-        'weeks' => '12 weeks',
-        'dates' => array('7 Sep – 16 Oct', '2 Nov – 10 Dec'),
-        'halfterm' => '2-week half term: w/k 19 October',
-        'payment_due' => 'Payment due by 26 June'
-    ),
-    array(
-        'season' => 'Spring 2027',
-        'status' => 'Planning ahead',
-        'weeks' => '11 weeks',
-        'dates' => array('4 Jan – 11 Feb', '22 Feb – 25 Mar'),
-        'halfterm' => 'Half term: w/k 15 February',
-        'payment_due' => 'Payment due by 27 November'
-    )
-);
+$terms = tjs_get_default_terms();
+$current_term = $terms[0];
+$upcoming_terms = array_slice($terms, 1);
 ?>
 
 <div data-page-root="gymnastics">
@@ -61,12 +70,12 @@ $upcoming_terms = array(
 
     <section class="cd-hero" aria-label="<?php echo esc_attr($class_data['name']); ?>">
         <div class="container">
-            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--<?php echo esc_attr($class_data['modifier']); ?> card-accent">
+            <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--tiddler card-accent">
                 <div class="cd-hero-meta">
                     <span class="cd-hero-age"><?php echo esc_html($class_data['age']); ?></span>
                     <h1 class="cd-hero-title"><?php echo esc_html($class_data['name']); ?></h1>
                     <div class="cd-hero-actions">
-                        <a href="#book" class="btn btn-magenta"><?php _e('View Class Times', 'tjs-gymnastics'); ?></a>
+                        <a href="#book" class="btn btn-magenta">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +97,7 @@ $upcoming_terms = array(
         </div>
     </section>
 
-    <section class="cd-booking cd-booking--gymnastics section" id="book" aria-label="<?php _e('Gymnastics times and prices', 'tjs-gymnastics'); ?>">
+    <section class="cd-booking cd-booking--<?php echo esc_attr($class_data['modifier']); ?> section" id="book" aria-label="<?php _e('Book a place', 'tjs-gymnastics'); ?>">
         <div class="container">
             <div class="cd-booking-header">
                 <span class="section-label"><?php _e('Book a Place', 'tjs-gymnastics'); ?></span>
@@ -96,19 +105,15 @@ $upcoming_terms = array(
                 <p><?php _e('Current term sessions are shown below, with the next term dates underneath for planning ahead.', 'tjs-gymnastics'); ?></p>
             </div>
 
-            <div class="cd-table-note cd-table-note--highlight">
-                <p><strong><?php _e('British Gymnastics membership required.', 'tjs-gymnastics'); ?></strong> <?php _e('All Mini Gym and Gymnastics members need British Gymnastics membership. For more information, please visit', 'tjs-gymnastics'); ?> <a href="https://mybg.british-gymnastics.org/Account.mvc/SignIn" target="_blank" rel="noopener">https://mybg.british-gymnastics.org/Account.mvc/SignIn</a>.</p>
-                <p><strong><?php _e('Watching Week:', 'tjs-gymnastics'); ?></strong> <?php _e('The final week of each term is our Watching Week, when parents and carers are invited into the hall.', 'tjs-gymnastics'); ?></p>
-            </div>
-
             <div class="cd-booking-table-wrap">
                 <table class="cd-booking-table" aria-label="<?php echo esc_attr($current_term['season'] . ' ' . $class_data['name'] . ' sessions'); ?>">
                     <thead>
                         <tr>
                             <th><?php _e('Time', 'tjs-gymnastics'); ?></th>
-                            <th><?php _e('Price', 'tjs-gymnastics'); ?></th>
                             <th><?php _e('Group', 'tjs-gymnastics'); ?></th>
-                            <th><?php _e('Status', 'tjs-gymnastics'); ?></th>
+                            <th><?php _e('Price', 'tjs-gymnastics'); ?></th>
+                            <th><?php _e('Availability', 'tjs-gymnastics'); ?></th>
+                            <th><?php _e('Book Now', 'tjs-gymnastics'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,14 +124,21 @@ $upcoming_terms = array(
                                 $current_day = $session['day'];
                         ?>
                             <tr class="cd-day-group">
-                                <td><?php echo esc_html($session['day']); ?></td><td colspan="3"></td>
+                                <td><?php echo esc_html($session['day']); ?></td><td colspan="4"></td>
                             </tr>
                         <?php endif; ?>
                             <tr>
                                 <td data-label="<?php _e('Time', 'tjs-gymnastics'); ?>"><?php echo esc_html($session['time']); ?></td>
+                                <td data-label="<?php _e('Group', 'tjs-gymnastics'); ?>"><?php echo esc_html(isset($session['group']) ? $session['group'] : ''); ?></td>
                                 <td data-label="<?php _e('Price', 'tjs-gymnastics'); ?>"><?php echo esc_html($session['price']); ?></td>
-                                <td data-label="<?php _e('Group', 'tjs-gymnastics'); ?>"><?php echo esc_html($session['group']); ?></td>
-                                <td data-label="<?php _e('Status', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php _e('Class Full', 'tjs-gymnastics'); ?></span></td>
+                                <td data-label="<?php _e('Availability', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php echo esc_html($session['availability']); ?></span></td>
+                                <td data-label="<?php _e('Book Now', 'tjs-gymnastics'); ?>">
+                                    <?php if ($session['status'] !== 'full'): ?>
+                                        <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], home_url('/gymnastics-booking/'))); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <?php else: ?>
+                                        <a href="#waitlist" class="btn btn-secondary btn-sm cd-waitlist-btn"><?php _e('Join Waitlist', 'tjs-gymnastics'); ?></a>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -191,6 +203,36 @@ $upcoming_terms = array(
                 </div>
                 <p class="cd-terms-summary-date"><?php _e('March 2026', 'tjs-gymnastics'); ?></p>
             </article>
+        </div>
+    </section>
+
+    <section class="cd-gallery section" aria-label="<?php _e('Gymnastics photos', 'tjs-gymnastics'); ?>">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><?php _e('Gallery', 'tjs-gymnastics'); ?></span>
+                <h2><em><?php _e('Life', 'tjs-gymnastics'); ?></em> <?php _e('in the Gym', 'tjs-gymnastics'); ?></h2>
+            </div>
+
+            <div class="comp-carousel" aria-label="<?php _e('Gymnastics photos', 'tjs-gymnastics'); ?>" tabindex="0">
+                <div class="comp-carousel-main">
+                    <?php 
+                    $gallery_base_url = get_template_directory_uri() . '/assets/images/classes/gymnastics/';
+                    foreach ($gallery_images as $index => $img): 
+                    ?>
+                        <img class="comp-carousel-img <?php echo $index === 0 ? 'is-active' : ''; ?>" src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="<?php echo esc_attr($img['alt']); ?>" loading="lazy">
+                    <?php endforeach; ?>
+                    <button class="comp-carousel-btn comp-carousel-prev" aria-label="<?php _e('Previous photo', 'tjs-gymnastics'); ?>">&#8249;</button>
+                    <button class="comp-carousel-btn comp-carousel-next" aria-label="<?php _e('Next photo', 'tjs-gymnastics'); ?>">&#8250;</button>
+                    <span class="comp-carousel-counter" aria-live="polite">1 / <?php echo count($gallery_images); ?></span>
+                </div>
+                <div class="comp-carousel-thumbs" role="tablist" aria-label="<?php _e('Photo thumbnails', 'tjs-gymnastics'); ?>">
+                    <?php foreach ($gallery_images as $index => $img): ?>
+                        <button class="comp-thumb <?php echo $index === 0 ? 'is-active' : ''; ?>" data-index="<?php echo $index; ?>" role="tab" aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-label="<?php printf(__('Photo %d', 'tjs-gymnastics'), $index + 1); ?>">
+                            <img src="<?php echo esc_url($gallery_base_url . $img['src']); ?>" alt="" loading="lazy">
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
     </section>
 </div>

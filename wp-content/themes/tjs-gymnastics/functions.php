@@ -10,6 +10,18 @@ if (!defined('ABSPATH')) {
 // Include custom walker class
 require_once get_template_directory() . '/class-walker-nav-menu.php';
 
+// Include class product functions
+require_once get_template_directory() . '/inc/class-product-functions.php';
+
+// Include stock sync functions
+require_once get_template_directory() . '/inc/class-stock-sync.php';
+
+// Include waitlist integration
+require_once get_template_directory() . '/inc/class-waitlist-integration.php';
+
+// Include checkout fields
+require_once get_template_directory() . '/inc/class-checkout-fields.php';
+
 /**
  * ACF Compatibility Functions
  * These functions provide fallbacks when ACF is not installed
