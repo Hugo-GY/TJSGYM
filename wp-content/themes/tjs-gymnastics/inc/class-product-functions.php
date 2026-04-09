@@ -45,9 +45,13 @@ function tjs_get_class_sessions($product, $max_stock = 18) {
         if (!$variation) continue;
         
         $attributes = $variation->get_attributes();
-        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : '';
-        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : '';
-        $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] : '';
+        // Support both taxonomy attributes (pa_*) and custom attributes
+        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : 
+               (isset($attributes['class-day']) ? $attributes['class-day'] : '');
+        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : 
+                (isset($attributes['time-slot']) ? $attributes['time-slot'] : '');
+        $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] : 
+                 (isset($attributes['group-level']) ? $attributes['group-level'] : '');
         
         if (empty($day) || empty($time)) continue;
         

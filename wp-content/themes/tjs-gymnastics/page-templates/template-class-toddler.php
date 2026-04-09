@@ -46,9 +46,60 @@ $gallery_images = array(
     array('src' => 'gallery-5.jpg', 'alt' => 'Toddler Gym class photo 5'),
 );
 
-$terms = tjs_get_default_terms();
-$current_term = $terms[0];
-$upcoming_terms = array_slice($terms, 1);
+// Get term info from ACF or use defaults
+$term_info = ($product && function_exists('get_field')) ? get_field('term_info', $product->get_id()) : array();
+
+// Default term data if ACF not set
+if (empty($term_info)) {
+    $term_info = array(
+        array(
+            'term_season' => 'Summer 2026',
+            'term_status' => 'Teaching now',
+            'term_weeks' => '13 weeks',
+            'term_dates' => array('13 Apr – 21 May', '1 Jun – 16 Jul'),
+            'term_halfterm' => 'Half term: w/k 25 May · No class 4 May',
+            'term_payment_due' => 'Payment due by 12 March'
+        ),
+        array(
+            'term_season' => 'Winter 2026',
+            'term_status' => 'Next term',
+            'term_weeks' => '12 weeks',
+            'term_dates' => array('7 Sep – 16 Oct', '2 Nov – 10 Dec'),
+            'term_halfterm' => '2-week half term: w/k 19 October',
+            'term_payment_due' => 'Payment due by 26 June'
+        ),
+        array(
+            'term_season' => 'Spring 2027',
+            'term_status' => 'Planning ahead',
+            'term_weeks' => '11 weeks',
+            'term_dates' => array('4 Jan – 11 Feb', '22 Feb – 25 Mar'),
+            'term_halfterm' => 'Half term: w/k 15 February',
+            'term_payment_due' => 'Payment due by 27 November'
+        )
+    );
+}
+
+// Format term data for display
+$terms = array();
+foreach ($term_info as $term) {
+    $dates = isset($term['term_dates']) ? $term['term_dates'] : array();
+    if (!is_array($dates)) {
+        $dates = explode("\n", $dates);
+    }
+    $terms[] = array(
+        'season' => isset($term['term_season']) ? $term['term_season'] : '',
+        'status' => isset($term['term_status']) ? $term['term_status'] : '',
+        'weeks' => isset($term['term_weeks']) ? $term['term_weeks'] : '',
+        'dates' => $dates,
+        'halfterm' => isset($term['term_halfterm']) ? $term['term_halfterm'] : '',
+        'payment_due' => isset($term['term_payment_due']) ? $term['term_payment_due'] : ''
+    );
+}
+
+$current_term = !empty($terms) ? $terms[0] : array(
+    'season' => '', 'status' => '', 'weeks' => '', 'dates' => array(), 'halfterm' => '', 'payment_due' => ''
+);
+$upcoming_terms = count($terms) > 1 ? array_slice($terms, 1) : array();
 ?>
 
 <div data-page-root="toddler-gym">
@@ -124,7 +175,7 @@ $upcoming_terms = array_slice($terms, 1);
                                     <?php if ($session['status'] !== 'full'): ?>
                                         <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], home_url('/toddler-gym-booking/'))); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                     <?php else: ?>
-                                        <a href="#waitlist" class="btn btn-secondary btn-sm cd-waitlist-btn"><?php _e('Join Waitlist', 'tjs-gymnastics'); ?></a>
+                                        <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
