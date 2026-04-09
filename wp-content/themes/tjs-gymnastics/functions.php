@@ -7,6 +7,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// ACF Local JSON - Load and save field groups from theme
+add_filter('acf/settings/load_json', function($paths) {
+    $paths[] = get_template_directory() . '/acf-field-groups';
+    return $paths;
+});
+
+add_filter('acf/settings/save_json', function($path) {
+    return get_template_directory() . '/acf-field-groups';
+});
+
 // Include custom walker class
 require_once get_template_directory() . '/class-walker-nav-menu.php';
 
@@ -25,30 +35,33 @@ require_once get_template_directory() . '/inc/class-checkout-fields.php';
 /**
  * ACF Compatibility Functions
  * These functions provide fallbacks when ACF is not installed
+ * They are loaded after plugins_loaded to avoid conflicts
  */
-if (!function_exists('get_field')) {
-    function get_field($field_name, $post_id = false) {
-        return false;
+add_action('plugins_loaded', function() {
+    if (!function_exists('get_field')) {
+        function get_field($field_name, $post_id = false) {
+            return false;
+        }
     }
-}
 
-if (!function_exists('have_rows')) {
-    function have_rows($field_name, $post_id = false) {
-        return false;
+    if (!function_exists('have_rows')) {
+        function have_rows($field_name, $post_id = false) {
+            return false;
+        }
     }
-}
 
-if (!function_exists('the_row')) {
-    function the_row() {
-        return false;
+    if (!function_exists('the_row')) {
+        function the_row() {
+            return false;
+        }
     }
-}
 
-if (!function_exists('get_sub_field')) {
-    function get_sub_field($sub_field_name) {
-        return false;
+    if (!function_exists('get_sub_field')) {
+        function get_sub_field($sub_field_name) {
+            return false;
+        }
     }
-}
+});
 
 /**
  * Theme Setup
@@ -143,6 +156,23 @@ add_action('wp_enqueue_scripts', 'tjs_scripts');
 function tjs_body_classes($classes) {
     if (is_page()) {
         $classes[] = 'page-' . get_post_field('post_name', get_the_ID());
+
+        // Add class-detail-page for class detail templates
+        $template = get_page_template_slug(get_the_ID());
+        if ($template && strpos($template, 'template-class-') !== false) {
+            $classes[] = 'class-detail-page';
+
+            // Add specific modifier class based on template
+            if ($template === 'page-templates/template-class-toddler.php') {
+                $classes[] = 'class-detail-page--tiddler';
+            } elseif ($template === 'page-templates/template-class-tiddler.php') {
+                $classes[] = 'class-detail-page--tiddler';
+            } elseif ($template === 'page-templates/template-class-mini.php') {
+                $classes[] = 'class-detail-page--mini';
+            } elseif ($template === 'page-templates/template-class-gymnastics.php') {
+                $classes[] = 'class-detail-page--gymnastics';
+            }
+        }
     }
     return $classes;
 }

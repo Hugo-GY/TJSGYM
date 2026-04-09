@@ -26,7 +26,9 @@ if (empty($sessions)) {
     );
 }
 
-$modifier = $product ? tjs_get_class_modifier($product->get_id()) : 'toddler';
+$modifier = $product ? tjs_get_class_modifier($product->get_id()) : 'tiddler';
+// Toddler Gym uses the same styles as Tiddler Gym
+$modifier = 'tiddler';
 
 $class_data = array(
     'name' => 'Toddler Gym',
@@ -46,60 +48,71 @@ $gallery_images = array(
     array('src' => 'gallery-5.jpg', 'alt' => 'Toddler Gym class photo 5'),
 );
 
-// Get term info from ACF or use defaults
-$term_info = ($product && function_exists('get_field')) ? get_field('term_info', $product->get_id()) : array();
+// Get term info from ACF (ACF Free Version - flat field structure)
+$ct_season = ($product && function_exists('get_field')) ? get_field('ct_season', $product->get_id()) : '';
+$ct_status = ($product && function_exists('get_field')) ? get_field('ct_status', $product->get_id()) : '';
+$ct_weeks = ($product && function_exists('get_field')) ? get_field('ct_weeks', $product->get_id()) : '';
+$ct_dates = ($product && function_exists('get_field')) ? get_field('ct_dates', $product->get_id()) : '';
+$ct_halfterm = ($product && function_exists('get_field')) ? get_field('ct_halfterm', $product->get_id()) : '';
+$ct_payment_due = ($product && function_exists('get_field')) ? get_field('ct_payment_due', $product->get_id()) : '';
 
-// Default term data if ACF not set
-if (empty($term_info)) {
-    $term_info = array(
-        array(
-            'term_season' => 'Summer 2026',
-            'term_status' => 'Teaching now',
-            'term_weeks' => '13 weeks',
-            'term_dates' => array('13 Apr – 21 May', '1 Jun – 16 Jul'),
-            'term_halfterm' => 'Half term: w/k 25 May · No class 4 May',
-            'term_payment_due' => 'Payment due by 12 March'
-        ),
-        array(
-            'term_season' => 'Winter 2026',
-            'term_status' => 'Next term',
-            'term_weeks' => '12 weeks',
-            'term_dates' => array('7 Sep – 16 Oct', '2 Nov – 10 Dec'),
-            'term_halfterm' => '2-week half term: w/k 19 October',
-            'term_payment_due' => 'Payment due by 26 June'
-        ),
-        array(
-            'term_season' => 'Spring 2027',
-            'term_status' => 'Planning ahead',
-            'term_weeks' => '11 weeks',
-            'term_dates' => array('4 Jan – 11 Feb', '22 Feb – 25 Mar'),
-            'term_halfterm' => 'Half term: w/k 15 February',
-            'term_payment_due' => 'Payment due by 27 November'
-        )
-    );
-}
+$nt1_season = ($product && function_exists('get_field')) ? get_field('nt1_season', $product->get_id()) : '';
+$nt1_status = ($product && function_exists('get_field')) ? get_field('nt1_status', $product->get_id()) : '';
+$nt1_weeks = ($product && function_exists('get_field')) ? get_field('nt1_weeks', $product->get_id()) : '';
+$nt1_dates = ($product && function_exists('get_field')) ? get_field('nt1_dates', $product->get_id()) : '';
+$nt1_halfterm = ($product && function_exists('get_field')) ? get_field('nt1_halfterm', $product->get_id()) : '';
+$nt1_payment_due = ($product && function_exists('get_field')) ? get_field('nt1_payment_due', $product->get_id()) : '';
 
-// Format term data for display
-$terms = array();
-foreach ($term_info as $term) {
-    $dates = isset($term['term_dates']) ? $term['term_dates'] : array();
-    if (!is_array($dates)) {
-        $dates = explode("\n", $dates);
+$nt2_season = ($product && function_exists('get_field')) ? get_field('nt2_season', $product->get_id()) : '';
+$nt2_status = ($product && function_exists('get_field')) ? get_field('nt2_status', $product->get_id()) : '';
+$nt2_weeks = ($product && function_exists('get_field')) ? get_field('nt2_weeks', $product->get_id()) : '';
+$nt2_dates = ($product && function_exists('get_field')) ? get_field('nt2_dates', $product->get_id()) : '';
+$nt2_halfterm = ($product && function_exists('get_field')) ? get_field('nt2_halfterm', $product->get_id()) : '';
+$nt2_payment_due = ($product && function_exists('get_field')) ? get_field('nt2_payment_due', $product->get_id()) : '';
+
+// Helper function to format dates
+function tjs_format_term_dates($dates_field) {
+    if (empty($dates_field)) {
+        return array();
     }
-    $terms[] = array(
-        'season' => isset($term['term_season']) ? $term['term_season'] : '',
-        'status' => isset($term['term_status']) ? $term['term_status'] : '',
-        'weeks' => isset($term['term_weeks']) ? $term['term_weeks'] : '',
-        'dates' => $dates,
-        'halfterm' => isset($term['term_halfterm']) ? $term['term_halfterm'] : '',
-        'payment_due' => isset($term['term_payment_due']) ? $term['term_payment_due'] : ''
-    );
+    if (is_array($dates_field)) {
+        return $dates_field;
+    }
+    return explode("\n", trim($dates_field));
 }
 
-$current_term = !empty($terms) ? $terms[0] : array(
-    'season' => '', 'status' => '', 'weeks' => '', 'dates' => array(), 'halfterm' => '', 'payment_due' => ''
+// Format Current Term
+$current_term = array(
+    'season' => !empty($ct_season) ? $ct_season : 'Summer 2026',
+    'status' => !empty($ct_status) ? $ct_status : 'Teaching now',
+    'weeks' => !empty($ct_weeks) ? $ct_weeks : '13 weeks',
+    'dates' => tjs_format_term_dates(!empty($ct_dates) ? $ct_dates : "13 Apr – 21 May\n1 Jun – 16 Jul"),
+    'halfterm' => !empty($ct_halfterm) ? $ct_halfterm : 'Half term: w/k 25 May · No class 4 May',
+    'payment_due' => !empty($ct_payment_due) ? $ct_payment_due : 'Payment due by 12 March'
 );
-$upcoming_terms = count($terms) > 1 ? array_slice($terms, 1) : array();
+
+// Format Next Terms - Always show both terms (with defaults if not configured)
+$upcoming_terms = array();
+
+// Next Term 1 - Always show
+$upcoming_terms[] = array(
+    'season' => !empty($nt1_season) ? $nt1_season : 'Winter 2026',
+    'status' => !empty($nt1_status) ? $nt1_status : 'Next term',
+    'weeks' => !empty($nt1_weeks) ? $nt1_weeks : '12 weeks',
+    'dates' => tjs_format_term_dates(!empty($nt1_dates) ? $nt1_dates : "7 Sep – 16 Oct\n2 Nov – 10 Dec"),
+    'halfterm' => !empty($nt1_halfterm) ? $nt1_halfterm : '2-week half term: w/k 19 October',
+    'payment_due' => !empty($nt1_payment_due) ? $nt1_payment_due : 'Payment due by 26 June'
+);
+
+// Next Term 2 - Always show
+$upcoming_terms[] = array(
+    'season' => !empty($nt2_season) ? $nt2_season : 'Spring 2027',
+    'status' => !empty($nt2_status) ? $nt2_status : 'Planning ahead',
+    'weeks' => !empty($nt2_weeks) ? $nt2_weeks : '11 weeks',
+    'dates' => tjs_format_term_dates(!empty($nt2_dates) ? $nt2_dates : "4 Jan – 11 Feb\n22 Feb – 25 Mar"),
+    'halfterm' => !empty($nt2_halfterm) ? $nt2_halfterm : 'Half term: w/k 15 February',
+    'payment_due' => !empty($nt2_payment_due) ? $nt2_payment_due : 'Payment due by 27 November'
+);
 ?>
 
 <div data-page-root="toddler-gym">
@@ -182,6 +195,42 @@ $upcoming_terms = count($terms) > 1 ? array_slice($terms, 1) : array();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
+                <!-- Mobile Cards -->
+                <div class="cd-booking-cards-mobile" aria-hidden="true">
+                    <?php
+                    $current_day = '';
+                    foreach ($sessions as $session):
+                        if ($current_day !== $session['day']):
+                            $current_day = $session['day'];
+                    ?>
+                        <p class="cd-booking-mobile-day"><?php echo esc_html($session['day']); ?></p>
+                    <?php endif; ?>
+                        <article class="cd-booking-mobile-card">
+                            <div class="cd-booking-mobile-stats">
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Time', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['time']); ?></span>
+                                </div>
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Price', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['price']); ?></span>
+                                </div>
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Availability', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['availability']); ?></span>
+                                </div>
+                            </div>
+                            <div class="cd-booking-mobile-actions">
+                                <?php if ($session['status'] !== 'full'): ?>
+                                    <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], home_url('/toddler-gym-booking/'))); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                <?php else: ?>
+                                    <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
+                                <?php endif; ?>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <section class="cd-booking-term-current" aria-label="<?php _e('Current term details', 'tjs-gymnastics'); ?>">
