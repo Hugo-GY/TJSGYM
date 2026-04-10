@@ -1,0 +1,536 @@
+{
+    "key": "group_mini_gym_term_info",
+    "title": "Mini Gym - Term Info",
+    "fields": [
+        {
+            "key": "field_mini_ct_header",
+            "label": "Current Term",
+            "name": "",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "0": false,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mini_ct_season",
+            "label": "Season",
+            "name": "ct_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Summer 2026",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Summer 2026",
+            "placeholder": "Summer 2026",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_ct_status",
+            "label": "Status",
+            "name": "ct_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Teaching now",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Teaching now",
+            "placeholder": "Teaching now",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_ct_weeks",
+            "label": "Weeks",
+            "name": "ct_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 13 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "13 weeks",
+            "placeholder": "13 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_ct_dates",
+            "label": "Dates",
+            "name": "ct_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "13 Apr – 21 May\n1 Jun – 16 Jul",
+            "placeholder": "13 Apr – 21 May\n1 Jun – 16 Jul",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mini_ct_halfterm",
+            "label": "Half Term",
+            "name": "ct_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Half term: w\/k 25 May",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Half term: w\/k 25 May · No class 4 May",
+            "placeholder": "Half term: w\/k 25 May",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_ct_payment_due",
+            "label": "Payment Due",
+            "name": "ct_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 12 March",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 12 March",
+            "placeholder": "Payment due by 12 March",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt1_header",
+            "label": "Next Term 1",
+            "name": "",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "0": false,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mini_nt1_season",
+            "label": "Season",
+            "name": "nt1_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Winter 2026",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Winter 2026",
+            "placeholder": "Winter 2026",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt1_status",
+            "label": "Status",
+            "name": "nt1_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Next term",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Next term",
+            "placeholder": "Next term",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt1_weeks",
+            "label": "Weeks",
+            "name": "nt1_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 12 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "12 weeks",
+            "placeholder": "12 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt1_dates",
+            "label": "Dates",
+            "name": "nt1_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "7 Sep – 16 Oct\n2 Nov – 10 Dec",
+            "placeholder": "7 Sep – 16 Oct\n2 Nov – 10 Dec",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mini_nt1_halfterm",
+            "label": "Half Term",
+            "name": "nt1_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 2-week half term: w\/k 19 October",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "2-week half term: w\/k 19 October",
+            "placeholder": "2-week half term: w\/k 19 October",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt1_payment_due",
+            "label": "Payment Due",
+            "name": "nt1_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 26 June",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 26 June",
+            "placeholder": "Payment due by 26 June",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt2_header",
+            "label": "Next Term 2",
+            "name": "",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "0": false,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_mini_nt2_season",
+            "label": "Season",
+            "name": "nt2_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Spring 2027",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Spring 2027",
+            "placeholder": "Spring 2027",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt2_status",
+            "label": "Status",
+            "name": "nt2_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Planning ahead",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Planning ahead",
+            "placeholder": "Planning ahead",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt2_weeks",
+            "label": "Weeks",
+            "name": "nt2_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 11 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "11 weeks",
+            "placeholder": "11 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt2_dates",
+            "label": "Dates",
+            "name": "nt2_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "4 Jan – 11 Feb\n22 Feb – 25 Mar",
+            "placeholder": "4 Jan – 11 Feb\n22 Feb – 25 Mar",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mini_nt2_halfterm",
+            "label": "Half Term",
+            "name": "nt2_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Half term: w\/k 15 February",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Half term: w\/k 15 February",
+            "placeholder": "Half term: w\/k 15 February",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_nt2_payment_due",
+            "label": "Payment Due",
+            "name": "nt2_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 27 November",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 27 November",
+            "placeholder": "Payment due by 27 November",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_age_range",
+            "label": "Age Range",
+            "name": "age_range",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 3–4 Years",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "3–4 Years",
+            "placeholder": "3–4 Years",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_mini_about_title",
+            "label": "About Title",
+            "name": "about_title",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Main heading for the About This Class section. Use <em>text<\/em> for italic styling.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Independent gymnastics with <em>themes<\/em>, circuits and confidence",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_mini_about_lead",
+            "label": "About Lead",
+            "name": "about_lead",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Lead paragraph for the About This Class section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "The Mini Gym is an independent class for children aged 3 to 4 years. Parents and carers do not come into the hall, but the doorways remain open to allow viewing. The last week of each term is our Watching Week, when families can come into the hall to watch the class.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_mini_about_content",
+            "label": "About Content",
+            "name": "about_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Additional content for the About This Class section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea. Each week the set-up changes, and as the term progresses the equipment continues to challenge every child.<\/p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility. To close the class, all groups join together for a short discussion about what they have been doing, what they liked, what they found easy or hard, and an action song.<\/p>",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            },
+            {
+                "param": "post_taxonomy",
+                "operator": "==",
+                "value": "product_cat:mini-gym"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Term information and class details for Mini Gym product",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1775839676
+}
