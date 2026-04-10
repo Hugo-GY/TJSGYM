@@ -13,41 +13,9 @@ $about_title = ($product && function_exists('get_field')) ? get_field('about_tit
 $about_lead = ($product && function_exists('get_field')) ? get_field('about_lead', $product->get_id()) : 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing.';
 $about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>';
 
-// Get variations data
-$sessions = array();
-if ($product && $product->is_type('variable')) {
-    $variations = $product->get_available_variations();
-    foreach ($variations as $variation_data) {
-        $variation = wc_get_product($variation_data['variation_id']);
-        if (!$variation) continue;
-        
-        $attributes = $variation->get_attributes();
-        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : 'Thursday';
-        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : '10:30 – 11:10';
-        $price = $variation->get_price();
-        $stock = $variation->get_stock_quantity();
-        
-        if ($stock === null || $stock === '') $stock = 10;
-        
-        $availability = $stock . ' / 10';
-        $status = 'available';
-        if ($stock <= 0) {
-            $availability = 'Full';
-            $status = 'full';
-        } elseif ($stock <= 3) {
-            $status = 'limited';
-        }
-        
-        $sessions[] = array(
-            'day' => $day,
-            'time' => $time,
-            'price' => '£' . $price . ' / class',
-            'availability' => $availability,
-            'status' => $status,
-            'variation_id' => $variation_data['variation_id']
-        );
-    }
-}
+// Get variations data using unified function
+// Tiddler Gym uses per-class pricing with max 10 slots
+$sessions = $product ? tjs_get_class_sessions($product, 10, 'per_class') : array();
 
 // Fallback sessions if no variations
 if (empty($sessions)) {

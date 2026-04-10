@@ -85,7 +85,7 @@ function get_timetable_data_from_products() {
                 }
                 
                 $timetable[$day_lower][] = array(
-                    'time' => str_replace(array('–', '-'), ' – ', $time),
+                    'time' => tjs_format_time_slot($time),
                     'class' => $product_name,
                     'price' => $price_display,
                     'age' => $age_display,

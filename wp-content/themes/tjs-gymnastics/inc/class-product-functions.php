@@ -9,6 +9,38 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Format time slot from compact format (1030-1110) to display format (10:30 – 11:10)
+ */
+function tjs_format_time_slot($time) {
+    if (empty($time)) {
+        return '';
+    }
+
+    // If already in correct format, just normalize the dash
+    if (preg_match('/\d{1,2}:\d{2}\s*[–-]\s*\d{1,2}:\d{2}/', $time)) {
+        return str_replace(array('–', '-'), ' – ', $time);
+    }
+
+    // Handle compact format like 1030-1110 or 1030–1110
+    if (preg_match('/(\d{3,4})\s*[–-]\s*(\d{3,4})/', $time, $matches)) {
+        $start = $matches[1];
+        $end = $matches[2];
+
+        // Pad to 4 digits if needed
+        $start = str_pad($start, 4, '0', STR_PAD_LEFT);
+        $end = str_pad($end, 4, '0', STR_PAD_LEFT);
+
+        // Format as HH:MM
+        $start_formatted = substr($start, 0, 2) . ':' . substr($start, 2, 2);
+        $end_formatted = substr($end, 0, 2) . ':' . substr($end, 2, 2);
+
+        return $start_formatted . ' – ' . $end_formatted;
+    }
+
+    return $time;
+}
+
+/**
  * Get class product by slug
  */
 function tjs_get_class_product($slug) {
@@ -30,14 +62,28 @@ function tjs_get_class_product($slug) {
 
 /**
  * Get class sessions from product variations
+ *
+ * @param WC_Product $product The product object
+ * @param int $max_stock Maximum stock quantity (default: 18)
+ * @param string $pay_type Payment type: 'per_term' or 'per_class' (default: 'per_term')
+ * @return array Array of session data
  */
-function tjs_get_class_sessions($product, $max_stock = 18) {
+function tjs_get_class_sessions($product, $max_stock = 18, $pay_type = 'per_term') {
     $sessions = array();
-    
+
     if (!$product || !$product->is_type('variable')) {
         return $sessions;
     }
-    
+
+    // Auto-detect pay_type from ACF field if available
+    if (function_exists('get_field') && empty($pay_type)) {
+        $acf_pay_type = get_field('pay_type', $product->get_id());
+        if ($acf_pay_type) {
+            $pay_type = $acf_pay_type;
+        }
+    }
+
+    $price_suffix = ($pay_type === 'per_class') ? ' / class' : ' / term';
     $variations = $product->get_available_variations();
     
     foreach ($variations as $variation_data) {
@@ -46,11 +92,12 @@ function tjs_get_class_sessions($product, $max_stock = 18) {
         
         $attributes = $variation->get_attributes();
         // Support both taxonomy attributes (pa_*) and custom attributes
-        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : 
+        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] :
                (isset($attributes['class-day']) ? $attributes['class-day'] : '');
-        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : 
+        $time_raw = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] :
                 (isset($attributes['time-slot']) ? $attributes['time-slot'] : '');
-        $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] : 
+        $time = tjs_format_time_slot($time_raw);
+        $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] :
                  (isset($attributes['group-level']) ? $attributes['group-level'] : '');
         
         if (empty($day) || empty($time)) continue;
@@ -74,7 +121,7 @@ function tjs_get_class_sessions($product, $max_stock = 18) {
         $sessions[] = array(
             'day' => $day,
             'time' => $time,
-            'price' => '£' . $price . ' / term',
+            'price' => '£' . $price . $price_suffix,
             'availability' => $availability,
             'status' => $status,
             'variation_id' => $variation_data['variation_id'],

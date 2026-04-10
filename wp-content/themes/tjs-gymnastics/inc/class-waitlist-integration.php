@@ -221,7 +221,7 @@ function tjs_display_waitlist_count($post) {
         $count = is_array($waitlist) ? count($waitlist) : 0;
         
         $attrs = $variation->get_attributes();
-        $name = ucfirst($attrs['pa_class-day'] ?? 'N/A') . ' ' . ($attrs['pa_time-slot'] ?? 'N/A');
+        $name = ucfirst($attrs['pa_class-day'] ?? 'N/A') . ' ' . (tjs_format_time_slot($attrs['pa_time-slot'] ?? 'N/A'));
         
         echo '<p><strong>' . esc_html($name) . ':</strong> ' . $count . ' on waitlist</p>';
     }

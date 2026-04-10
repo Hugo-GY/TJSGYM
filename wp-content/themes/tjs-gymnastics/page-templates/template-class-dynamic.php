@@ -103,65 +103,17 @@ if (empty($about_lead)) {
     $about_lead = $product->get_short_description() ?: $product->get_description();
 }
 
-// Get variations for booking table
-$sessions = array();
-if ($product->is_type('variable')) {
-    $variations = $product->get_available_variations();
-    
-    foreach ($variations as $variation_data) {
-        $variation = wc_get_product($variation_data['variation_id']);
-        if (!$variation) continue;
-        
-        $attributes = $variation->get_attributes();
-        $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : '';
-        $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : '';
-        $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] : '';
-        
-        if (empty($day) || empty($time)) continue;
-        
-        $stock = $variation->get_stock_quantity();
-        $max_stock = 20; // Default max
-        if ($modifier === 'toddler') $max_stock = 18;
-        
-        if ($stock === null || $stock === '') {
-            $stock = $max_stock;
-        }
-        
-        $availability_text = $stock . ' / ' . $max_stock;
-        $status = 'available';
-        if ($stock <= 0) {
-            $availability_text = 'Full';
-            $status = 'full';
-        } elseif ($stock <= 3) {
-            $status = 'limited';
-        }
-        
-        $sessions[] = array(
-            'day' => $day,
-            'time' => str_replace(array('–', '-'), ' – ', $time),
-            'price' => '£' . $variation->get_price() . ($pay_type === 'per_class' ? ' / class' : ' / term'),
-            'availability' => $availability_text,
-            'status' => $status,
-            'variation_id' => $variation_data['variation_id'],
-            'group' => $group
-        );
-    }
-    
-    // Sort sessions by day and time
-    $day_order = array('Monday' => 1, 'Tuesday' => 2, 'Wednesday' => 3, 'Thursday' => 4);
-    usort($sessions, function($a, $b) use ($day_order) {
-        $day_a = isset($day_order[$a['day']]) ? $day_order[$a['day']] : 99;
-        $day_b = isset($day_order[$b['day']]) ? $day_order[$b['day']] : 99;
-        
-        if ($day_a !== $day_b) {
-            return $day_a - $day_b;
-        }
-        
-        $time_a = strtotime(explode('–', $a['time'])[0]);
-        $time_b = strtotime(explode('–', $b['time'])[0]);
-        return $time_a - $time_b;
-    });
-}
+// Get variations for booking table using unified function
+// Determine max_stock based on class type
+$max_stock = 20; // Default for gymnastics
+if ($modifier === 'toddler') $max_stock = 18;
+if ($modifier === 'minigym') $max_stock = 10;
+if ($modifier === 'tiddler') $max_stock = 10;
+
+// Determine pay_type
+$detected_pay_type = ($modifier === 'tiddler') ? 'per_class' : 'per_term';
+
+$sessions = $product->is_type('variable') ? tjs_get_class_sessions($product, $max_stock, $detected_pay_type) : array();
 
 // Default term info if ACF not set
 if (empty($term_info)) {
