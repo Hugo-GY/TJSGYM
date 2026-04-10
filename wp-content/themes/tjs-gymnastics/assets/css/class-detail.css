@@ -1475,6 +1475,18 @@
   pointer-events: auto;
 }
 
+.comp-carousel-img--tiddler-third {
+  object-position: center 58%;
+}
+
+.comp-carousel-img--toddler-second {
+  object-position: center 56%;
+}
+
+.comp-carousel-img--toddler-sixth {
+  object-position: center 64%;
+}
+
 .comp-carousel-btn {
   position: absolute;
   top: 50%;
