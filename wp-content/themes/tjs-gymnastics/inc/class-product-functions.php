@@ -425,3 +425,70 @@ function tjs_get_booking_session_data($variation_id, $force_refresh = false) {
 
     return $data;
 }
+
+/**
+ * Get class configuration by slug
+ *
+ * Returns default configuration for a specific class type.
+ * Used by the Dynamic Class Template to load class-specific settings.
+ *
+ * @param string $class_slug The class product slug (e.g., 'tiddler-gym', 'toddler-gym-product')
+ * @return array|false Configuration array or false if not found
+ */
+function tjs_get_class_config($class_slug) {
+    $configs = array(
+        'tiddler-gym' => array(
+            'name' => 'Tiddler Gym',
+            'settings' => array(
+                'max_slots' => 10,
+                'modifier' => 'tiddler',
+                'pricing_type' => 'per_class'
+            ),
+            'defaults' => array(
+                'age_range' => '6–12 Months',
+                'about_title' => '<em>Parent & Baby</em> movement, music and play',
+                'about_lead' => 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing. The equipment is carefully chosen for the Tiddler age range: tactile, bright and engaging for young explorers.',
+                'about_content' => '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>',
+                'sessions' => array(
+                    array('day' => 'Thursday', 'time' => '10:30 – 11:10', 'price' => '£10 / class', 'availability' => '8 / 10', 'status' => 'available', 'variation_id' => 0)
+                ),
+                'gallery' => array(
+                    array('src' => 'gallery-1.jpg', 'alt' => 'Tiddler Gym class photo 1'),
+                    array('src' => 'gallery-2.jpg', 'alt' => 'Tiddler Gym class photo 2'),
+                    array('src' => 'gallery-3.jpg', 'alt' => 'Tiddler Gym class photo 3'),
+                    array('src' => 'gallery-4.jpg', 'alt' => 'Tiddler Gym class photo 4'),
+                    array('src' => 'hero.jpg', 'alt' => 'Tiddler Gym class photo 5')
+                )
+            )
+        ),
+        'toddler-gym-product' => array(
+            'name' => 'Toddler Gym',
+            'settings' => array(
+                'max_slots' => 18,
+                'modifier' => 'tiddler',
+                'pricing_type' => 'term'
+            ),
+            'defaults' => array(
+                'age_range' => '1–3 Years',
+                'about_title' => 'Action songs, circuits and <em>adventure</em> — together',
+                'about_lead' => 'A parent-accompanied class for 1 to 3 year olds. Each session opens with action songs and a structured warm-up — teaching toddlers to listen, copy and join in before the equipment circuit begins. The gym layout changes every single week, so there\'s always something new to climb, balance on and explore.',
+                'about_content' => '<p>Coaches are on hand throughout, helping with climbing, encouraging safe and varied use of the equipment, and building a warm rapport with the children. Sessions close with calming songs to bring little ones together gently before the end of class.</p>',
+                'sessions' => array(
+                    array('day' => 'Tuesday', 'time' => '9:40 – 10:20', 'price' => '£143 / term', 'availability' => '3 / 18', 'status' => 'limited', 'variation_id' => 0),
+                    array('day' => 'Tuesday', 'time' => '10:30 – 11:10', 'price' => '£143 / term', 'availability' => '1 / 18', 'status' => 'limited', 'variation_id' => 0),
+                    array('day' => 'Wednesday', 'time' => '9:30 – 10:10', 'price' => '£143 / term', 'availability' => '1 / 18', 'status' => 'limited', 'variation_id' => 0),
+                    array('day' => 'Thursday', 'time' => '9:30 – 10:10', 'price' => '£143 / term', 'availability' => 'Full', 'status' => 'full', 'variation_id' => 0)
+                ),
+                'gallery' => array(
+                    array('src' => 'gallery-1.jpg', 'alt' => 'Toddler Gym class photo 1'),
+                    array('src' => 'gallery-2.jpg', 'alt' => 'Toddler Gym class photo 2'),
+                    array('src' => 'gallery-3.jpg', 'alt' => 'Toddler Gym class photo 3'),
+                    array('src' => 'gallery-4.jpg', 'alt' => 'Toddler Gym class photo 4'),
+                    array('src' => 'gallery-5.jpg', 'alt' => 'Toddler Gym class photo 5')
+                )
+            )
+        )
+    );
+
+    return isset($configs[$class_slug]) ? $configs[$class_slug] : false;
+}

@@ -28,7 +28,21 @@ if ($variation_id > 0) {
 }
 
 $class_name = ($booking_data && !is_wp_error($booking_data)) ? $booking_data['class_name'] : 'Class';
-$product_permalink = ($booking_data && !is_wp_error($booking_data) && isset($booking_data['permalink'])) ? $booking_data['permalink'] : home_url('/classes/');
+
+$class_slug = isset($_GET['class']) ? sanitize_text_field($_GET['class']) : '';
+if (empty($class_slug) && $booking_data && !is_wp_error($booking_data) && isset($booking_data['class_slug'])) {
+    $class_slug = $booking_data['class_slug'];
+}
+
+$back_url = home_url('/classes/');
+if (!empty($class_slug)) {
+    $class_page = get_page_by_path($class_slug);
+    if ($class_page) {
+        $back_url = get_permalink($class_page->ID);
+    }
+} elseif ($booking_data && !is_wp_error($booking_data) && isset($booking_data['permalink'])) {
+    $back_url = $booking_data['permalink'];
+}
 
 $current_page = get_post();
 $page_slug = $current_page ? get_post_field('post_name', $current_page->ID) : 'booking';
@@ -41,7 +55,7 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
     
     <div class="cd-back-wrap">
         <div class="container">
-            <a href="<?php echo esc_url($product_permalink); ?>" 
+            <a href="<?php echo esc_url($back_url); ?>"
                class="cd-back-btn">
                 ← Back to <?php echo esc_html($class_name); ?>
             </a>

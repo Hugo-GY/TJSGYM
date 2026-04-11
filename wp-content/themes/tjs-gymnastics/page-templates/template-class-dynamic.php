@@ -127,26 +127,12 @@ function tjs_format_term_dates_dynamic($dates_field) {
     return explode("\n", trim($dates_field));
 }
 
-// Smart booking URL resolution
-$booking_url = '#';
+// Smart booking URL resolution - Use unified /class-booking/ page
+$booking_url = home_url('/class-booking/');
 if (function_exists('get_field')) {
     $custom_booking_url = get_field('booking_page_url', $product_id);
     if ($custom_booking_url) {
         $booking_url = $custom_booking_url;
-    }
-}
-if ($booking_url === '#') {
-    $booking_slug_try = $product_slug . '-booking';
-    $booking_page = get_page_by_path($booking_slug_try);
-    if ($booking_page) {
-        $booking_url = get_permalink($booking_page->ID);
-    }
-}
-if ($booking_url === '#') {
-    $alt_booking_slug = $page_slug . '-booking';
-    $alt_booking_page = get_page_by_path($alt_booking_slug);
-    if ($alt_booking_page) {
-        $booking_url = get_permalink($alt_booking_page->ID);
     }
 }
 
@@ -275,7 +261,7 @@ if (empty($gallery_images)) {
                                 <td data-label="<?php _e('Availability', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php echo esc_html($session['availability']); ?></span></td>
                                 <td data-label="<?php _e('Book Now', 'tjs-gymnastics'); ?>">
                                     <?php if ($session['status'] !== 'full'): ?>
-                                        <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                        <a href="<?php echo esc_url(add_query_arg(array('class' => $page_slug, 'variation' => $session['variation_id']), $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                     <?php else: ?>
                                         <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                     <?php endif; ?>
@@ -312,7 +298,7 @@ if (empty($gallery_images)) {
                             </div>
                             <div class="cd-booking-mobile-actions">
                                 <?php if ($session['status'] !== 'full'): ?>
-                                    <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <a href="<?php echo esc_url(add_query_arg(array('class' => $page_slug, 'variation' => $session['variation_id']), $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                 <?php else: ?>
                                     <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                 <?php endif; ?>
