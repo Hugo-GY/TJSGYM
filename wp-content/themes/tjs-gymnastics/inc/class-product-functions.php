@@ -283,3 +283,145 @@ add_action('save_post_product', function($post_id) {
         tjs_clear_product_cache($product->get_slug());
     }
 });
+
+// Clear booking cache when variation is updated
+add_action('save_post_product_variation', function($post_id) {
+    delete_transient('tjs_booking_v' . $post_id);
+});
+
+/**
+ * Get complete booking session data from variation ID (with caching)
+ *
+ * Server-side data query for booking pages. Returns all needed info
+ * for rendering the booking form, including dual pricing support.
+ *
+ * @param int $variation_id The WooCommerce variation ID
+ * @param bool $force_refresh Force cache refresh
+ * @return array|WP_Error Associative array of booking data or error
+ */
+function tjs_get_booking_session_data($variation_id, $force_refresh = false) {
+    if (!$variation_id || !is_numeric($variation_id)) {
+        return new WP_Error('invalid_input', 'Invalid variation ID provided');
+    }
+
+    $cache_key = 'tjs_booking_v' . intval($variation_id);
+
+    if (!$force_refresh) {
+        $cached = get_transient($cache_key);
+        if ($cached !== false && is_array($cached)) {
+            return $cached;
+        }
+    }
+
+    $variation = wc_get_product(intval($variation_id));
+    if (!$variation || !$variation->is_type('variation')) {
+        return new WP_Error('invalid_variation', 'Variation not found or invalid type');
+    }
+
+    $parent_id = $variation->get_parent_id();
+    if (!$parent_id) {
+        return new WP_ERROR('no_parent', 'Variation has no parent product');
+    }
+
+    $product = wc_get_product($parent_id);
+    if (!$product) {
+        return new WP_ERROR('invalid_product', 'Parent product not found');
+    }
+
+    $attributes = $variation->get_attributes();
+
+    $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] :
+           (isset($attributes['class-day']) ? $attributes['class-day'] : '');
+    $time_raw = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] :
+              (isset($attributes['time-slot']) ? $attributes['time-slot'] : '');
+    $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] :
+            (isset($attributes['group-level']) ? $attributes['group-level'] : '');
+
+    if (empty($day) || empty($time_raw)) {
+        return new WP_ERROR('missing_attrs', 'Required attributes missing on variation');
+    }
+
+    $time = tjs_format_time_slot($time_raw);
+
+    $price = floatval($variation->get_price());
+    $stock = $variation->get_stock_quantity();
+
+    $modifier = tjs_get_class_modifier($parent_id);
+    $max_stock_map = array(
+        'tiddler' => 10,
+        'toddler' => 18,
+        'minigym' => 10,
+        'gym' => 20
+    );
+    $max_stock = isset($max_stock_map[$modifier]) ? $max_stock_map[$modifier] : 18;
+
+    if ($stock === null || $stock === '') {
+        $stock = $max_stock;
+    }
+
+    $availability = ($stock > 0) ? "{$stock} / {$max_stock}" : 'Full';
+
+    $pay_type = 'per_term';
+    $enable_trial = false;
+    $trial_price = 0;
+    $current_term_season = '';
+    $age_range = '';
+
+    if (function_exists('get_field')) {
+        $acf_pay_type = get_field('pay_type', $parent_id);
+        if ($acf_pay_type) {
+            $pay_type = $acf_pay_type;
+        }
+
+        $enable_trial_val = get_field('enable_trial', $parent_id);
+        $enable_trial = ($enable_trial_val === true || $enable_trial_val === '1' || $enable_trial_val === 1);
+
+        $trial_price_raw = get_field('trial_price', $parent_id);
+        if (is_numeric($trial_price_raw) && $trial_price_raw > 0) {
+            $trial_price = floatval($trial_price_raw);
+        }
+
+        $term_info = get_field('term_info', $parent_id);
+        if (is_array($term_info) && !empty($term_info) && isset($term_info[0]['term_season'])) {
+            $current_term_season = $term_info[0]['term_season'];
+        }
+
+        $age_range_val = get_field('age_range', $parent_id);
+        if ($age_range_val) {
+            $age_range = $age_range_val;
+        }
+    }
+
+    $price_suffix = ($pay_type === 'per_class') ? ' / class' : ' / term';
+
+    $data = array(
+        'variation_id' => intval($variation_id),
+        'product_id' => intval($parent_id),
+        'class_name' => $product->get_name(),
+        'class_slug' => $product->get_slug(),
+        'age_range' => $age_range,
+        'term' => $current_term_season,
+        'day' => $day,
+        'time' => $time,
+        'time_raw' => $time_raw,
+        'group' => $group,
+        'price_full' => '£' . number_format($price, 0) . $price_suffix,
+        'price_trial' => ($enable_trial && $trial_price > 0)
+            ? '£' . number_format($trial_price, 0) . ' / class'
+            : '',
+        'price_full_raw' => $price,
+        'price_trial_raw' => $trial_price,
+        'availability' => $availability,
+        'stock' => intval($stock),
+        'max_stock' => intval($max_stock),
+        'is_available' => ($stock > 0),
+        'enable_trial' => $enable_trial,
+        'pay_type' => $pay_type,
+        'modifier' => $modifier,
+        'permalink' => get_permalink($parent_id)
+    );
+
+    set_transient($cache_key, $data, 15 * MINUTE_IN_SECONDS);
+
+    return $data;
+}

@@ -1,84 +1,130 @@
 <?php
 /**
- * Template Name: Class Booking
+ * Template Name: Dynamic Class Booking
+ *
+ * Enhanced version: Server-side rendered booking form.
+ * Auto-detects product from variation_id and loads all data from database.
+ *
+ * Usage:
+ * 1. Create a WordPress Page (e.g., /toddler-gym-booking)
+ * 2. Apply this template to the page
+ * 3. Access via ?variation=123 parameter
+ * 4. All data loads automatically from WooCommerce + ACF!
  */
 get_header();
 
-// Get class type from URL parameter or default to Toddler Gym
-$class_type = isset($_GET['class']) ? sanitize_text_field($_GET['class']) : 'toddler-gym';
+$variation_id = isset($_GET['variation']) ? intval($_GET['variation']) : 0;
+$show_fallback = false;
+$booking_data = null;
 
-$classes = array(
-    'toddler-gym' => array('name' => 'Toddler Gym', 'back_link' => '/toddler-gym/', 'confirmation_link' => '/toddler-gym-confirmation/'),
-    'tiddler-gym' => array('name' => 'Tiddler Gym', 'back_link' => '/tiddler-gym/', 'confirmation_link' => '/tiddler-gym-confirmation/'),
-    'mini-gym' => array('name' => 'Mini Gym', 'back_link' => '/mini-gym/', 'confirmation_link' => '/mini-gym-confirmation/'),
-);
+if ($variation_id > 0) {
+    $booking_data = tjs_get_booking_session_data($variation_id);
+    
+    if (is_wp_error($booking_data)) {
+        $show_fallback = true;
+    }
+} else {
+    $show_fallback = true;
+}
 
-$class = isset($classes[$class_type]) ? $classes[$class_type] : $classes['toddler-gym'];
+$class_name = ($booking_data && !is_wp_error($booking_data)) ? $booking_data['class_name'] : 'Class';
+$product_permalink = ($booking_data && !is_wp_error($booking_data) && isset($booking_data['permalink'])) ? $booking_data['permalink'] : home_url('/classes/');
+
+$current_page = get_post();
+$page_slug = $current_page ? get_post_field('post_name', $current_page->ID) : 'booking';
+$confirmation_url = get_permalink($current_page->ID);
+$confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
 ?>
 
-<div data-page-root="class-booking">
+<div data-page-root="<?php echo sanitize_html_class($page_slug); ?>-booking"
+     data-variation-id="<?php echo esc_attr($variation_id); ?>">
+    
     <div class="cd-back-wrap">
         <div class="container">
-            <a href="<?php echo esc_url(home_url($class['back_link'])); ?>" class="cd-back-btn">← Back to <?php echo esc_html($class['name']); ?></a>
+            <a href="<?php echo esc_url($product_permalink); ?>" 
+               class="cd-back-btn">
+                ← Back to <?php echo esc_html($class_name); ?>
+            </a>
         </div>
     </div>
 
-    <section class="cd-booking-flow-hero" aria-label="<?php echo esc_attr($class['name']); ?> <?php _e('booking', 'tjs-gymnastics'); ?>">
+    <section class="cd-booking-flow-hero" aria-label="<?php echo esc_attr($class_name); ?> booking">
         <div class="container">
-            <p class="page-hero-eyebrow"><?php echo esc_html($class['name']); ?></p>
+            <p class="page-hero-eyebrow" data-booking-class-label><?php echo esc_html($class_name); ?></p>
             <h1><?php _e('Complete Your Booking', 'tjs-gymnastics'); ?></h1>
             <p class="page-hero-sub"><?php _e('Review your selected session below, then enter your family\'s details before continuing to the next step.', 'tjs-gymnastics'); ?></p>
         </div>
     </section>
 
-    <section class="cd-booking-flow section" aria-label="<?php echo esc_attr($class['name']); ?> <?php _e('booking form', 'tjs-gymnastics'); ?>">
+    <section class="cd-booking-flow section" aria-label="<?php echo esc_attr($class_name); ?> booking form">
         <div class="container">
-            <div class="cd-booking-fallback contact-card" data-booking-fallback hidden>
+            
+            <?php if ($show_fallback): ?>
+            
+            <div class="cd-booking-fallback contact-card" data-booking-fallback>
                 <h2><?php _e('No session selected', 'tjs-gymnastics'); ?></h2>
-                <p data-booking-fallback-copy><?php _e('We could not find a selected session for this booking page.', 'tjs-gymnastics'); ?></p>
-                <p><?php _e('Please return to the timetable and choose a session before continuing.', 'tjs-gymnastics'); ?></p>
+                <p data-booking-fallback-copy><?php _e('We could not find a valid session for this booking page. Please return to the class page and select a session to book.', 'tjs-gymnastics'); ?></p>
                 <div class="contact-submit-row">
-                    <a href="<?php echo esc_url(home_url($class['back_link'])); ?>" class="btn btn-ghost-magenta cd-fallback-link"><?php _e('Return to', 'tjs-gymnastics'); ?> <?php echo esc_html($class['name']); ?></a>
+                    <a href="<?php echo esc_url(home_url('/classes/')); ?>" class="btn btn-ghost-magenta cd-fallback-link" data-booking-fallback-link>
+                        <?php _e('View All Classes', 'tjs-gymnastics'); ?>
+                    </a>
                 </div>
             </div>
 
+            <?php else: ?>
+
             <div class="cd-flow-grid" data-booking-session-shell>
                 <div class="contact-card cd-booking-form-card" data-booking-form-shell>
+                    
                     <div class="cd-booking-summary-block" aria-labelledby="selected-session-title">
                         <h2 id="selected-session-title"><?php _e('Selected Session', 'tjs-gymnastics'); ?></h2>
                         <dl class="cd-session-summary-list">
                             <div>
                                 <dt><?php _e('Class', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="class"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="class"><?php echo esc_html($booking_data['class_name']); ?></dd>
                             </div>
+                            <?php if ($booking_data['enable_trial']): ?>
                             <div>
                                 <dt><?php _e('Booking Type', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="bookingType"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="bookingType"
+                                    data-default-type="full"
+                                    data-label-full="<?php esc_attr_e('Full-term Booking', 'tjs-gymnastics'); ?>"
+                                    data-label-trial="<?php esc_attr_e('Trial lesson', 'tjs-gymnastics'); ?>">
+                                    <?php _e('Full-term Booking', 'tjs-gymnastics'); ?>
+                                </dd>
                             </div>
+                            <?php endif; ?>
                             <div>
                                 <dt><?php _e('Term', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="term"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="term"><?php echo esc_html($booking_data['term'] ?: 'Current Term'); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Day', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="day"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="day"><?php echo esc_html($booking_data['day']); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Time', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="time"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="time"><?php echo esc_html($booking_data['time']); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Price', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="price"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="price"
+                                    data-price-full="<?php echo esc_attr($booking_data['price_full']); ?>"
+                                    data-price-trial="<?php echo esc_attr($booking_data['price_trial']); ?>"
+                                    data-enable-trial="<?php echo $booking_data['enable_trial'] ? 'true' : 'false'; ?>">
+                                    <?php echo esc_html($booking_data['price_full']); ?>
+                                </dd>
                             </div>
                             <div>
                                 <dt><?php _e('Availability', 'tjs-gymnastics'); ?></dt>
-                                <dd data-session-field="availability"><?php _e('No session selected', 'tjs-gymnastics'); ?></dd>
+                                <dd data-session-field="availability"><?php echo esc_html($booking_data['availability']); ?></dd>
                             </div>
                         </dl>
                     </div>
 
-                    <form class="cd-booking-form" data-booking-form action="<?php echo esc_url(home_url($class['confirmation_link'])); ?>" method="get">
+                    <form class="cd-booking-form" data-booking-form action="<?php echo esc_url(add_query_arg('variation', $variation_id, $confirmation_url)); ?>" method="get">
+                        
+                        <?php if ($booking_data['enable_trial']): ?>
                         <div class="cd-booking-form-section">
                             <h2><?php _e('Choose Booking Type', 'tjs-gymnastics'); ?></h2>
                             <fieldset class="cd-booking-type-fieldset">
@@ -88,19 +134,20 @@ $class = isset($classes[$class_type]) ? $classes[$class_type] : $classes['toddle
                                         <input type="radio" id="booking-type-full" name="booking-type" value="full" checked>
                                         <span class="cd-booking-type-copy">
                                             <strong><?php _e('Full-term Booking', 'tjs-gymnastics'); ?></strong>
-                                            <small><?php _e('Reserve your regular place for this selected session.', 'tjs-gymnastics'); ?></small>
+                                            <small><?php echo esc_html($booking_data['price_full']); ?></small>
                                         </span>
                                     </label>
                                     <label class="cd-booking-type-option" for="booking-type-trial">
                                         <input type="radio" id="booking-type-trial" name="booking-type" value="trial">
                                         <span class="cd-booking-type-copy">
                                             <strong><?php _e('Trial lesson', 'tjs-gymnastics'); ?></strong>
-                                            <small><?php _e('Pay for a first visit before committing to the full term.', 'tjs-gymnastics'); ?></small>
+                                            <small><?php echo esc_html($booking_data['price_trial']); ?></small>
                                         </span>
                                     </label>
                                 </div>
                             </fieldset>
                         </div>
+                        <?php endif; ?>
 
                         <div class="cd-booking-form-section">
                             <h2><?php _e('Application Info', 'tjs-gymnastics'); ?></h2>
@@ -138,9 +185,13 @@ $class = isset($classes[$class_type]) ? $classes[$class_type] : $classes['toddle
                                 <button type="submit" class="btn btn-magenta"><?php _e('Pay', 'tjs-gymnastics'); ?></button>
                             </div>
                         </div>
+                        
+                        <input type="hidden" name="variation" value="<?php echo esc_attr($variation_id); ?>">
                     </form>
                 </div>
             </div>
+
+            <?php endif; ?>
         </div>
     </section>
 </div>

@@ -288,193 +288,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ── Toddler booking page ──────────────────────────────────
-  const bookingPageRoot = document.querySelector('[data-page-root="toddler-booking"]');
-  if (bookingPageRoot) {
-    const bookingSessionFields = bookingPageRoot.querySelectorAll('[data-session-field]');
-    const bookingForm = bookingPageRoot.querySelector('[data-booking-form]');
-    const bookingFormShell = bookingPageRoot.querySelector('[data-booking-form-shell]');
-    const bookingSessionShell = bookingPageRoot.querySelector('[data-booking-session-shell]');
-    const bookingFallback = bookingPageRoot.querySelector('[data-booking-fallback]');
-    const bookingClassLabel = bookingPageRoot.querySelector('[data-booking-class-label]');
-    const bookingBackLink = bookingPageRoot.querySelector('[data-booking-back-link]');
-    const bookingFallbackCopy = bookingPageRoot.querySelector('[data-booking-fallback-copy]');
-    const bookingFallbackLink = bookingPageRoot.querySelector('[data-booking-fallback-link]');
-    const selectedSession = getSelectedSessionFromUrl();
-    const sessionIsComplete = hasSelectedSession(selectedSession);
-    const bookingTypeInputs = bookingPageRoot.querySelectorAll('input[name="booking-type"]');
-    const bookingConfig = getBookingPageConfig(selectedSession.class);
+  // ── Dynamic Booking Page (Universal - Server-side rendered) ──
+  const dynamicBookingPage = document.querySelector('[data-page-root$="-booking"]:not([data-page-root$="-confirmation"])');
 
-    if (bookingClassLabel) {
-      bookingClassLabel.textContent = bookingConfig.classLabel;
-    }
+  if (dynamicBookingPage) {
+    const priceField = dynamicBookingPage.querySelector('[data-session-field="price"]');
+    const bookingTypeField = dynamicBookingPage.querySelector('[data-session-field="bookingType"]');
+    const bookingTypeInputs = dynamicBookingPage.querySelectorAll('input[name="booking-type"]');
 
-    if (bookingBackLink) {
-      bookingBackLink.href = bookingConfig.classHref;
-      bookingBackLink.textContent = `← Back to ${bookingConfig.classLabel}`;
-    }
+    if (priceField && bookingTypeInputs.length > 0) {
+      const fullPrice = priceField.dataset.priceFull || '';
+      const trialPrice = priceField.dataset.priceTrial || '';
+      const enableTrial = priceField.dataset.enableTrial === 'true';
 
-    if (bookingFallbackCopy) {
-      bookingFallbackCopy.textContent = bookingConfig.missingSessionCopy;
-    }
-
-    if (bookingFallbackLink) {
-      bookingFallbackLink.href = bookingConfig.classHref;
-      bookingFallbackLink.textContent = `Return to ${bookingConfig.classLabel}`;
-    }
-
-    bookingTypeInputs.forEach(input => {
-      input.checked = input.value === selectedSession.bookingType;
-    });
-
-    const syncBookingType = nextValue => {
-      selectedSession.bookingType = nextValue === 'trial' ? 'trial' : 'full';
-      if (bookingSessionFields.length) {
-        setFieldValues(bookingSessionFields, selectedSession, 'No session selected');
-      }
-    };
-
-    if (bookingSessionFields.length) {
-      setFieldValues(bookingSessionFields, selectedSession, 'No session selected');
-    }
-
-    bookingTypeInputs.forEach(input => {
-      input.addEventListener('change', () => {
-        if (input.checked) {
-          syncBookingType(input.value);
+      function updateBookingDisplay(type) {
+        if (type === 'trial' && trialPrice && enableTrial) {
+          if (priceField) priceField.textContent = trialPrice;
+          if (bookingTypeField) bookingTypeField.textContent = bookingTypeField?.dataset.labelTrial || 'Trial lesson';
+        } else {
+          if (priceField) priceField.textContent = fullPrice;
+          if (bookingTypeField) bookingTypeField.textContent = bookingTypeField?.dataset.labelFull || 'Full-term Booking';
         }
-      });
-    });
-
-    if (bookingFormShell && bookingSessionShell && bookingFallback) {
-      if (!sessionIsComplete) {
-        bookingSessionShell.hidden = true;
-        bookingFormShell.hidden = true;
-        bookingFallback.hidden = false;
-      } else {
-        bookingFallback.hidden = true;
       }
+
+      bookingTypeInputs.forEach(input => {
+        input.addEventListener('change', () => {
+          if (input.checked) {
+            updateBookingDisplay(input.value);
+          }
+        });
+      });
     }
 
-    bookingForm?.addEventListener('submit', event => {
+    const form = dynamicBookingPage.querySelector('[data-booking-form]');
+    form?.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      if (!sessionIsComplete) {
-        return;
+      const formData = new FormData(form);
+      const bookingData = {};
+      for (const [key, value] of formData.entries()) {
+        if (value && value.trim() !== '') {
+          bookingData[key] = value.trim();
+        }
       }
-
-      const formData = new FormData(bookingForm);
-      const bookingData = {
-        bookingType: normalizeBookingText(formData.get('booking-type')),
-        childName: normalizeBookingText(formData.get('child-name')),
-        childDob: normalizeBookingText(formData.get('child-dob')),
-        parentName: normalizeBookingText(formData.get('parent-name')),
-        email: normalizeBookingText(formData.get('email')),
-        phone: normalizeBookingText(formData.get('phone')),
-        message: normalizeBookingText(formData.get('message'))
-      };
 
       try {
-        sessionStorage.setItem('toddlerBookingForm', JSON.stringify(bookingData));
-      } catch {
-        // Continue to confirmation so the page can render its fallback state.
+        sessionStorage.setItem('tjsBookingForm', JSON.stringify(bookingData));
+      } catch (err) {
+        console.error('Failed to save form data:', err);
       }
 
-      const nextUrl = new URL('toddler-booking-confirmation.html', new URL('.', window.location.href));
-      const nextParams = new URLSearchParams();
-      syncBookingType(bookingData.bookingType);
-      toddlerSessionKeys.forEach(key => {
-        nextParams.set(key, selectedSession[key]);
-      });
-      nextUrl.search = nextParams.toString();
-      window.location.href = nextUrl.toString();
+      window.location.href = form.action;
     });
   }
 
-  // ── Toddler booking confirmation page ─────────────────────
-  const confirmationPageRoot = document.querySelector('[data-page-root="toddler-booking-confirmation"]');
-  if (confirmationPageRoot) {
-    const confirmationSessionFields = confirmationPageRoot.querySelectorAll('[data-session-field]');
-    const confirmationSubmittedFields = confirmationPageRoot.querySelectorAll('[data-submitted-field]');
-    const confirmationFallback = confirmationPageRoot.querySelector('[data-confirmation-fallback]');
-    const confirmationFallbackTitle = confirmationPageRoot.querySelector('[data-confirmation-fallback-title]');
-    const confirmationFallbackSession = confirmationPageRoot.querySelector('[data-confirmation-fallback-session]');
-    const confirmationFallbackBooking = confirmationPageRoot.querySelector('[data-confirmation-fallback-booking]');
-    const confirmationClassLabel = confirmationPageRoot.querySelector('[data-confirmation-class-label]');
-    const confirmationBackLink = confirmationPageRoot.querySelector('[data-confirmation-back-link]');
-    const confirmationFallbackCopy = confirmationPageRoot.querySelector('[data-confirmation-fallback-copy]');
-    const confirmationFormLink = confirmationPageRoot.querySelector('[data-confirmation-form-link]');
-    const confirmationClassLink = confirmationPageRoot.querySelector('[data-confirmation-class-link]');
-    const confirmationSessionShell = confirmationPageRoot.querySelector('[data-confirmation-session-shell]');
-    const confirmationSubmittedShell = confirmationPageRoot.querySelector('[data-confirmation-submitted-shell]');
-    const selectedSession = getSelectedSessionFromUrl();
-    const bookingData = readToddlerBookingForm();
-    const hasSession = hasSelectedSession(selectedSession);
-    const hasBookingData = Boolean(bookingData);
-    const bookingConfig = getBookingPageConfig(selectedSession.class);
+  // ── Dynamic Confirmation Page (Universal - Server + Client) ──
+  const dynamicConfirmationPage = document.querySelector('[data-page-root$="-confirmation"]');
 
-    if (confirmationClassLabel) {
-      confirmationClassLabel.textContent = bookingConfig.classLabel;
-    }
+  if (dynamicConfirmationPage) {
+    const submittedFields = dynamicConfirmationPage.querySelectorAll('[data-submitted-field]');
+    let bookingData = null;
 
-    if (confirmationBackLink) {
-      confirmationBackLink.href = bookingConfig.bookingHref;
-    }
-
-    if (confirmationFallbackSession) {
-      confirmationFallbackSession.textContent = bookingConfig.confirmationSessionCopy;
-    }
-
-    if (confirmationFallbackCopy) {
-      confirmationFallbackCopy.textContent = bookingConfig.confirmationFallbackCopy;
-    }
-
-    if (confirmationFormLink) {
-      confirmationFormLink.href = bookingConfig.bookingHref;
-    }
-
-    if (confirmationClassLink) {
-      confirmationClassLink.href = bookingConfig.classHref;
-      confirmationClassLink.textContent = `Return to ${bookingConfig.classLabel}`;
-    }
-
-    if (confirmationSessionFields.length) {
-      setFieldValues(confirmationSessionFields, selectedSession, 'No session selected');
-    }
-
-    if (confirmationSubmittedFields.length) {
-      setFieldValues(confirmationSubmittedFields, bookingData, 'No details available');
-    }
-
-    if (
-      confirmationFallback &&
-      confirmationFallbackTitle &&
-      confirmationFallbackSession &&
-      confirmationFallbackBooking &&
-      confirmationSessionShell &&
-      confirmationSubmittedShell
-    ) {
-      confirmationFallback.hidden = hasSession && hasBookingData;
-      confirmationSessionShell.hidden = !hasSession;
-      confirmationSubmittedShell.hidden = !hasSession || !hasBookingData;
-
-      if (!hasSession && !hasBookingData) {
-        confirmationFallbackTitle.textContent = 'Booking details unavailable';
-        confirmationFallbackSession.hidden = false;
-        confirmationFallbackBooking.hidden = false;
-      } else if (!hasSession) {
-        confirmationFallbackTitle.textContent = 'No session selected';
-        confirmationFallbackSession.hidden = false;
-        confirmationFallbackBooking.hidden = true;
-      } else if (!hasBookingData) {
-        confirmationFallbackTitle.textContent = 'Booking details unavailable';
-        confirmationFallbackSession.hidden = true;
-        confirmationFallbackBooking.hidden = false;
-      } else {
-        confirmationFallbackTitle.textContent = 'Booking details unavailable';
-        confirmationFallbackSession.hidden = true;
-        confirmationFallbackBooking.hidden = true;
+    try {
+      const stored = sessionStorage.getItem('tjsBookingForm');
+      if (stored) {
+        bookingData = JSON.parse(stored);
       }
+    } catch (err) {
+      console.error('Failed to read form data:', err);
+    }
+
+    if (submittedFields.length && bookingData) {
+      submittedFields.forEach(field => {
+        const key = field.dataset.submittedField;
+        if (key && bookingData[key]) {
+          field.textContent = bookingData[key];
+        }
+      });
+
+      const bookingTypeField = dynamicConfirmationPage.querySelector('[data-session-field="bookingType"]');
+      const priceField = dynamicConfirmationPage.querySelector('[data-session-field="price"]');
+      
+      if (bookingTypeField && bookingData['booking-type']) {
+        const typeLabel = bookingData['booking-type'] === 'trial' ? 'Trial lesson' : 'Full-term Booking';
+        bookingTypeField.textContent = typeLabel;
+      }
+
+      if (priceField && bookingData['booking-type']) {
+        const isTrial = bookingData['booking-type'] === 'trial';
+        const trialPrice = priceField.dataset.priceTrial || '';
+        
+        if (isTrial && trialPrice) {
+          priceField.textContent = trialPrice;
+        } else {
+          priceField.textContent = priceField.dataset.priceFull || '';
+        }
+      }
+    }
+
+    try {
+      sessionStorage.removeItem('tjsBookingForm');
+    } catch (err) {
+      // Ignore cleanup errors
     }
   }
 
