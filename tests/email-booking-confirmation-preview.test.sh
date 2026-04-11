@@ -30,6 +30,8 @@ assert_contains() {
 [[ -f "$PREVIEW_FILE" ]] || { echo "emails/booking-confirmation-preview.html missing" >&2; exit 1; }
 
 assert_contains "Booking Confirmed | Toddler Gym | TJ's Gymnastics Club" "$PREVIEW_FILE"
+assert_contains "Booking Date" "$PREVIEW_FILE"
+assert_contains "10 April 2026" "$PREVIEW_FILE"
 assert_contains "Alex Smith" "$PREVIEW_FILE"
 assert_contains "Jamie Smith" "$PREVIEW_FILE"
 assert_contains "Saturday" "$PREVIEW_FILE"
