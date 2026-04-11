@@ -148,6 +148,12 @@ function tjs_scripts() {
     
     // Theme JavaScript
     wp_enqueue_script('tjs-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+
+    // Localize script for AJAX
+    wp_localize_script('tjs-main', 'tjs_ajax_object', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('tjs_ajax_nonce')
+    ));
 }
 add_action('wp_enqueue_scripts', 'tjs_scripts');
 

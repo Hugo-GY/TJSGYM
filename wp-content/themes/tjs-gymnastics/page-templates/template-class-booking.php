@@ -133,7 +133,15 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
                         </dl>
                     </div>
 
-                    <form class="cd-booking-form" data-booking-form action="<?php echo esc_url(add_query_arg('variation', $variation_id, $confirmation_url)); ?>" method="get">
+                    <form class="cd-booking-form" data-booking-form
+                          action=""
+                          method="post"
+                          data-checkout-url="<?php echo esc_url(wc_get_checkout_url()); ?>"
+                          data-variation-id="<?php echo esc_attr($variation_id); ?>"
+                          data-product-id="<?php echo esc_attr($booking_data['product_id']); ?>"
+                          data-price-full="<?php echo esc_attr($booking_data['price_full_raw']); ?>"
+                          data-price-trial="<?php echo esc_attr($booking_data['price_trial_raw']); ?>"
+                          data-enable-trial="<?php echo $booking_data['enable_trial'] ? 'true' : 'false'; ?>">
                         
                         <?php if ($booking_data['enable_trial']): ?>
                         <div class="cd-booking-form-section">
@@ -193,11 +201,23 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
                             </div>
 
                             <div class="contact-submit-row">
-                                <button type="submit" class="btn btn-magenta"><?php _e('Pay', 'tjs-gymnastics'); ?></button>
-                            </div>
+                            <button type="submit" class="btn btn-magenta cd-pay-button">
+                                <span class="cd-pay-text"><?php _e('Pay', 'tjs-gymnastics'); ?></span>
+                                <span class="cd-pay-loading" style="display:none;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.4 31.4" stroke-dashoffset="0">
+                                            <animateTransform attributeName="transform" type="rotate" values="0 12 12;360 12 12" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                    </svg>
+                                    Processing...
+                                </span>
+                            </button>
                         </div>
-                        
-                        <input type="hidden" name="variation" value="<?php echo esc_attr($variation_id); ?>">
+
+                        <input type="hidden" name="variation_id" value="<?php echo esc_attr($variation_id); ?>">
+                        <input type="hidden" name="product_id" value="<?php echo esc_attr($booking_data['product_id']); ?>">
+                        <input type="hidden" name="action" value="tjs_add_to_cart">
+                        <?php wp_nonce_field('tjs_booking_nonce', 'booking_nonce'); ?>
                     </form>
                 </div>
             </div>

@@ -321,24 +321,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const form = dynamicBookingPage.querySelector('[data-booking-form]');
-    form?.addEventListener('submit', (event) => {
+    form?.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const formData = new FormData(form);
-      const bookingData = {};
-      for (const [key, value] of formData.entries()) {
-        if (value && value.trim() !== '') {
-          bookingData[key] = value.trim();
+      const payButton = form.querySelector('.cd-pay-button');
+      const payText = form.querySelector('.cd-pay-text');
+      const payLoading = form.querySelector('.cd-pay-loading');
+
+      // Validate required fields
+      const requiredFields = ['child-name', 'child-dob', 'parent-name', 'email', 'phone'];
+      let isValid = true;
+
+      for (const fieldName of requiredFields) {
+        const field = form.querySelector(`[name="${fieldName}"]`);
+        if (field && !field.value.trim()) {
+          isValid = false;
+          field.classList.add('error');
+        } else if (field) {
+          field.classList.remove('error');
         }
       }
 
+      if (!isValid) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      // Show loading state
+      if (payButton) payButton.disabled = true;
+      if (payText) payText.style.display = 'none';
+      if (payLoading) payLoading.style.display = 'inline-flex';
+
+      // Collect form data
+      const formData = new FormData(form);
+
+      // Save to sessionStorage as backup
       try {
+        const bookingData = {};
+        for (const [key, value] of formData.entries()) {
+          if (value && value.trim() !== '') {
+            bookingData[key] = value.trim();
+          }
+        }
         sessionStorage.setItem('tjsBookingForm', JSON.stringify(bookingData));
       } catch (err) {
         console.error('Failed to save form data:', err);
       }
 
-      window.location.href = form.action;
+      try {
+        // AJAX request to add to cart
+        const response = await fetch(tjs_ajax_object.ajaxurl, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Redirect to checkout
+          window.location.href = result.data.redirect_url;
+        } else {
+          throw new Error(result.data?.message || 'Failed to add item to cart.');
+        }
+      } catch (error) {
+        console.error('Booking error:', error);
+        alert(error.message || 'An error occurred. Please try again.');
+
+        // Reset button state
+        if (payButton) payButton.disabled = false;
+        if (payText) payText.style.display = 'inline';
+        if (payLoading) payLoading.style.display = 'none';
+      }
     });
   }
 

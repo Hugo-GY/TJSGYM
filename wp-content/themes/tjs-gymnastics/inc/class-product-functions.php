@@ -494,3 +494,103 @@ function tjs_get_class_config($class_slug) {
 
     return isset($configs[$class_slug]) ? $configs[$class_slug] : false;
 }
+
+/**
+ * AJAX Handler: Add variation to cart and redirect to checkout
+ *
+ * Handles the booking form submission, adds the selected variation
+ * to WooCommerce cart, saves customer data, and returns checkout URL.
+ */
+add_action('wp_ajax_tjs_add_to_cart', 'tjs_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_tjs_add_to_cart', 'tjs_ajax_add_to_cart');
+
+function tjs_ajax_add_to_cart() {
+    // Verify nonce
+    if (!isset($_POST['booking_nonce']) || !wp_verify_nonce($_POST['booking_nonce'], 'tjs_booking_nonce')) {
+        wp_send_json_error(array('message' => 'Security check failed. Please refresh the page and try again.'));
+    }
+
+    // Get variation ID
+    $variation_id = isset($_POST['variation_id']) ? intval($_POST['variation_id']) : 0;
+    if ($variation_id <= 0) {
+        wp_send_json_error(array('message' => 'Invalid variation selected.'));
+    }
+
+    // Get product ID
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+    if ($product_id <= 0) {
+        wp_send_json_error(array('message' => 'Invalid product.'));
+    }
+
+    // Validate product and variation
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        wp_send_json_error(array('message' => 'Product not found.'));
+    }
+
+    $variation = wc_get_product($variation_id);
+    if (!$variation || !$variation->is_type('variation')) {
+        wp_send_json_error(array('message' => 'Variation not found.'));
+    }
+
+    // Check stock
+    if (!$variation->is_in_stock()) {
+        wp_send_json_error(array('message' => 'This session is fully booked. Please select another session.'));
+    }
+
+    // Get quantity (always 1 for class bookings)
+    $quantity = 1;
+
+    // Get variation attributes
+    $var_attributes = $variation->get_attributes();
+    $cart_item_data = array();
+
+    // Add customer information to cart item data
+    $customer_fields = array(
+        'child_name',
+        'child_dob',
+        'parent_name',
+        'email',
+        'phone',
+        'message',
+        'booking-type'
+    );
+
+    foreach ($customer_fields as $field) {
+        if (isset($_POST[$field]) && !empty($_POST[$field])) {
+            $cart_item_data[$field] = sanitize_text_field($_POST[$field]);
+        }
+    }
+
+    // Add metadata for order processing
+    $cart_item_data['unique_key'] = md5($variation_id . '_' . time());
+
+    // Clear cart first (one booking at a time)
+    WC()->cart->empty_cart();
+
+    // Add to cart
+    $cart_item_key = WC()->cart->add_to_cart(
+        $product_id,
+        $quantity,
+        $variation_id,
+        $var_attributes,
+        $cart_item_data
+    );
+
+    if (is_wp_error($cart_item_key)) {
+        wp_send_json_error(array('message' => $cart_item_key->get_error_message()));
+    }
+
+    if (!$cart_item_key) {
+        wp_send_json_error(array('message' => 'Failed to add item to cart. Please try again.'));
+    }
+
+    // Success - return checkout URL
+    $checkout_url = wc_get_checkout_url();
+
+    wp_send_json_success(array(
+        'message' => 'Item added to cart successfully!',
+        'redirect_url' => $checkout_url,
+        'cart_url' => wc_get_cart_url()
+    ));
+}
