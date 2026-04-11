@@ -261,7 +261,7 @@ if (empty($gallery_images)) {
                                 <td data-label="<?php _e('Availability', 'tjs-gymnastics'); ?>"><span class="cd-avail is-<?php echo esc_attr($session['status']); ?>"><?php echo esc_html($session['availability']); ?></span></td>
                                 <td data-label="<?php _e('Book Now', 'tjs-gymnastics'); ?>">
                                     <?php if ($session['status'] !== 'full'): ?>
-                                        <a href="<?php echo esc_url(add_query_arg(array('class' => $page_slug, 'variation' => $session['variation_id']), $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                        <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                     <?php else: ?>
                                         <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                     <?php endif; ?>
@@ -298,7 +298,7 @@ if (empty($gallery_images)) {
                             </div>
                             <div class="cd-booking-mobile-actions">
                                 <?php if ($session['status'] !== 'full'): ?>
-                                    <a href="<?php echo esc_url(add_query_arg(array('class' => $page_slug, 'variation' => $session['variation_id']), $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                    <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                 <?php else: ?>
                                     <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                 <?php endif; ?>

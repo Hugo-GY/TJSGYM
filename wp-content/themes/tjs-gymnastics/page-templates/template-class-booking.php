@@ -29,10 +29,7 @@ if ($variation_id > 0) {
 
 $class_name = ($booking_data && !is_wp_error($booking_data)) ? $booking_data['class_name'] : 'Class';
 
-$class_slug = isset($_GET['class']) ? sanitize_text_field($_GET['class']) : '';
-if (empty($class_slug) && $booking_data && !is_wp_error($booking_data) && isset($booking_data['class_slug'])) {
-    $class_slug = $booking_data['class_slug'];
-}
+$class_slug = ($booking_data && !is_wp_error($booking_data) && isset($booking_data['class_slug'])) ? $booking_data['class_slug'] : '';
 
 $back_url = home_url('/classes/');
 if (!empty($class_slug)) {
