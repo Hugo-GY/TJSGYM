@@ -130,11 +130,12 @@ function tjs_scripts() {
         wp_enqueue_style('tjs-child-info-sheet', get_template_directory_uri() . '/assets/css/child-info-sheet.css', array(), '1.0.0');
     }
     
-    // Class detail pages (Toddler, Tiddler, Mini Gym, Gymnastics)
-    if (is_page_template('page-templates/template-class-toddler.php') || 
-        is_page_template('page-templates/template-class-tiddler.php') || 
-        is_page_template('page-templates/template-class-mini-gym.php') || 
+    // Class detail pages (Toddler, Tiddler, Mini Gym, Gymnastics, Dynamic)
+    if (is_page_template('page-templates/template-class-toddler.php') ||
+        is_page_template('page-templates/template-class-tiddler.php') ||
+        is_page_template('page-templates/template-class-mini-gym.php') ||
         is_page_template('page-templates/template-class-gymnastics.php') ||
+        is_page_template('page-templates/template-class-dynamic.php') ||
         is_page_template('page-templates/template-class-booking.php') ||
         is_page_template('page-templates/template-class-confirmation.php')) {
         wp_enqueue_style('tjs-class-detail', get_template_directory_uri() . '/assets/css/class-detail.css', array(), '1.0.0');
@@ -171,6 +172,26 @@ function tjs_body_classes($classes) {
                 $classes[] = 'class-detail-page--mini';
             } elseif ($template === 'page-templates/template-class-gymnastics.php') {
                 $classes[] = 'class-detail-page--gymnastics';
+            } elseif ($template === 'page-templates/template-class-dynamic.php') {
+                // For dynamic template, try to detect modifier from linked product
+                $page_slug = get_post_field('post_name', get_the_ID());
+                if (function_exists('tjs_get_class_product')) {
+                    $product = tjs_get_class_product($page_slug);
+                    if (!$product) {
+                        // Try mapping
+                        $mappings = array(
+                            'toddler-gym' => 'toddler-gym-product',
+                            'mini-gym' => 'mini-gym-product',
+                            'gymnastics' => 'gymnastics-product'
+                        );
+                        $mapped_slug = isset($mappings[$page_slug]) ? $mappings[$page_slug] : $page_slug;
+                        $product = tjs_get_class_product($mapped_slug);
+                    }
+                    if ($product && function_exists('tjs_get_class_modifier')) {
+                        $modifier = tjs_get_class_modifier($product->get_id());
+                        $classes[] = 'class-detail-page--' . $modifier;
+                    }
+                }
             }
         }
     }

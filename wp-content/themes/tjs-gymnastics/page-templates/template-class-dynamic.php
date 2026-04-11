@@ -1,56 +1,48 @@
 <?php
 /**
  * Template Name: Dynamic Class Detail
- * 
- * This template dynamically loads class data from WooCommerce products.
- * The page slug should match the product slug for automatic lookup.
+ *
+ * Enhanced version: Unified template for all class products.
+ * Supports dynamic data loading from WooCommerce + ACF.
+ *
+ * Usage:
+ * 1. Create a WordPress Page (e.g., /product/tiddler-gym)
+ * 2. Set page slug to match product slug (or use mapping)
+ * 3. Apply this template to the page
+ * 4. All product data loads automatically!
  */
 get_header();
 
-// Get the current page slug and try to find matching product
 $page_slug = get_post_field('post_name', get_post());
 $product = null;
 
-// Try to find product by slug
+// Try direct slug match first
 if ($page_slug) {
-    $product_query = new WP_Query(array(
-        'post_type' => 'product',
-        'name' => $page_slug,
-        'posts_per_page' => 1
-    ));
-    
-    if ($product_query->have_posts()) {
-        $product_query->the_post();
-        $product = wc_get_product(get_the_ID());
-    }
-    wp_reset_postdata();
+    $product = tjs_get_class_product($page_slug);
 }
 
-// Fallback: try to find by similar slug
+// Fallback: use predefined mappings
 if (!$product) {
-    $slugs = array(
+    $slug_mappings = array(
         'tiddler-gym' => 'tiddler-gym',
         'toddler-gym' => 'toddler-gym-product',
         'mini-gym' => 'mini-gym-product',
         'gymnastics' => 'gymnastics-product'
     );
-    
-    $product_slug = isset($slugs[$page_slug]) ? $slugs[$page_slug] : $page_slug;
-    
-    $product_query = new WP_Query(array(
-        'post_type' => 'product',
-        'name' => $product_slug,
-        'posts_per_page' => 1
-    ));
-    
-    if ($product_query->have_posts()) {
-        $product_query->the_post();
-        $product = wc_get_product(get_the_ID());
-    }
-    wp_reset_postdata();
+
+    $mapped_slug = isset($slug_mappings[$page_slug]) ? $slug_mappings[$page_slug] : $page_slug;
+    $product = tjs_get_class_product($mapped_slug);
 }
 
-// If still no product, show error
+// Final fallback: try ACF field on current page
+if (!$product && function_exists('get_field')) {
+    $acf_product_id = get_field('linked_product', get_the_ID());
+    if ($acf_product_id) {
+        $product = wc_get_product($acf_product_id);
+    }
+}
+
+// Error state: no product found
 if (!$product) {
     echo '<div class="container" style="padding: 100px 20px; text-align: center;">';
     echo '<h1>Class Not Found</h1>';
@@ -61,106 +53,158 @@ if (!$product) {
     exit;
 }
 
+// Product basics
 $product_id = $product->get_id();
 $product_name = $product->get_name();
 $product_slug = $product->get_slug();
 
-// Get ACF fields
-$age_range = function_exists('get_field') ? get_field('age_range', $product_id) : '';
-$class_type = function_exists('get_field') ? get_field('class_type', $product_id) : '';
-$pay_type = function_exists('get_field') ? get_field('pay_type', $product_id) : '';
-$about_title = function_exists('get_field') ? get_field('about_title', $product_id) : '';
-$about_lead = function_exists('get_field') ? get_field('about_lead', $product_id) : '';
-$about_content = function_exists('get_field') ? get_field('about_content', $product_id) : '';
-$term_info = function_exists('get_field') ? get_field('term_info', $product_id) : array();
+// ACF fields with defaults
+$age_range = (function_exists('get_field') && get_field('age_range', $product_id)) ? get_field('age_range', $product_id) : '';
+$about_title = (function_exists('get_field') && get_field('about_title', $product_id)) ? get_field('about_title', $product_id) : '';
+$about_lead = (function_exists('get_field') && get_field('about_lead', $product_id)) ? get_field('about_lead', $product_id) : '';
+$about_content = (function_exists('get_field') && get_field('about_content', $product_id)) ? get_field('about_content', $product_id) : '';
+$pay_type = (function_exists('get_field') && get_field('pay_type', $product_id)) ? get_field('pay_type', $product_id) : '';
 
-// Determine modifier based on product category
-$modifier = 'gym';
-$class_categories = wp_get_post_terms($product_id, 'product_cat');
-foreach ($class_categories as $cat) {
-    if ($cat->slug === 'tiddler-gym') $modifier = 'tiddler';
-    if ($cat->slug === 'toddler-gym') $modifier = 'toddler';
-    if ($cat->slug === 'mini-gym') $modifier = 'minigym';
-    if ($cat->slug === 'gymnastics') $modifier = 'gym';
+// Term info from ACF or use defaults
+$term_info_raw = (function_exists('get_field')) ? get_field('term_info', $product_id) : array();
+if (!is_array($term_info_raw)) {
+    $term_info_raw = array();
 }
 
-// Fallback values
+// Determine modifier from category
+$modifier = tjs_get_class_modifier($product_id);
+
+// Fallback values based on modifier type
 if (empty($age_range)) {
-    if ($modifier === 'tiddler') $age_range = '6–12 Months';
-    if ($modifier === 'toddler') $age_range = '1–3 Years';
-    if ($modifier === 'minigym') $age_range = '3–4½ Years';
-    if ($modifier === 'gym') $age_range = '5+ Years';
+    $default_ages = array(
+        'tiddler' => '6–12 Months',
+        'toddler' => '1–3 Years',
+        'minigym' => '3–4½ Years',
+        'gym' => '5+ Years'
+    );
+    $age_range = isset($default_ages[$modifier]) ? $default_ages[$modifier] : 'All Ages';
 }
 
 if (empty($about_title)) {
-    if ($modifier === 'tiddler') $about_title = '<em>Parent & Baby</em> movement, music and play';
-    if ($modifier === 'toddler') $about_title = 'Action songs, circuits and <em>adventure</em> — together';
-    if ($modifier === 'minigym') $about_title = 'Building independence, <em>confidence</em> and skill';
-    if ($modifier === 'gym') $about_title = 'Progressive gymnastics for <em>every</em> level';
+    $default_titles = array(
+        'tiddler' => '<em>Parent & Baby</em> movement, music and play',
+        'toddler' => 'Action songs, circuits and <em>adventure</em> — together',
+        'minigym' => 'Building independence, <em>confidence</em> and skill',
+        'gym' => 'Progressive gymnastics for <em>every</em> level'
+    );
+    $about_title = isset($default_titles[$modifier]) ? $default_titles[$modifier] : $product_name;
 }
 
 if (empty($about_lead)) {
     $about_lead = $product->get_short_description() ?: $product->get_description();
 }
 
-// Get variations for booking table using unified function
-// Determine max_stock based on class type
-$max_stock = 20; // Default for gymnastics
-if ($modifier === 'toddler') $max_stock = 18;
-if ($modifier === 'minigym') $max_stock = 10;
-if ($modifier === 'tiddler') $max_stock = 10;
+// Session/booking config
+$max_stock_map = array(
+    'tiddler' => 10,
+    'toddler' => 18,
+    'minigym' => 10,
+    'gym' => 20
+);
+$max_stock = isset($max_stock_map[$modifier]) ? $max_stock_map[$modifier] : 18;
 
-// Determine pay_type
-$detected_pay_type = ($modifier === 'tiddler') ? 'per_class' : 'per_term';
+$detected_pay_type = ($modifier === 'tiddler') ? 'per_class' : (($pay_type) ? $pay_type : 'per_term');
 
 $sessions = $product->is_type('variable') ? tjs_get_class_sessions($product, $max_stock, $detected_pay_type) : array();
 
-// Default term info if ACF not set
-if (empty($term_info)) {
-    $term_info = array(
-        array(
-            'term_season' => 'Summer 2026',
-            'term_status' => 'Teaching now',
-            'term_weeks' => '13 weeks',
-            'term_dates' => "13 Apr – 21 May\n1 Jun – 16 Jul",
-            'term_halfterm' => 'Half term: w/k 25 May · No class 4 May',
-            'term_payment_due' => 'Payment due by 12 March'
-        ),
-        array(
-            'term_season' => 'Winter 2026',
-            'term_status' => 'Next term',
-            'term_weeks' => '12 weeks',
-            'term_dates' => "7 Sep – 16 Oct\n2 Nov – 10 Dec",
-            'term_halfterm' => '2-week half term: w/k 19 October',
-            'term_payment_due' => 'Payment due by 26 June'
-        ),
-        array(
-            'term_season' => 'Spring 2027',
-            'term_status' => 'Planning ahead',
-            'term_weeks' => '11 weeks',
-            'term_dates' => "4 Jan – 11 Feb\n22 Feb – 25 Mar",
-            'term_halfterm' => 'Half term: w/k 15 February',
-            'term_payment_due' => 'Payment due by 27 November'
-        )
-    );
+// Term info processing
+if (empty($term_info_raw)) {
+    $term_info_raw = tjs_get_default_terms();
 }
 
-$current_term = isset($term_info[0]) ? $term_info[0] : array();
-$upcoming_terms = array_slice($term_info, 1);
+$current_term = isset($term_info_raw[0]) ? $term_info_raw[0] : array();
+$upcoming_terms = array_slice($term_info_raw, 1);
 
-// Get booking page URL
-$booking_slug = $page_slug . '-booking';
-$booking_page = get_page_by_path($booking_slug);
-$booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
+// Helper to format term dates
+function tjs_format_term_dates_dynamic($dates_field) {
+    if (empty($dates_field)) return array();
+    if (is_array($dates_field)) return $dates_field;
+    return explode("\n", trim($dates_field));
+}
+
+// Smart booking URL resolution
+$booking_url = '#';
+if (function_exists('get_field')) {
+    $custom_booking_url = get_field('booking_page_url', $product_id);
+    if ($custom_booking_url) {
+        $booking_url = $custom_booking_url;
+    }
+}
+if ($booking_url === '#') {
+    $booking_slug_try = $product_slug . '-booking';
+    $booking_page = get_page_by_path($booking_slug_try);
+    if ($booking_page) {
+        $booking_url = get_permalink($booking_page->ID);
+    }
+}
+if ($booking_url === '#') {
+    $alt_booking_slug = $page_slug . '-booking';
+    $alt_booking_page = get_page_by_path($alt_booking_slug);
+    if ($alt_booking_page) {
+        $booking_url = get_permalink($alt_booking_page->ID);
+    }
+}
+
+// Gallery setup - 3-tier fallback system
+$gallery_images = array();
+
+// Tier 1: ACF Gallery field (highest priority)
+if (function_exists('get_field')) {
+    $acf_gallery = get_field('gallery_images', $product_id);
+    if (is_array($acf_gallery) && !empty($acf_gallery)) {
+        foreach ($acf_gallery as $img) {
+            $gallery_images[] = array(
+                'src' => isset($img['url']) ? $img['url'] : '',
+                'alt' => isset($img['alt']) ? $img['alt'] : $product_name . ' photo'
+            );
+        }
+    }
+}
+
+// Tier 2: WooCommerce Product Gallery (if ACF not configured)
+if (empty($gallery_images) && method_exists($product, 'get_gallery_image_ids')) {
+    $wc_gallery_ids = $product->get_gallery_image_ids();
+    if (!empty($wc_gallery_ids)) {
+        foreach ($wc_gallery_ids as $attachment_id) {
+            $img_url = wp_get_attachment_image_url($attachment_id, 'large');
+            $img_alt = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
+            if ($img_url) {
+                $gallery_images[] = array(
+                    'src' => $img_url,
+                    'alt' => $img_alt ?: $product_name . ' photo'
+                );
+            }
+        }
+    }
+}
+
+// Tier 3: Default theme images (fallback)
+if (empty($gallery_images)) {
+    $gallery_base = get_template_directory_uri() . '/assets/images/classes/' . $modifier . '/';
+    $default_gallery_count = 5;
+    for ($i = 1; $i <= $default_gallery_count; $i++) {
+        $gallery_images[] = array(
+            'src' => $gallery_base . 'gallery-' . $i . '.jpg',
+            'alt' => $product_name . ' photo ' . $i
+        );
+    }
+}
 ?>
 
 <div data-page-root="<?php echo esc_attr($page_slug); ?>">
+    <!-- Back navigation -->
     <div class="cd-back-wrap">
         <div class="container">
             <a href="<?php echo esc_url(home_url('/classes/')); ?>" class="cd-back-btn">← Back to Classes</a>
         </div>
     </div>
 
+    <!-- Hero Section -->
     <section class="cd-hero" aria-label="<?php echo esc_attr($product_name); ?>">
         <div class="container">
             <div class="cd-hero-card cd-hero-card--imageless cd-hero-card--<?php echo esc_attr($modifier); ?> card-accent">
@@ -175,6 +219,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
         </div>
     </section>
 
+    <!-- About Section -->
     <section class="section cd-about cd-about--single" aria-label="<?php _e('About', 'tjs-gymnastics'); ?> <?php echo esc_attr($product_name); ?>">
         <div class="container">
             <div class="cd-about-header cd-about-header--centered">
@@ -193,6 +238,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
     </section>
 
     <?php if (!empty($sessions)): ?>
+    <!-- Booking Section -->
     <section class="cd-booking cd-booking--<?php echo esc_attr($modifier); ?> section" id="book" aria-label="<?php _e('Book a place', 'tjs-gymnastics'); ?>">
         <div class="container">
             <div class="cd-booking-header">
@@ -201,6 +247,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
                 <p><?php _e('Current term sessions are shown below, with the next term dates underneath for planning ahead.', 'tjs-gymnastics'); ?></p>
             </div>
 
+            <!-- Desktop Table View -->
             <div class="cd-booking-table-wrap">
                 <table class="cd-booking-table" aria-label="<?php echo esc_attr((isset($current_term['term_season']) ? $current_term['term_season'] : 'Current') . ' ' . $product_name . ' sessions'); ?>">
                     <thead>
@@ -219,7 +266,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
                                 $current_day = $session['day'];
                         ?>
                             <tr class="cd-day-group">
-                                <td><?php echo esc_html($session['day']); ?></td><td colspan="3"></td>
+                                <td><?php echo esc_html($session['day']); ?><td colspan="3"></td></td>
                             </tr>
                         <?php endif; ?>
                             <tr>
@@ -230,16 +277,53 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
                                     <?php if ($session['status'] !== 'full'): ?>
                                         <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                     <?php else: ?>
-                                        <a href="#waitlist" class="btn btn-secondary btn-sm cd-waitlist-btn"><?php _e('Join Waitlist', 'tjs-gymnastics'); ?></a>
+                                        <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
+                <!-- Mobile Cards View -->
+                <div class="cd-booking-cards-mobile" aria-hidden="true">
+                    <?php
+                    $current_day = '';
+                    foreach ($sessions as $session):
+                        if ($current_day !== $session['day']):
+                            $current_day = $session['day'];
+                    ?>
+                        <p class="cd-booking-mobile-day"><?php echo esc_html($session['day']); ?></p>
+                    <?php endif; ?>
+                        <article class="cd-booking-mobile-card">
+                            <div class="cd-booking-mobile-stats">
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Time', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['time']); ?></span>
+                                </div>
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Price', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['price']); ?></span>
+                                </div>
+                                <div class="cd-booking-mobile-stat">
+                                    <span class="cd-booking-mobile-label"><?php _e('Availability', 'tjs-gymnastics'); ?></span>
+                                    <span class="cd-booking-mobile-value"><?php echo esc_html($session['availability']); ?></span>
+                                </div>
+                            </div>
+                            <div class="cd-booking-mobile-actions">
+                                <?php if ($session['status'] !== 'full'): ?>
+                                    <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
+                                <?php else: ?>
+                                    <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
+                                <?php endif; ?>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <?php if (!empty($current_term)): ?>
+            <!-- Current Term Info -->
             <section class="cd-booking-term-current" aria-label="<?php _e('Current term details', 'tjs-gymnastics'); ?>">
                 <span class="section-label"><?php _e('Current Term', 'tjs-gymnastics'); ?></span>
                 <article class="cd-term-card cd-term-card--static cd-term-card--current">
@@ -250,13 +334,18 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
                     <hr class="cd-term-divider">
                     <div class="cd-term-schedule">
                         <span class="cd-term-weeks"><?php echo esc_html(isset($current_term['term_weeks']) ? $current_term['term_weeks'] : ''); ?></span>
-                        <?php 
-                        if (isset($current_term['term_dates'])) {
-                            $dates = is_array($current_term['term_dates']) ? $current_term['term_dates'] : explode("\n", $current_term['term_dates']);
-                            foreach ($dates as $date): 
-                                if (trim($date)): ?>
-                                <span class="cd-term-daterange"><?php echo esc_html(trim($date)); ?></span>
-                        <?php endif; endforeach; } ?>
+                        <?php
+                        if (isset($current_term['term_dates'])):
+                            $dates = tjs_format_term_dates_dynamic($current_term['term_dates']);
+                            foreach ($dates as $date):
+                                if (trim($date)):
+                        ?>
+                            <span class="cd-term-daterange"><?php echo esc_html(trim($date)); ?></span>
+                        <?php
+                                endif;
+                            endforeach;
+                        endif;
+                        ?>
                         <span class="cd-term-halfterm"><?php echo esc_html(isset($current_term['term_halfterm']) ? $current_term['term_halfterm'] : ''); ?></span>
                         <span class="cd-term-payment"><?php echo esc_html(isset($current_term['term_payment_due']) ? $current_term['term_payment_due'] : ''); ?></span>
                     </div>
@@ -265,6 +354,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
             <?php endif; ?>
 
             <?php if (!empty($upcoming_terms)): ?>
+            <!-- Upcoming Terms -->
             <section class="cd-booking-term-upcoming" aria-label="<?php _e('Upcoming term details', 'tjs-gymnastics'); ?>">
                 <h2><em><?php _e('Next', 'tjs-gymnastics'); ?></em> <?php _e('Terms', 'tjs-gymnastics'); ?></h2>
                 <div class="cd-booking-term-grid">
@@ -277,13 +367,18 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
                             <hr class="cd-term-divider">
                             <div class="cd-term-schedule">
                                 <span class="cd-term-weeks"><?php echo esc_html(isset($term['term_weeks']) ? $term['term_weeks'] : ''); ?></span>
-                                <?php 
-                                if (isset($term['term_dates'])) {
-                                    $dates = is_array($term['term_dates']) ? $term['term_dates'] : explode("\n", $term['term_dates']);
-                                    foreach ($dates as $date): 
-                                        if (trim($date)): ?>
-                                        <span class="cd-term-daterange"><?php echo esc_html(trim($date)); ?></span>
-                                <?php endif; endforeach; } ?>
+                                <?php
+                                if (isset($term['term_dates'])):
+                                    $dates = tjs_format_term_dates_dynamic($term['term_dates']);
+                                    foreach ($dates as $date):
+                                        if (trim($date)):
+                                ?>
+                                    <span class="cd-term-daterange"><?php echo esc_html(trim($date)); ?></span>
+                                <?php
+                                        endif;
+                                    endforeach;
+                                endif;
+                                ?>
                                 <span class="cd-term-halfterm"><?php echo esc_html(isset($term['term_halfterm']) ? $term['term_halfterm'] : ''); ?></span>
                                 <span class="cd-term-payment"><?php echo esc_html(isset($term['term_payment_due']) ? $term['term_payment_due'] : ''); ?></span>
                             </div>
@@ -296,6 +391,7 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
     </section>
     <?php endif; ?>
 
+    <!-- Terms & Conditions Summary -->
     <section class="cd-terms-summary" aria-labelledby="cd-terms-summary-title">
         <div class="container">
             <article class="cd-terms-summary-card">
@@ -312,6 +408,43 @@ $booking_url = $booking_page ? get_permalink($booking_page->ID) : '#';
             </article>
         </div>
     </section>
+
+    <?php if (!empty($gallery_images)): ?>
+    <!-- Photo Gallery -->
+    <section class="cd-gallery section" aria-label="<?php echo esc_attr($product_name); ?> photos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label"><?php _e('Gallery', 'tjs-gymnastics'); ?></span>
+                <h2><em><?php _e('Life', 'tjs-gymnastics'); ?></em> <?php _e('in the Gym', 'tjs-gymnastics'); ?></h2>
+            </div>
+
+            <div class="comp-carousel" aria-label="<?php echo esc_attr($product_name); ?> photos" tabindex="0">
+                <div class="comp-carousel-main">
+                    <?php foreach ($gallery_images as $index => $img): ?>
+                        <img class="comp-carousel-img <?php echo $index === 0 ? 'is-active' : ''; ?>"
+                             src="<?php echo esc_url($img['src']); ?>"
+                             alt="<?php echo esc_attr($img['alt']); ?>"
+                             loading="lazy">
+                    <?php endforeach; ?>
+                    <button class="comp-carousel-btn comp-carousel-prev" aria-label="Previous photo">&#8249;</button>
+                    <button class="comp-carousel-btn comp-carousel-next" aria-label="Next photo">&#8250;</button>
+                    <span class="comp-carousel-counter" aria-live="polite">1 / <?php echo count($gallery_images); ?></span>
+                </div>
+                <div class="comp-carousel-thumbs" role="tablist" aria-label="Photo thumbnails">
+                    <?php foreach ($gallery_images as $index => $img): ?>
+                        <button class="comp-thumb <?php echo $index === 0 ? 'is-active' : ''; ?>"
+                                data-index="<?php echo $index; ?>"
+                                role="tab"
+                                aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>"
+                                aria-label="<?php echo esc_attr(sprintf(__('Photo %d', 'tjs-gymnastics'), $index + 1)); ?>">
+                            <img src="<?php echo esc_url($img['src']); ?>" alt="" loading="lazy">
+                        </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
 </div>
 
 <?php get_footer(); ?>
