@@ -137,7 +137,8 @@ function tjs_scripts() {
         is_page_template('page-templates/template-class-gymnastics.php') ||
         is_page_template('page-templates/template-class-dynamic.php') ||
         is_page_template('page-templates/template-class-booking.php') ||
-        is_page_template('page-templates/template-class-confirmation.php')) {
+        is_page_template('page-templates/template-class-confirmation.php') ||
+        function_exists('is_checkout') && is_checkout()) {
         wp_enqueue_style('tjs-class-detail', get_template_directory_uri() . '/assets/css/class-detail.css', array(), '1.0.0');
     }
     
