@@ -230,8 +230,9 @@ function tjs_get_class_modifier($product_id) {
  *
  * @return array Array of term information
  */
-function tjs_get_default_terms() {
-    return array(
+if (!function_exists('tjs_get_default_terms')) {
+    function tjs_get_default_terms() {
+        return array(
         array(
             'term_season' => 'Summer 2026',
             'term_status' => 'Teaching now',
@@ -257,6 +258,7 @@ function tjs_get_default_terms() {
             'term_payment_due' => 'Payment due by 27 November'
         )
     );
+    }
 }
 
 /**

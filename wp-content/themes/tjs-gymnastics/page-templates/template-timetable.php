@@ -66,14 +66,23 @@ function get_timetable_data_from_products() {
                 if (!$variation) continue;
                 
                 $attributes = $variation->get_attributes();
-                $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] : '';
-                $time = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] : '';
-                $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] : '';
-                
-                if (empty($day) || empty($time)) continue;
-                
-                $day_lower = strtolower($day);
+
+                // Support both taxonomy attributes (pa_*) and custom attributes
+                $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] :
+                       (isset($attributes['class-day']) ? $attributes['class-day'] : '');
+                $time_raw = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] :
+                            (isset($attributes['time-slot']) ? $attributes['time-slot'] : '');
+                $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] :
+                         (isset($attributes['group-level']) ? $attributes['group-level'] : '');
+
+                if (empty($day) || empty($time_raw)) continue;
+
+                // Normalize day name to lowercase for array key
+                $day_lower = strtolower(trim($day));
                 if (!isset($timetable[$day_lower])) continue;
+
+                // Format time slot
+                $time = tjs_format_time_slot($time_raw);
                 
                 $price = $variation->get_price();
                 $price_display = $price ? '£' . $price . ' / term' : '';
@@ -175,9 +184,24 @@ if (!$has_product_data) {
     <div class="container">
         <div class="timetable-grid">
             <?php
-            $days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday');
-            
-            foreach ($days as $day):
+            // Only show days that have classes scheduled
+            $all_days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday');
+            $active_days = array();
+
+            // Filter to only show days with actual class data
+            foreach ($all_days as $day) {
+                $day_lower = strtolower($day);
+                if (isset($timetable_data[$day_lower]) && !empty($timetable_data[$day_lower])) {
+                    $active_days[] = $day;
+                }
+            }
+
+            // If no active days found, show all days (fallback)
+            if (empty($active_days)) {
+                $active_days = $all_days;
+            }
+
+            foreach ($active_days as $day):
                 $day_lower = strtolower($day);
                 $day_classes = isset($timetable_data[$day_lower]) ? $timetable_data[$day_lower] : array();
             ?>
