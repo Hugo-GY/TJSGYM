@@ -751,7 +751,7 @@
     text-align: center;
     padding-bottom: var(--space-sm);
     min-height: auto;
-    gap: 1rem;
+    gap: 0;
   }
 
   .hero-eyebrow { justify-content: center; }
@@ -772,6 +772,7 @@
 
   .hero-content {
     order: 2;
+    margin-top: -3rem;
   }
 
   .hero-visual {
@@ -787,7 +788,7 @@
 
   .hero-collage {
     width: min(100%, 21.5rem);
-    min-height: 22rem;
+    min-height: 30rem;
     margin: 0 auto;
   }
 
