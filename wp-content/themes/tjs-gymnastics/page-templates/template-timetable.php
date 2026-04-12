@@ -45,8 +45,21 @@ function get_timetable_data_from_products() {
             }
             
             $product_name = $product->get_name();
-            $product_link = get_permalink();
             $product_slug = $product->get_slug();
+
+            // Map product slug to class detail page URL (same as template-classes.php)
+            $class_page_map = array(
+                'tiddler-gym' => '/tiddler-gym/',
+                'toddler-gym-product' => '/toddler-gym/',
+                'mini-gym-product' => '/mini-gym/',
+                'gymnastics-product' => '/gymnastics/',
+            );
+
+            if (isset($class_page_map[$product_slug])) {
+                $product_link = home_url($class_page_map[$product_slug]);
+            } else {
+                $product_link = get_permalink();
+            }
             
             // Get age range from ACF or category
             $age_range = function_exists('get_field') ? get_field('age_range', get_the_ID()) : '';
