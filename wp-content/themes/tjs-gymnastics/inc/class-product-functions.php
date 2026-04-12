@@ -594,3 +594,93 @@ function tjs_ajax_add_to_cart() {
         'cart_url' => wc_get_cart_url()
     ));
 }
+
+/**
+ * Modify cart item price for trial bookings
+ *
+ * Hooks into WooCommerce cart calculation to apply trial pricing
+ * when booking-type is set to 'trial' in cart item data.
+ */
+add_action('woocommerce_before_calculate_totals', 'tjs_apply_trial_price_to_cart');
+
+function tjs_apply_trial_price_to_cart($cart) {
+    if (did_action('woocommerce_before_calculate_totals') > 1) {
+        return;
+    }
+
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        if (isset($cart_item['booking-type']) && $cart_item['booking-type'] === 'trial') {
+            $variation_id = $cart_item['variation_id'];
+            $product_id = $cart_item['product_id'];
+
+            if ($variation_id && $product_id) {
+                $product = wc_get_product($product_id);
+                if ($product && function_exists('get_field')) {
+                    $trial_price = get_field('trial_price', $product_id);
+                    if (is_numeric($trial_price) && $trial_price > 0) {
+                        $cart_item['data']->set_price(floatval($trial_price));
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Force stock reduction on order completion
+ *
+ * Ensures that variation stock is properly reduced when an order
+ * status is changed to 'completed' or 'processing'.
+ * This fixes issues where set_price() might interfere with normal stock deduction.
+ */
+add_action('woocommerce_order_status_completed', 'tjs_reduce_stock_on_order_complete');
+add_action('woocommerce_order_status_processing', 'tjs_reduce_stock_on_order_complete');
+
+function tjs_reduce_stock_on_order_complete($order_id) {
+    $order = wc_get_order($order_id);
+    if (!$order) return;
+
+    foreach ($order->get_items() as $item_id => $item) {
+        $product = $item->get_product();
+        if (!$product) continue;
+
+        // Only handle variations (class bookings)
+        if (!$product->is_type('variation')) continue;
+
+        $quantity = $item->get_quantity();
+        
+        // Check if stock needs to be reduced
+        // Reduce stock only if product manages stock and is in stock
+        if ($product->managing_stock() && $product->is_in_stock()) {
+            // Get current stock before reduction
+            $old_stock = $product->get_stock_quantity();
+            
+            // Reduce stock using WooCommerce's built-in method
+            $new_stock = wc_update_product_stock($product->get_id(), -$quantity, 'reduce');
+            
+            // Log the stock change for debugging
+            error_log(sprintf(
+                '[TJS] Stock reduced for order %s: Variation %d | Qty: %d | Old: %d | New: %d',
+                $order_id,
+                $product->get_id(),
+                $quantity,
+                $old_stock,
+                $new_stock
+            ));
+            
+            // Update ACF field to keep in sync
+            if (function_exists('update_field')) {
+                update_field('variation_stock', $new_stock, $product->get_id());
+            }
+            
+            // Add order note about stock reduction
+            $order->add_order_note(sprintf(
+                'Stock reduced: %s (Variation #%d) - %d unit(s) | Remaining: %d',
+                $product->get_name(),
+                $product->get_id(),
+                $quantity,
+                $new_stock
+            ));
+        }
+    }
+}
