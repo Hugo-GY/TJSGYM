@@ -741,12 +741,17 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-md);
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
     min-height: auto;
-    gap: 0.125rem;
+    gap: 0;
   }
 
   .hero-eyebrow { justify-content: center; }
@@ -767,6 +772,7 @@
 
   .hero-content {
     order: 2;
+    margin-top: -3rem;
   }
 
   .hero-visual {
