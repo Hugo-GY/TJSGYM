@@ -18,8 +18,8 @@ function tjs_add_checkout_fields($checkout) {
         return;
     }
     
-    echo '<div id="tjs-student-info" style="margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px;">';
-    echo '<h2 style="margin-bottom: 20px;">Student Information</h2>';
+    echo '<div id="tjs-student-info">';
+    echo '<h2>Student Information</h2>';
     
     // Student Name
     woocommerce_form_field('student_name', array(
@@ -181,51 +181,13 @@ function tjs_validate_checkout_fields($fields, $errors) {
     if (!tjs_cart_has_class_product()) {
         return;
     }
-    
+
     if (empty($_POST['student_name'])) {
         $errors->add('student_name', 'Please enter the child\'s full name');
     }
-    
+
     if (empty($_POST['student_dob'])) {
         $errors->add('student_dob', 'Please enter the child\'s date of birth');
     }
 }
 add_action('woocommerce_after_checkout_validation', 'tjs_validate_checkout_fields');
-
-/**
- * Add custom CSS for checkout fields
- */
-function tjs_checkout_fields_css() {
-    if (is_checkout()) {
-        echo '<style>
-            #tjs-student-info h2 {
-                font-size: 1.5em;
-                color: #333;
-            }
-            #tjs-student-info .form-row {
-                margin-bottom: 15px;
-            }
-            #tjs-student-info label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 600;
-            }
-            #tjs-student-info input,
-            #tjs-student-info textarea {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-            #tjs-student-info input:focus,
-            #tjs-student-info textarea:focus {
-                border-color: #0073aa;
-                outline: none;
-            }
-            .tjs-student-admin p {
-                margin: 5px 0;
-            }
-        </style>';
-    }
-}
-add_action('wp_head', 'tjs_checkout_fields_css');

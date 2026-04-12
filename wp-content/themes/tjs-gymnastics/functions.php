@@ -141,12 +141,17 @@ function tjs_scripts() {
         function_exists('is_checkout') && is_checkout()) {
         wp_enqueue_style('tjs-class-detail', get_template_directory_uri() . '/assets/css/class-detail.css', array(), '1.0.0');
     }
-    
+
+    // WooCommerce pages (Cart & Checkout)
+    if (function_exists('is_cart') && is_cart() || (function_exists('is_checkout') && is_checkout()) || (function_exists('is_account_page') && is_account_page())) {
+        wp_enqueue_style('tjs-woocommerce', get_template_directory_uri() . '/assets/css/woocommerce.css', array(), '1.0.0');
+    }
+
     // News article styles (for single post)
     if (is_singular('post')) {
         wp_enqueue_style('tjs-news-article', get_template_directory_uri() . '/assets/css/news-article.css', array(), '1.0.0');
     }
-    
+
     // Theme JavaScript
     wp_enqueue_script('tjs-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
 
@@ -157,6 +162,53 @@ function tjs_scripts() {
     ));
 }
 add_action('wp_enqueue_scripts', 'tjs_scripts');
+
+/**
+ * Remove "New in store" section from Cart page
+ */
+function tjs_remove_new_in_store_from_cart($content) {
+    if (function_exists('is_cart') && is_cart()) {
+        $content = preg_replace('/<h2[^>]*class="[^"]*wp-block-heading[^"]*"[^>]*>\s*New in store\s*<\/h2>/i', '', $content);
+
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="utf-8">' . $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new DOMXPath($dom);
+
+        $nodes_to_remove = array();
+
+        $product_new_nodes = $xpath->query('//*[contains(@data-block-name, "woocommerce/product-new") or contains(@class, "wp-block-woocommerce-product-new")]');
+        foreach ($product_new_nodes as $node) {
+            $nodes_to_remove[] = $node;
+        }
+
+        foreach ($nodes_to_remove as $node) {
+            $node->parentNode->removeChild($node);
+        }
+
+        $content = $dom->saveHTML();
+        $content = str_replace('<?xml encoding="utf-8">', '', $content);
+    }
+    return $content;
+}
+add_filter('the_content', 'tjs_remove_new_in_store_from_cart');
+
+/**
+ * Remove "New in store" via output buffer (fallback)
+ */
+function tjs_remove_new_in_store_buffer_start() {
+    if (function_exists('is_cart') && is_cart()) {
+        ob_start(function($html) {
+            $patterns = array(
+                '/<div[^>]*data-block-name=["\']woocommerce\/product-new["\'][^>]*>.*?<\/div>\s*/is',
+                '/<div[^>]*class=["\'][^"\']*wp-block-woocommerce-product-new[^"\']*["\'][^>]*>.*?<\/div>\s*/is',
+                '/<!-- wp:woocommerce\/product-new -->.*?<!-- \/wp:woocommerce\/product-new -->/is',
+                '/<!-- wp:heading.*?-->.*?New in store.*?<!-- \/wp:heading -->/is'
+            );
+            return preg_replace($patterns, '', $html);
+        });
+    }
+}
+add_action('template_redirect', 'tjs_remove_new_in_store_buffer_start');
 
 /**
  * Add custom body classes
