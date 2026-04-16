@@ -1652,6 +1652,16 @@
     padding: 0.85rem 0.95rem 0.85rem 1rem;
   }
 
+  .cd-table-note--highlight p {
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .cd-table-note--highlight a {
+    word-break: break-all;
+  }
+
   .cd-table-note--inline {
     margin-top: var(--space-sm);
     padding-top: 0.7rem;
