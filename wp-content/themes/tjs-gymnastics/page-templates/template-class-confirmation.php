@@ -33,19 +33,10 @@ $booking_url = str_replace('-confirmation', '-booking', get_permalink($current_p
 <div data-page-root="<?php echo sanitize_html_class($page_slug); ?>-confirmation"
      data-variation-id="<?php echo esc_attr($variation_id); ?>">
     
-    <div class="cd-back-wrap">
-        <div class="container">
-            <a href="<?php echo esc_url(add_query_arg('variation', $variation_id, $booking_url)); ?>" 
-               class="cd-back-btn">
-                ← <?php _e('Back to Booking Form', 'tjs-gymnastics'); ?>
-            </a>
-        </div>
-    </div>
-
     <section class="cd-booking-confirmation-hero" aria-label="<?php _e('Booking confirmation', 'tjs-gymnastics'); ?>">
         <div class="container">
             <p class="page-hero-eyebrow" data-confirmation-class-label><?php echo esc_html($class_name); ?></p>
-            <h1><?php _e('Booking Request Received', 'tjs-gymnastics'); ?></h1>
+            <h1><?php _e('Booking Confirmed', 'tjs-gymnastics'); ?></h1>
             <p class="page-hero-sub"><?php _e('Review your selected session and any available booking details below.', 'tjs-gymnastics'); ?></p>
         </div>
     </section>
@@ -94,7 +85,9 @@ $booking_url = str_replace('-confirmation', '-booking', get_permalink($current_p
                         </div>
                         <div>
                             <dt><?php _e('Price', 'tjs-gymnastics'); ?></dt>
-                            <dd data-session-field="price">—</dd>
+                            <dd data-session-field="price"
+                                data-price-full="<?php echo esc_attr($booking_data['price_full']); ?>"
+                                data-price-trial="<?php echo esc_attr($booking_data['price_trial']); ?>">—</dd>
                         </div>
                         <div>
                             <dt><?php _e('Availability', 'tjs-gymnastics'); ?></dt>
@@ -107,15 +100,15 @@ $booking_url = str_replace('-confirmation', '-booking', get_permalink($current_p
                         <dl class="cd-submitted-summary-list">
                             <div>
                                 <dt><?php _e('Child\'s Name', 'tjs-gymnastics'); ?></dt>
-                                <dd data-submitted-field="childName"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
+                                <dd data-submitted-field="child-name"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Child\'s date of birth', 'tjs-gymnastics'); ?></dt>
-                                <dd data-submitted-field="childDob"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
+                                <dd data-submitted-field="child-dob"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Parent / Carer Name', 'tjs-gymnastics'); ?></dt>
-                                <dd data-submitted-field="parentName"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
+                                <dd data-submitted-field="parent-name"><?php _e('No details available', 'tjs-gymnastics'); ?></dd>
                             </div>
                             <div>
                                 <dt><?php _e('Email Address', 'tjs-gymnastics'); ?></dt>

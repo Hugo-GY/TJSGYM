@@ -6,7 +6,7 @@
  * Auto-detects product from variation_id and loads all data from database.
  *
  * Usage:
- * 1. Create a WordPress Page (e.g., /toddler-gym-booking)
+ * 1. Create a single WordPress Page (e.g., /class-booking)
  * 2. Apply this template to the page
  * 3. Access via ?variation=123 parameter
  * 4. All data loads automatically from WooCommerce + ACF!
@@ -133,9 +133,10 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
                         </dl>
                     </div>
 
-                    <form class="cd-booking-form" data-booking-form
+                      <form class="cd-booking-form" data-booking-form
                           action=""
                           method="post"
+                          novalidate
                           data-checkout-url="<?php echo esc_url(wc_get_checkout_url()); ?>"
                           data-variation-id="<?php echo esc_attr($variation_id); ?>"
                           data-product-id="<?php echo esc_attr($booking_data['product_id']); ?>"
@@ -172,35 +173,91 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
                             <h2><?php _e('Application Info', 'tjs-gymnastics'); ?></h2>
                             <div>
                                 <label for="child-name"><?php _e('Child\'s Name', 'tjs-gymnastics'); ?></label>
-                                <input type="text" id="child-name" name="child-name" required autocomplete="off">
+                                <input type="text" id="child-name" name="child-name" required maxlength="100" autocomplete="off" aria-describedby="child-name-error">
+                                <p class="cd-field-error" id="child-name-error" data-field-error-for="child-name" role="alert" hidden></p>
                             </div>
 
                             <div>
                                 <label for="child-dob"><?php _e('Child\'s date of birth', 'tjs-gymnastics'); ?></label>
-                                <input type="date" id="child-dob" name="child-dob" required autocomplete="bday">
+                                <input type="text" id="child-dob" name="child-dob" required autocomplete="off" inputmode="none" data-lock-date-input="true" data-type-datepicker data-format="Y-m-d" aria-haspopup="dialog" aria-describedby="child-dob-error">
+                                <p class="cd-field-error" id="child-dob-error" data-field-error-for="child-dob" role="alert" hidden></p>
                             </div>
 
                             <div>
                                 <label for="parent-name"><?php _e('Parent / Carer Name', 'tjs-gymnastics'); ?></label>
-                                <input type="text" id="parent-name" name="parent-name" required autocomplete="name">
+                                <input type="text" id="parent-name" name="parent-name" required maxlength="100" autocomplete="name" aria-describedby="parent-name-error">
+                                <p class="cd-field-error" id="parent-name-error" data-field-error-for="parent-name" role="alert" hidden></p>
                             </div>
 
                             <div>
                                 <label for="email"><?php _e('Email Address', 'tjs-gymnastics'); ?></label>
-                                <input type="email" id="email" name="email" required autocomplete="email">
+                                <input type="email" id="email" name="email" required maxlength="100" autocomplete="email" aria-describedby="email-error">
+                                <p class="cd-field-error" id="email-error" data-field-error-for="email" role="alert" hidden></p>
                             </div>
 
                             <div>
                                 <label for="phone"><?php _e('Phone Number', 'tjs-gymnastics'); ?></label>
-                                <input type="tel" id="phone" name="phone" required autocomplete="tel">
+                                <input type="tel" id="phone" name="phone" required maxlength="50" autocomplete="tel" aria-describedby="phone-error">
+                                <p class="cd-field-error" id="phone-error" data-field-error-for="phone" role="alert" hidden></p>
                             </div>
 
                             <div>
                                 <label for="message"><?php _e('Additional Message', 'tjs-gymnastics'); ?></label>
-                                <textarea id="message" name="message" rows="6"></textarea>
+                                <textarea id="message" name="message" rows="6" maxlength="500" aria-describedby="message-error"></textarea>
+                                <p class="cd-field-error" id="message-error" data-field-error-for="message" role="alert" hidden></p>
+                            </div>
+                        </div>
+
+                        <div class="cd-booking-form-section cd-booking-payment-section">
+                            <h2><?php _e('Payment Details', 'tjs-gymnastics'); ?></h2>
+                            <div class="cd-booking-payment-copy">
+                                <p><?php _e('Enter your card details below to continue with payment.', 'tjs-gymnastics'); ?></p>
                             </div>
 
-                            <div class="contact-submit-row">
+                            <div id="tjs-booking-stripe-form" class="tjs-booking-stripe" aria-label="<?php esc_attr_e('Card details', 'tjs-gymnastics'); ?>">
+                                <div class="tjs-booking-stripe__group tjs-booking-stripe__group--full">
+                                    <label for="tjs-booking-stripe-card-element"><?php _e('Card number', 'tjs-gymnastics'); ?></label>
+                                    <div id="tjs-booking-stripe-card-element" class="tjs-booking-stripe__field"></div>
+                                    <p class="cd-field-error cd-stripe-field-error" id="tjs-booking-stripe-card-error" data-stripe-error-for="cardNumber" role="alert" hidden></p>
+                                </div>
+
+                                <div class="tjs-booking-stripe__split">
+                                    <div class="tjs-booking-stripe__group">
+                                        <label for="tjs-booking-stripe-exp-element"><?php _e('Expiration date', 'tjs-gymnastics'); ?></label>
+                                        <div id="tjs-booking-stripe-exp-element" class="tjs-booking-stripe__field"></div>
+                                        <p class="cd-field-error cd-stripe-field-error" id="tjs-booking-stripe-exp-error" data-stripe-error-for="cardExpiry" role="alert" hidden></p>
+                                    </div>
+
+                                    <div class="tjs-booking-stripe__group">
+                                        <label for="tjs-booking-stripe-cvc-element"><?php _e('Security code', 'tjs-gymnastics'); ?></label>
+                                        <div id="tjs-booking-stripe-cvc-element" class="tjs-booking-stripe__field"></div>
+                                        <p class="cd-field-error cd-stripe-field-error" id="tjs-booking-stripe-cvc-error" data-stripe-error-for="cardCvc" role="alert" hidden></p>
+                                    </div>
+                                </div>
+
+                                <div id="tjs-booking-stripe-errors" class="stripe-source-errors" role="alert" aria-live="polite"></div>
+                            </div>
+
+                            <div class="cd-booking-payment-privacy woocommerce-privacy-policy-text">
+                                <p>
+                                    <?php
+                                    printf(
+                                        wp_kses(
+                                            __('Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="%s">privacy policy</a>.', 'woocommerce'),
+                                            array(
+                                                'a' => array(
+                                                    'href' => array(),
+                                                ),
+                                            )
+                                        ),
+                                        esc_url(get_privacy_policy_url())
+                                    );
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-submit-row">
                             <button type="submit" class="btn btn-magenta cd-pay-button">
                                 <span class="cd-pay-text"><?php _e('Pay', 'tjs-gymnastics'); ?></span>
                                 <span class="cd-pay-loading" style="display:none;">
@@ -216,7 +273,7 @@ $confirmation_url = str_replace('-booking', '-confirmation', $confirmation_url);
 
                         <input type="hidden" name="variation_id" value="<?php echo esc_attr($variation_id); ?>">
                         <input type="hidden" name="product_id" value="<?php echo esc_attr($booking_data['product_id']); ?>">
-                        <input type="hidden" name="action" value="tjs_add_to_cart">
+                        <input type="hidden" name="action" value="tjs_create_booking_payment">
                         <?php wp_nonce_field('tjs_booking_nonce', 'booking_nonce'); ?>
                     </form>
                 </div>

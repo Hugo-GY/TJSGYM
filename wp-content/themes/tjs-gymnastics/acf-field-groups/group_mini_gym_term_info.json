@@ -7,21 +7,18 @@
             "label": "Current Term",
             "name": "",
             "aria-label": "",
-            "type": "text",
+            "type": "message",
             "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "0": false,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "message": "<h3 style='margin:0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Current Term Configuration</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
         },
         {
             "key": "field_mini_ct_season",
@@ -109,7 +106,7 @@
             "name": "ct_halfterm",
             "aria-label": "",
             "type": "text",
-            "instructions": "e.g., Half term: w\/k 25 May",
+            "instructions": "e.g., Half term: w/k 25 May",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -117,8 +114,8 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Half term: w\/k 25 May · No class 4 May",
-            "placeholder": "Half term: w\/k 25 May",
+            "default_value": "Half term: w/k 25 May · No class 4 May",
+            "placeholder": "Half term: w/k 25 May",
             "prepend": "",
             "append": "",
             "maxlength": ""
@@ -148,21 +145,18 @@
             "label": "Next Term 1",
             "name": "",
             "aria-label": "",
-            "type": "text",
+            "type": "message",
             "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "0": false,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "message": "<h3 style='margin:20px 0 0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Next Term 1 Configuration</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
         },
         {
             "key": "field_mini_nt1_season",
@@ -250,7 +244,7 @@
             "name": "nt1_halfterm",
             "aria-label": "",
             "type": "text",
-            "instructions": "e.g., 2-week half term: w\/k 19 October",
+            "instructions": "e.g., 2-week half term: w/k 19 October",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -258,8 +252,8 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "2-week half term: w\/k 19 October",
-            "placeholder": "2-week half term: w\/k 19 October",
+            "default_value": "2-week half term: w/k 19 October",
+            "placeholder": "2-week half term: w/k 19 October",
             "prepend": "",
             "append": "",
             "maxlength": ""
@@ -289,21 +283,18 @@
             "label": "Next Term 2",
             "name": "",
             "aria-label": "",
-            "type": "text",
+            "type": "message",
             "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "0": false,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "message": "<h3 style='margin:20px 0 0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Next Term 2 Configuration (Optional)</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
         },
         {
             "key": "field_mini_nt2_season",
@@ -391,7 +382,7 @@
             "name": "nt2_halfterm",
             "aria-label": "",
             "type": "text",
-            "instructions": "e.g., Half term: w\/k 15 February",
+            "instructions": "e.g., Half term: w/k 15 February",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -399,8 +390,8 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Half term: w\/k 15 February",
-            "placeholder": "Half term: w\/k 15 February",
+            "default_value": "Half term: w/k 15 February",
+            "placeholder": "Half term: w/k 15 February",
             "prepend": "",
             "append": "",
             "maxlength": ""
@@ -451,7 +442,7 @@
             "name": "about_title",
             "aria-label": "",
             "type": "wysiwyg",
-            "instructions": "Main heading for the About This Class section. Use <em>text<\/em> for italic styling.",
+            "instructions": "Main heading for the About This Class section. Use <em>text</em> for italic styling.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -459,35 +450,15 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Independent gymnastics with <em>themes<\/em>, circuits and confidence",
+            "default_value": "Independent gymnastics with <em>themes</em>, circuits and confidence",
             "tabs": "all",
             "toolbar": "basic",
             "media_upload": 0,
             "delay": 0
         },
         {
-            "key": "field_mini_about_lead",
-            "label": "About Lead",
-            "name": "about_lead",
-            "aria-label": "",
-            "type": "textarea",
-            "instructions": "Lead paragraph for the About This Class section",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "The Mini Gym is an independent class for children aged 3 to 4 years. Parents and carers do not come into the hall, but the doorways remain open to allow viewing. The last week of each term is our Watching Week, when families can come into the hall to watch the class.",
-            "placeholder": "",
-            "maxlength": "",
-            "rows": 4,
-            "new_lines": ""
-        },
-        {
             "key": "field_mini_about_content",
-            "label": "About Content",
+            "label": "About Description",
             "name": "about_content",
             "aria-label": "",
             "type": "wysiwyg",
@@ -499,7 +470,27 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea. Each week the set-up changes, and as the term progresses the equipment continues to challenge every child.<\/p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility. To close the class, all groups join together for a short discussion about what they have been doing, what they liked, what they found easy or hard, and an action song.<\/p>",
+            "default_value": "<p>We take a different theme each week and start with a short warm-up using music and language that emphasises that theme. The equipment is set up in three circuits, rather than one large circuit as for the toddlers, and after the warm-up the children move into three groups to use circuits built around the same idea. Each week the set-up changes, and as the term progresses the equipment continues to challenge every child.</p><p>Each group has its own coach and a maximum of five children. While our first focus is fun, Mini Gym also helps children continue learning the basics of rolling, handstands, springboard use, vaulting, simple bar work, co-ordination, balance, jumping, strength and flexibility. To close the class, all groups join together for a short discussion about what they have been doing, what they liked, what they found easy or hard, and an action song.</p>",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_mini_terms_content",
+            "label": "Terms & Conditions",
+            "name": "terms_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Course-specific terms and conditions. Leave empty to display the default terms.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
             "tabs": "all",
             "toolbar": "basic",
             "media_upload": 0,
@@ -532,5 +523,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1775839676
+    "modified": 1776453451
 }

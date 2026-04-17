@@ -470,13 +470,6 @@
   margin-bottom: var(--space-3xl);
 }
 
-.cd-about-lead {
-  font-size: var(--text-base);
-  color: var(--text-body);
-  line-height: 1.75;
-  margin-bottom: var(--space-md);
-}
-
 .cd-about-content p {
   color: var(--text-body);
   line-height: 1.75;
@@ -848,6 +841,70 @@
   gap: var(--space-xs);
 }
 
+.cd-booking-payment-copy p {
+  margin: 0;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+.tjs-booking-stripe {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.tjs-booking-stripe__group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.tjs-booking-stripe__group label {
+  color: var(--plum);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tjs-booking-stripe__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.tjs-booking-stripe__field {
+  min-height: 3.8rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(217, 74, 159, 0.16);
+  border-radius: 0.85rem;
+  background: rgba(255, 244, 251, 0.95);
+  transition:
+    border-color var(--duration) var(--ease),
+    box-shadow var(--duration) var(--ease);
+}
+
+.tjs-booking-stripe__field.focused,
+.tjs-booking-stripe__field:focus-within {
+  border-color: rgba(217, 74, 159, 0.42);
+  box-shadow: 0 0 0 3px rgba(217, 74, 159, 0.12);
+}
+
+.tjs-booking-stripe__field.invalid {
+  border-color: rgba(199, 75, 75, 0.45);
+  box-shadow: 0 0 0 3px rgba(199, 75, 75, 0.08);
+}
+
+#tjs-booking-stripe-errors {
+  display: none;
+}
+
+#tjs-booking-stripe-errors:not(:empty) {
+  display: block;
+  margin-top: 0.25rem;
+  color: #b14646;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .cd-sr-only {
   position: absolute;
   width: 1px;
@@ -983,6 +1040,16 @@
     transform var(--duration) var(--ease);
 }
 
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit,
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit-fields-wrapper,
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit-text,
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit-month-field,
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit-day-field,
+.cd-booking-form input[data-lock-date-input]:required:invalid::-webkit-datetime-edit-year-field {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 .cd-booking-form input::placeholder,
 .cd-booking-form textarea::placeholder {
   color: var(--text-light);
@@ -1000,6 +1067,12 @@
   box-shadow: 0 0 0 4px rgba(217, 74, 159, 0.12);
 }
 
+.cd-booking-form input[aria-invalid="true"],
+.cd-booking-form textarea[aria-invalid="true"] {
+  border-color: rgba(199, 75, 75, 0.65);
+  box-shadow: 0 0 0 4px rgba(199, 75, 75, 0.08);
+}
+
 .cd-booking-form input:focus-visible,
 .cd-booking-form textarea:focus-visible,
 .cd-booking-form button:focus-visible,
@@ -1011,6 +1084,13 @@
 .cd-booking-form textarea {
   min-height: 170px;
   resize: vertical;
+}
+
+.cd-field-error {
+  margin: 0;
+  color: #b14646;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .cd-booking-form .contact-submit-row {
@@ -1399,7 +1479,7 @@
 
 /* ── Competition & Displays ───────────────────────────── */
 .competition-section {
-  padding-top: var(--space-2xl);
+  padding-top: var(--space-4xl);
   padding-bottom: var(--space-4xl);
 }
 
@@ -1701,6 +1781,16 @@
     padding: 0.85rem 0.95rem 0.85rem 1rem;
   }
 
+  .cd-table-note--highlight p {
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .cd-table-note--highlight a {
+    word-break: break-all;
+  }
+
   .cd-table-note--inline {
     margin-top: var(--space-sm);
     padding-top: 0.7rem;
@@ -1840,6 +1930,10 @@
   }
 
   .cd-booking-type-options {
+    grid-template-columns: 1fr;
+  }
+
+  .tjs-booking-stripe__split {
     grid-template-columns: 1fr;
   }
 
@@ -2194,8 +2288,11 @@
     padding: 0.7rem 0.9rem;
   }
 
-  /* Tiddler mobile booking cards: dedicated component, not table-derived */
-  .cd-booking--tiddler .cd-booking-table-wrap {
+  /* Mobile booking cards: dedicated component, not table-derived */
+  /* Toddler and Mini Gym share Tiddler's card layout */
+  .cd-booking--tiddler .cd-booking-table-wrap,
+  .cd-booking--toddler .cd-booking-table-wrap,
+  .cd-booking--minigym .cd-booking-table-wrap {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -2203,17 +2300,23 @@
     overflow: visible;
   }
 
-  .cd-booking--tiddler .cd-booking-table {
+  .cd-booking--tiddler .cd-booking-table,
+  .cd-booking--toddler .cd-booking-table,
+  .cd-booking--minigym .cd-booking-table {
     display: none;
   }
 
-  .cd-booking--tiddler .cd-booking-cards-mobile {
+  .cd-booking--tiddler .cd-booking-cards-mobile,
+  .cd-booking--toddler .cd-booking-cards-mobile,
+  .cd-booking--minigym .cd-booking-cards-mobile {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-day {
+  .cd-booking--tiddler .cd-booking-mobile-day,
+  .cd-booking--toddler .cd-booking-mobile-day,
+  .cd-booking--minigym .cd-booking-mobile-day {
     margin: 0;
     color: var(--plum);
     font-family: var(--font-heading);
@@ -2222,11 +2325,15 @@
     letter-spacing: 0.01em;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-day:not(:first-child) {
+  .cd-booking--tiddler .cd-booking-mobile-day:not(:first-child),
+  .cd-booking--toddler .cd-booking-mobile-day:not(:first-child),
+  .cd-booking--minigym .cd-booking-mobile-day:not(:first-child) {
     margin-top: 0.65rem;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-card {
+  .cd-booking--tiddler .cd-booking-mobile-card,
+  .cd-booking--toddler .cd-booking-mobile-card,
+  .cd-booking--minigym .cd-booking-mobile-card {
     border: 1px solid rgba(122, 42, 122, 0.08);
     border-radius: var(--radius-lg);
     background: var(--white);
@@ -2234,13 +2341,17 @@
     padding: 1rem 1.05rem;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-stats {
+  .cd-booking--tiddler .cd-booking-mobile-stats,
+  .cd-booking--toddler .cd-booking-mobile-stats,
+  .cd-booking--minigym .cd-booking-mobile-stats {
     display: grid;
     grid-template-columns: minmax(5.6rem, 0.95fr) minmax(5.8rem, 1fr) minmax(6rem, 1fr);
     gap: var(--space-sm);
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-stat {
+  .cd-booking--tiddler .cd-booking-mobile-stat,
+  .cd-booking--toddler .cd-booking-mobile-stat,
+  .cd-booking--minigym .cd-booking-mobile-stat {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
@@ -2249,7 +2360,9 @@
     align-items: center;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-label {
+  .cd-booking--tiddler .cd-booking-mobile-label,
+  .cd-booking--toddler .cd-booking-mobile-label,
+  .cd-booking--minigym .cd-booking-mobile-label {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -2257,21 +2370,27 @@
     color: var(--magenta);
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-value {
+  .cd-booking--tiddler .cd-booking-mobile-value,
+  .cd-booking--toddler .cd-booking-mobile-value,
+  .cd-booking--minigym .cd-booking-mobile-value {
     font-size: 0.98rem;
     line-height: 1.35;
     color: var(--text-dark);
     white-space: nowrap;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-actions {
+  .cd-booking--tiddler .cd-booking-mobile-actions,
+  .cd-booking--toddler .cd-booking-mobile-actions,
+  .cd-booking--minigym .cd-booking-mobile-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.7rem;
     margin-top: 0.9rem;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-actions .btn {
+  .cd-booking--tiddler .cd-booking-mobile-actions .btn,
+  .cd-booking--toddler .cd-booking-mobile-actions .btn,
+  .cd-booking--minigym .cd-booking-mobile-actions .btn {
     min-height: 36px;
     justify-content: center;
     padding: 0.58rem 0.72rem;
@@ -2280,14 +2399,17 @@
     box-shadow: none;
   }
 
-  .cd-booking--tiddler .cd-booking-mobile-actions .btn:only-child {
+  .cd-booking--tiddler .cd-booking-mobile-actions .btn:only-child,
+  .cd-booking--toddler .cd-booking-mobile-actions .btn:only-child,
+  .cd-booking--minigym .cd-booking-mobile-actions .btn:only-child {
     grid-column: 1 / -1;
     width: 100%;
     min-height: 42px;
     padding: 0.72rem 0.95rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-table-wrap {
+  .cd-booking--gymnastics .cd-booking-table-wrap,
+  .cd-booking--gym .cd-booking-table-wrap {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -2295,17 +2417,20 @@
     overflow: visible;
   }
 
-  .cd-booking--gymnastics .cd-booking-table {
+  .cd-booking--gymnastics .cd-booking-table,
+  .cd-booking--gym .cd-booking-table {
     display: none;
   }
 
-  .cd-booking--gymnastics .cd-booking-cards-mobile {
+  .cd-booking--gymnastics .cd-booking-cards-mobile,
+  .cd-booking--gym .cd-booking-cards-mobile {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-day {
+  .cd-booking--gymnastics .cd-booking-mobile-day,
+  .cd-booking--gym .cd-booking-mobile-day {
     margin: 0.3rem 0 0;
     color: var(--plum);
     font-family: var(--font-heading);
@@ -2314,11 +2439,13 @@
     letter-spacing: 0.01em;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-day:not(:first-child) {
+  .cd-booking--gymnastics .cd-booking-mobile-day:not(:first-child),
+  .cd-booking--gym .cd-booking-mobile-day:not(:first-child) {
     margin-top: 0.85rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-card {
+  .cd-booking--gymnastics .cd-booking-mobile-card,
+  .cd-booking--gym .cd-booking-mobile-card {
     border: 1px solid rgba(122, 42, 122, 0.08);
     border-radius: var(--radius-lg);
     background: var(--white);
@@ -2326,13 +2453,15 @@
     padding: 1rem 1.05rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-stats {
+  .cd-booking--gymnastics .cd-booking-mobile-stats,
+  .cd-booking--gym .cd-booking-mobile-stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-stat {
+  .cd-booking--gymnastics .cd-booking-mobile-stat,
+  .cd-booking--gym .cd-booking-mobile-stat {
     display: flex;
     flex-direction: column;
     gap: 0.18rem;
@@ -2341,7 +2470,8 @@
     align-items: center;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-label {
+  .cd-booking--gymnastics .cd-booking-mobile-label,
+  .cd-booking--gym .cd-booking-mobile-label {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -2349,7 +2479,8 @@
     color: var(--magenta);
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-value {
+  .cd-booking--gymnastics .cd-booking-mobile-value,
+  .cd-booking--gym .cd-booking-mobile-value {
     font-size: 0.94rem;
     line-height: 1.35;
     color: var(--text-dark);
@@ -2357,14 +2488,16 @@
     overflow-wrap: anywhere;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-actions {
+  .cd-booking--gymnastics .cd-booking-mobile-actions,
+  .cd-booking--gym .cd-booking-mobile-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.7rem;
     margin-top: 0.95rem;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-actions .btn {
+  .cd-booking--gymnastics .cd-booking-mobile-actions .btn,
+  .cd-booking--gym .cd-booking-mobile-actions .btn {
     min-height: 36px;
     justify-content: center;
     padding: 0.58rem 0.72rem;
@@ -2373,7 +2506,8 @@
     box-shadow: none;
   }
 
-  .cd-booking--gymnastics .cd-booking-mobile-actions .btn:only-child {
+  .cd-booking--gymnastics .cd-booking-mobile-actions .btn:only-child,
+  .cd-booking--gym .cd-booking-mobile-actions .btn:only-child {
     grid-column: 1 / -1;
     width: 100%;
     min-height: 42px;

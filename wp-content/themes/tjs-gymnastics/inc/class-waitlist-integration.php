@@ -220,8 +220,8 @@ function tjs_display_waitlist_count($post) {
         $waitlist = get_post_meta($variation_data['variation_id'], '_tjs_waitlist', true);
         $count = is_array($waitlist) ? count($waitlist) : 0;
         
-        $attrs = $variation->get_attributes();
-        $name = ucfirst($attrs['pa_class-day'] ?? 'N/A') . ' ' . (tjs_format_time_slot($attrs['pa_time-slot'] ?? 'N/A'));
+        $schedule = function_exists('tjs_get_variation_schedule_data') ? tjs_get_variation_schedule_data($variation) : array();
+        $name = ucfirst($schedule['day'] ?? 'N/A') . ' ' . ($schedule['time'] ?? 'N/A');
         
         echo '<p><strong>' . esc_html($name) . ':</strong> ' . $count . ' on waitlist</p>';
     }

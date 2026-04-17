@@ -64,6 +64,139 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const setupSelectOnlyDateInput = field => {
+    if (!(field instanceof HTMLInputElement) || field.dataset.dateInputLocked === 'true') {
+      return;
+    }
+
+    const usesFlatpickr = field.matches('[data-type-datepicker], .ff-el-datepicker');
+    const usesNativeDatePicker = field.type === 'date';
+
+    if (usesFlatpickr && !field._flatpickr && typeof window.flatpickr === 'function') {
+      window.flatpickr(field, {
+        allowInput: false,
+        clickOpens: true,
+        dateFormat: field.dataset.format || 'Y-m-d',
+        disableMobile: true,
+        monthSelectorType: 'dropdown',
+        onChange: () => {
+          field.dispatchEvent(new Event('input', { bubbles: true }));
+          field.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    }
+
+    if (!usesFlatpickr && !usesNativeDatePicker) {
+      return;
+    }
+
+    field.dataset.dateInputLocked = 'true';
+    field.setAttribute('inputmode', 'none');
+    field.setAttribute('autocomplete', 'off');
+
+    if (usesFlatpickr) {
+      const openFlatpickr = () => {
+        if (field._flatpickr && typeof field._flatpickr.open === 'function') {
+          field._flatpickr.open();
+        }
+      };
+
+      field.readOnly = true;
+      field.addEventListener('focus', openFlatpickr);
+      field.addEventListener('click', openFlatpickr);
+      field.addEventListener('keydown', event => {
+        if (
+          event.key === 'Tab'
+          || event.key === 'Shift'
+          || event.key === 'Escape'
+          || event.key.startsWith('F')
+          || event.ctrlKey
+          || event.metaKey
+          || event.altKey
+        ) {
+          return;
+        }
+
+        if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          openFlatpickr();
+          return;
+        }
+
+        event.preventDefault();
+      });
+
+      field.addEventListener('paste', event => {
+        event.preventDefault();
+      });
+
+      field.addEventListener('drop', event => {
+        event.preventDefault();
+      });
+
+      return;
+    }
+
+    const openNativePicker = () => {
+      if (typeof field.showPicker !== 'function') return;
+
+      try {
+        field.showPicker();
+      } catch {
+        // Ignore browsers that block programmatic picker opening.
+      }
+    };
+
+    field.addEventListener('keydown', event => {
+      if (
+        event.key === 'Tab'
+        || event.key === 'Shift'
+        || event.key === 'Escape'
+        || event.key.startsWith('F')
+        || event.ctrlKey
+        || event.metaKey
+        || event.altKey
+      ) {
+        return;
+      }
+
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        openNativePicker();
+        return;
+      }
+
+      event.preventDefault();
+    });
+
+    field.addEventListener('beforeinput', event => {
+      const inputType = event.inputType || '';
+      const blockedInputTypes = new Set([
+        'insertText',
+        'insertFromPaste',
+        'insertFromDrop',
+        'insertCompositionText',
+        'deleteContentBackward',
+        'deleteContentForward',
+        'deleteByCut'
+      ]);
+
+      if (blockedInputTypes.has(inputType)) {
+        event.preventDefault();
+      }
+    });
+
+    field.addEventListener('paste', event => {
+      event.preventDefault();
+    });
+
+    field.addEventListener('drop', event => {
+      event.preventDefault();
+    });
+  };
+
+  document.querySelectorAll('input[type="date"], input[data-type-datepicker], input.ff-el-datepicker, input[data-lock-date-input]').forEach(setupSelectOnlyDateInput);
+
   // ── Competition photo carousel ─────────────────────────────
   document.querySelectorAll('.comp-carousel').forEach(carousel => {
     const imgs    = carousel.querySelectorAll('.comp-carousel-img');
@@ -250,13 +383,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const applyWaitingListState = link => {
     if (!link) return;
     link.classList.remove('is-disabled');
+    link.classList.remove('btn-secondary');
     link.classList.add('cd-waitlist-btn');
+    link.classList.add('btn-magenta');
     link.removeAttribute('aria-disabled');
     link.removeAttribute('tabindex');
     link.removeAttribute('data-booking-link');
     link.removeAttribute('data-booking-type');
     link.textContent = 'Join the Waiting List';
-    link.setAttribute('href', '../contact.html');
+    link.setAttribute('href', new URL('../contact/', window.location.href).toString());
     link.setAttribute('data-waitlist-link', '');
   };
 
@@ -274,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
           stat.querySelector('.cd-booking-mobile-label')?.textContent?.trim() === 'Availability'
         )?.querySelector('.cd-booking-mobile-value')?.textContent?.trim();
 
-    if (availabilityValue === '10 / 10') {
+    if (availabilityValue === 'Full') {
       applyWaitingListState(card.querySelector('.cd-book-btn'));
     }
   });
@@ -321,78 +456,192 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const form = dynamicBookingPage.querySelector('[data-booking-form]');
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault();
 
-      const payButton = form.querySelector('.cd-pay-button');
-      const payText = form.querySelector('.cd-pay-text');
-      const payLoading = form.querySelector('.cd-pay-loading');
+    if (form) {
+      const bookingFieldNames = ['child-name', 'child-dob', 'parent-name', 'email', 'phone', 'message'];
+      const bookingFields = bookingFieldNames
+        .map(fieldName => form.querySelector(`[name="${fieldName}"]`))
+        .filter(Boolean);
 
-      // Validate required fields
-      const requiredFields = ['child-name', 'child-dob', 'parent-name', 'email', 'phone'];
-      let isValid = true;
+      const getFieldErrorElement = field => form.querySelector(`[data-field-error-for="${field.name}"]`);
 
-      for (const fieldName of requiredFields) {
-        const field = form.querySelector(`[name="${fieldName}"]`);
-        if (field && !field.value.trim()) {
-          isValid = false;
-          field.classList.add('error');
-        } else if (field) {
-          field.classList.remove('error');
+      const setFieldError = (field, message = '') => {
+        const errorNode = getFieldErrorElement(field);
+        field.setCustomValidity(message);
+
+        if (message) {
+          field.setAttribute('aria-invalid', 'true');
+        } else {
+          field.removeAttribute('aria-invalid');
         }
-      }
 
-      if (!isValid) {
-        alert('Please fill in all required fields.');
-        return;
-      }
+        if (errorNode) {
+          errorNode.textContent = message;
+          errorNode.hidden = !message;
+        }
+      };
 
-      // Show loading state
-      if (payButton) payButton.disabled = true;
-      if (payText) payText.style.display = 'none';
-      if (payLoading) payLoading.style.display = 'inline-flex';
+      const validateField = field => {
+        if (!field) {
+          return true;
+        }
 
-      // Collect form data
-      const formData = new FormData(form);
+        const value = typeof field.value === 'string' ? field.value.trim() : '';
+        let message = '';
 
-      // Save to sessionStorage as backup
-      try {
-        const bookingData = {};
-        for (const [key, value] of formData.entries()) {
-          if (value && value.trim() !== '') {
-            bookingData[key] = value.trim();
+        if (field.required && !value) {
+          message = 'This field is required';
+        } else if (field.validity.typeMismatch || field.validity.tooLong) {
+          message = field.validationMessage;
+        }
+
+        setFieldError(field, message);
+        return !message;
+      };
+
+      bookingFields.forEach(field => {
+        const revalidate = () => {
+          if (field.value || field.getAttribute('aria-invalid') === 'true') {
+            validateField(field);
           }
-        }
-        sessionStorage.setItem('tjsBookingForm', JSON.stringify(bookingData));
-      } catch (err) {
-        console.error('Failed to save form data:', err);
-      }
+        };
 
-      try {
-        // AJAX request to add to cart
-        const response = await fetch(tjs_ajax_object.ajaxurl, {
-          method: 'POST',
-          body: formData
+        field.addEventListener('blur', () => {
+          validateField(field);
         });
 
-        const result = await response.json();
+        field.addEventListener('input', revalidate);
+        field.addEventListener('change', revalidate);
+      });
 
-        if (result.success) {
-          // Redirect to checkout
-          window.location.href = result.data.redirect_url;
-        } else {
-          throw new Error(result.data?.message || 'Failed to add item to cart.');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const payButton = form.querySelector('.cd-pay-button');
+        const payText = form.querySelector('.cd-pay-text');
+        const payLoading = form.querySelector('.cd-pay-loading');
+        const errorEl = document.getElementById('tjs-booking-stripe-errors');
+
+        const setLoading = (loading) => {
+          if (payButton) payButton.disabled = loading;
+          if (payText) payText.style.display = loading ? 'none' : 'inline';
+          if (payLoading) payLoading.style.display = loading ? 'inline-flex' : 'none';
+        };
+        const showError = (msg) => {
+          const text = msg || 'Payment failed. Please try again.';
+          if (errorEl) {
+            errorEl.textContent = text;
+            errorEl.hidden = !text;
+          } else {
+            alert(text);
+          }
+        };
+        const clearError = () => {
+          if (errorEl) {
+            errorEl.textContent = '';
+            errorEl.hidden = true;
+          }
+        };
+
+        clearError();
+
+        const requiredFields = ['child-name', 'child-dob', 'parent-name', 'email', 'phone'];
+        const firstInvalidField = requiredFields
+          .map(fieldName => form.querySelector(`[name="${fieldName}"]`))
+          .find(field => field && !validateField(field));
+
+        if (firstInvalidField) {
+          firstInvalidField.focus();
+          return;
         }
-      } catch (error) {
-        console.error('Booking error:', error);
-        alert(error.message || 'An error occurred. Please try again.');
 
-        // Reset button state
-        if (payButton) payButton.disabled = false;
-        if (payText) payText.style.display = 'inline';
-        if (payLoading) payLoading.style.display = 'none';
-      }
-    });
+        const bootstrap = window.tjsBookingStripe;
+        if (!bootstrap || !bootstrap.stripe || !bootstrap.cardNumber) {
+          showError('Payment form is not ready. Please refresh the page.');
+          return;
+        }
+
+        if (typeof bootstrap.clearFormError === 'function') {
+          bootstrap.clearFormError();
+        }
+
+        if (typeof bootstrap.validateRequiredFields === 'function' && !bootstrap.validateRequiredFields()) {
+          return;
+        }
+
+        setLoading(true);
+
+        const formData = new FormData(form);
+
+        // Save form data for the confirmation page to read from sessionStorage.
+        try {
+          const bookingData = {};
+          for (const [key, value] of formData.entries()) {
+            if (value && String(value).trim() !== '') {
+              bookingData[key] = String(value).trim();
+            }
+          }
+          sessionStorage.setItem('tjsBookingForm', JSON.stringify(bookingData));
+        } catch (err) {
+          console.error('Failed to save form data:', err);
+        }
+
+        try {
+          // Step 1: create pending WC order + Stripe PaymentIntent on the server.
+          formData.set('action', 'tjs_create_booking_payment');
+          const createRes = await fetch(tjs_ajax_object.ajaxurl, {
+            method: 'POST',
+            body: formData
+          });
+          const createJson = await createRes.json();
+          if (!createJson.success) {
+            throw new Error(createJson.data?.message || 'Failed to initialise payment.');
+          }
+          const { client_secret, order_id, confirmation_url } = createJson.data;
+
+          // Step 2: confirm the card payment with Stripe.
+          const billingDetails = {
+            name: formData.get('parent-name') || '',
+            email: formData.get('email') || '',
+            phone: formData.get('phone') || ''
+          };
+          const confirmResult = await bootstrap.stripe.confirmCardPayment(client_secret, {
+            payment_method: {
+              card: bootstrap.cardNumber,
+              billing_details: billingDetails
+            }
+          });
+          if (confirmResult.error) {
+            throw new Error(confirmResult.error.message || 'Card was declined.');
+          }
+          if (!confirmResult.paymentIntent || confirmResult.paymentIntent.status !== 'succeeded') {
+            throw new Error('Payment could not be completed.');
+          }
+
+          // Step 3: tell the server to mark the WC order paid.
+          const finalizeData = new FormData();
+          finalizeData.set('action', 'tjs_finalize_booking_payment');
+          finalizeData.set('booking_nonce', formData.get('booking_nonce'));
+          finalizeData.set('order_id', order_id);
+          finalizeData.set('payment_intent_id', confirmResult.paymentIntent.id);
+
+          const finalizeRes = await fetch(tjs_ajax_object.ajaxurl, {
+            method: 'POST',
+            body: finalizeData
+          });
+          const finalizeJson = await finalizeRes.json();
+          if (!finalizeJson.success) {
+            throw new Error(finalizeJson.data?.message || 'Unable to confirm payment.');
+          }
+
+          window.location.href = confirmation_url;
+        } catch (error) {
+          console.error('Booking error:', error);
+          showError(error.message);
+          setLoading(false);
+        }
+      });
+    }
   }
 
   // ── Dynamic Confirmation Page (Universal - Server + Client) ──

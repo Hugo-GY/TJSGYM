@@ -8,16 +8,16 @@ $hero_eyebrow = get_field('hero_eyebrow') ?: 'Since 1988';
 $hero_title = get_field('hero_title') ?: 'Our <em>History</em>';
 $hero_subtitle = get_field('hero_subtitle') ?: 'A few of the key moments that shaped TJ\'s, from its beginnings in 1988 to its new home in Raynes Park.';
 
-// Query History posts
+// Query History posts ordered by menu_order (set in post editor "Order" field)
 $history_query = new WP_Query(array(
     'post_type' => 'post',
     'posts_per_page' => -1,
     'category_name' => 'history',
-    'orderby' => 'date',
+    'orderby' => 'menu_order',
     'order' => 'ASC',
 ));
 
-// Group posts by year tag
+// Build timeline items from query results
 $timeline_items = array();
 if ($history_query->have_posts()):
     while ($history_query->have_posts()): $history_query->the_post();
@@ -25,28 +25,18 @@ if ($history_query->have_posts()):
         $year = '';
         if ($post_tags) {
             foreach ($post_tags as $tag) {
-                // Use the first tag as the year/period identifier
-                // This supports both numeric years (1988) and text periods (Growth years)
                 $year = $tag->name;
                 break;
             }
         }
-        // If no year tag found, use empty string for sorting at the end
-        $sort_key = $year ?: 'ZZZ';
-        
+
         $timeline_items[] = array(
             'year' => $year ?: '',
             'title' => get_the_title(),
             'content' => get_the_content(),
-            'sort_key' => $sort_key,
         );
     endwhile;
     wp_reset_postdata();
-    
-    // Sort by year
-    usort($timeline_items, function($a, $b) {
-        return strcmp($a['sort_key'], $b['sort_key']);
-    });
 endif;
 ?>
 

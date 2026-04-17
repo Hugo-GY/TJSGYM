@@ -1,0 +1,527 @@
+{
+    "key": "group_gymnastics_term_info",
+    "title": "Gymnastics - Term Info",
+    "fields": [
+        {
+            "key": "field_gym_ct_header",
+            "label": "Current Term",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<h3 style='margin:0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Current Term Configuration</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_gym_ct_season",
+            "label": "Season",
+            "name": "ct_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Summer 2026",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Summer 2026",
+            "placeholder": "Summer 2026",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_ct_status",
+            "label": "Status",
+            "name": "ct_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Teaching now",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Teaching now",
+            "placeholder": "Teaching now",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_ct_weeks",
+            "label": "Weeks",
+            "name": "ct_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 13 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "13 weeks",
+            "placeholder": "13 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_ct_dates",
+            "label": "Dates",
+            "name": "ct_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "13 Apr – 21 May\n1 Jun – 16 Jul",
+            "placeholder": "13 Apr – 21 May\n1 Jun – 16 Jul",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_gym_ct_halfterm",
+            "label": "Half Term",
+            "name": "ct_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Half term: w/k 25 May",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Half term: w/k 25 May · No class 4 May",
+            "placeholder": "Half term: w/k 25 May",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_ct_payment_due",
+            "label": "Payment Due",
+            "name": "ct_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 12 March",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 12 March",
+            "placeholder": "Payment due by 12 March",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt1_header",
+            "label": "Next Term 1",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<h3 style='margin:20px 0 0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Next Term 1 Configuration</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_gym_nt1_season",
+            "label": "Season",
+            "name": "nt1_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Winter 2026",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Winter 2026",
+            "placeholder": "Winter 2026",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt1_status",
+            "label": "Status",
+            "name": "nt1_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Next term",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Next term",
+            "placeholder": "Next term",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt1_weeks",
+            "label": "Weeks",
+            "name": "nt1_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 12 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "12 weeks",
+            "placeholder": "12 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt1_dates",
+            "label": "Dates",
+            "name": "nt1_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "7 Sep – 15 Oct\n2 Nov – 10 Dec",
+            "placeholder": "7 Sep – 15 Oct\n2 Nov – 10 Dec",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_gym_nt1_halfterm",
+            "label": "Half Term",
+            "name": "nt1_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 2-week half term: w/k 19 October",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "2-week half term: w/k 19 October",
+            "placeholder": "2-week half term: w/k 19 October",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt1_payment_due",
+            "label": "Payment Due",
+            "name": "nt1_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 26 June",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 26 June",
+            "placeholder": "Payment due by 26 June",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt2_header",
+            "label": "Next Term 2",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<h3 style='margin:20px 0 0;padding:10px;background:#f0f0f0;border-left:4px solid #0073aa;'>Next Term 2 Configuration (Optional)</h3>",
+            "esc_html": 0,
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_gym_nt2_season",
+            "label": "Season",
+            "name": "nt2_season",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Spring 2027",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Spring 2027",
+            "placeholder": "Spring 2027",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt2_status",
+            "label": "Status",
+            "name": "nt2_status",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Planning ahead",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Planning ahead",
+            "placeholder": "Planning ahead",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt2_weeks",
+            "label": "Weeks",
+            "name": "nt2_weeks",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 11 weeks",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "11 weeks",
+            "placeholder": "11 weeks",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt2_dates",
+            "label": "Dates",
+            "name": "nt2_dates",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter date ranges, one per line",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "4 Jan – 11 Feb\n22 Feb – 25 Mar",
+            "placeholder": "4 Jan – 11 Feb\n22 Feb – 25 Mar",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_gym_nt2_halfterm",
+            "label": "Half Term",
+            "name": "nt2_halfterm",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Half term: w/k 15 February",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Half term: w/k 15 February",
+            "placeholder": "Half term: w/k 15 February",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_nt2_payment_due",
+            "label": "Payment Due",
+            "name": "nt2_payment_due",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., Payment due by 27 November",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Payment due by 27 November",
+            "placeholder": "Payment due by 27 November",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_age_range",
+            "label": "Age Range",
+            "name": "age_range",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "e.g., 5+ Years",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "5+ Years",
+            "placeholder": "5+ Years",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_gym_about_title",
+            "label": "About Title",
+            "name": "about_title",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Main heading for the About This Class section. Use <em>text</em> for italic styling.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<em>Progressive</em> gymnastics for children aged 5+",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_gym_about_content",
+            "label": "About Description",
+            "name": "about_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Additional content for the About This Class section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<p>We use our own badge progression system, moving from Levels 7 to 1 and then on to Bronze, Silver, Gold, Platinum and Diamond awards.</p><p>We are limited with times and space as we accommodate a large age range after school. Children need to have attended a preschool class to be eligible for our Gymnastics classes. Anyone attending our Mini Gym classes in the Summer term who are starting Reception in the September will automatically be placed on our waiting list for a Beginners Gymnastics class. Spaces are allocated on a random name-out-of-the-hat basis, and all will be offered a space by the Summer term.</p><p>We also have a second waiting list for those who attend a TJ's class but leave before the Summer term before starting Reception. Spaces will only be offered to this list when everyone on the first list has been offered a space. WE THEREFORE SADLY CANNOT OFFER ANYONE A GYMNASTICS CLASS WHO HAS NOT ATTENDED OUR PRESCHOOL PROGRAMME.</p>",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_gym_terms_content",
+            "label": "Terms & Conditions",
+            "name": "terms_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Course-specific terms and conditions. Leave empty to display the default terms.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            },
+            {
+                "param": "post_taxonomy",
+                "operator": "==",
+                "value": "product_cat:gymnastics"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Term information and class details for Gymnastics product",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1776453451
+}

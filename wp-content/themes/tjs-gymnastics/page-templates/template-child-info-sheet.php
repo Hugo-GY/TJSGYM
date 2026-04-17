@@ -7,7 +7,7 @@ get_header();
 $eyebrow = get_field('eyebrow') ?: 'Forms & documents';
 $title = get_field('title') ?: 'Child Information <em>Sheet</em>';
 $content = get_field('content');
-$download_link = get_field('download_link') ?: 'https://www.tjsgymclub.co.uk/wp-content/uploads/2024/08/v8-Information-Sheet-TJS.docx';
+$download_link = get_field('download_link') ?: content_url('/uploads/docs/v8-Information-Sheet-TJS.docx');
 ?>
 
 <section class="child-sheet-section" aria-labelledby="child-sheet-card-title">

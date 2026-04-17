@@ -70,6 +70,9 @@ function tjs_setup() {
     // Add theme support
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+
+    // Enable Order field on standard posts (used by History timeline)
+    add_post_type_support('post', 'page-attributes');
     add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
     add_theme_support('customize-selective-refresh-widgets');
     add_theme_support('block-templates');
@@ -83,9 +86,76 @@ function tjs_setup() {
 add_action('after_setup_theme', 'tjs_setup');
 
 /**
+ * Redirect legacy dedicated booking/confirmation page slugs to the unified flow.
+ */
+function tjs_redirect_legacy_booking_pages() {
+    if (is_admin() || wp_doing_ajax()) {
+        return;
+    }
+
+    global $wp;
+
+    $request_path = isset($wp->request) ? trim((string) $wp->request, '/') : '';
+    if ($request_path === '') {
+        return;
+    }
+
+    $legacy_routes = array(
+        'toddler-gym-booking' => '/class-booking/',
+        'tiddler-gym-booking' => '/class-booking/',
+        'mini-gym-booking' => '/class-booking/',
+        'toddler-gym-confirmation' => '/class-confirmation/',
+        'tiddler-gym-confirmation' => '/class-confirmation/',
+        'mini-gym-confirmation' => '/class-confirmation/',
+    );
+
+    if (!isset($legacy_routes[$request_path])) {
+        return;
+    }
+
+    $query_args = array();
+    foreach (wp_unslash($_GET) as $key => $value) {
+        $query_args[$key] = is_scalar($value) ? sanitize_text_field((string) $value) : $value;
+    }
+
+    $redirect_url = home_url($legacy_routes[$request_path]);
+    if (!empty($query_args)) {
+        $redirect_url = add_query_arg($query_args, $redirect_url);
+    }
+
+    wp_safe_redirect($redirect_url, 301);
+    exit;
+}
+add_action('template_redirect', 'tjs_redirect_legacy_booking_pages', 1);
+
+/**
  * Enqueue Scripts and Styles
  */
 function tjs_scripts() {
+    if (is_page_template('page-templates/template-class-booking.php')) {
+        $flatpickr_js_path = WP_CONTENT_DIR . '/plugins/fluentform/assets/libs/flatpickr/flatpickr.min.js';
+        $flatpickr_css_path = WP_CONTENT_DIR . '/plugins/fluentform/assets/libs/flatpickr/flatpickr.min.css';
+
+        if (file_exists($flatpickr_css_path)) {
+            wp_enqueue_style(
+                'tjs-flatpickr',
+                content_url('plugins/fluentform/assets/libs/flatpickr/flatpickr.min.css'),
+                array(),
+                filemtime($flatpickr_css_path)
+            );
+        }
+
+        if (file_exists($flatpickr_js_path)) {
+            wp_enqueue_script(
+                'tjs-flatpickr',
+                content_url('plugins/fluentform/assets/libs/flatpickr/flatpickr.min.js'),
+                array(),
+                filemtime($flatpickr_js_path),
+                true
+            );
+        }
+    }
+
     // Google Fonts
     wp_enqueue_style('tjs-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fredoka:wght@400;500;600&display=swap', array(), null);
     
@@ -153,7 +223,12 @@ function tjs_scripts() {
     }
 
     // Theme JavaScript
-    wp_enqueue_script('tjs-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+    $main_script_dependencies = array();
+    if (wp_script_is('tjs-flatpickr', 'registered') || wp_script_is('tjs-flatpickr', 'enqueued')) {
+        $main_script_dependencies[] = 'tjs-flatpickr';
+    }
+
+    wp_enqueue_script('tjs-main', get_template_directory_uri() . '/assets/js/main.js', $main_script_dependencies, filemtime(get_template_directory() . '/assets/js/main.js'), true);
 
     // Localize script for AJAX
     wp_localize_script('tjs-main', 'tjs_ajax_object', array(
@@ -162,6 +237,75 @@ function tjs_scripts() {
     ));
 }
 add_action('wp_enqueue_scripts', 'tjs_scripts');
+
+/**
+ * Render classic Stripe card mount targets after the Stripe gateway fields.
+ */
+function tjs_render_classic_stripe_mount($gateway_id) {
+    if ('stripe' !== $gateway_id) {
+        return;
+    }
+    ?>
+    <div id="tjs-stripe-classic-form" class="tjs-stripe-classic" aria-label="<?php echo esc_attr__('Card details', 'tjs-gymnastics'); ?>">
+        <div class="tjs-stripe-classic__group tjs-stripe-classic__group--full">
+            <label for="tjs-stripe-card-element"><?php esc_html_e('Card number', 'tjs-gymnastics'); ?></label>
+            <div id="tjs-stripe-card-element" class="tjs-stripe-classic__field"></div>
+        </div>
+
+        <div class="tjs-stripe-classic__split">
+            <div class="tjs-stripe-classic__group">
+                <label for="tjs-stripe-exp-element"><?php esc_html_e('Expiration date', 'tjs-gymnastics'); ?></label>
+                <div id="tjs-stripe-exp-element" class="tjs-stripe-classic__field"></div>
+            </div>
+
+            <div class="tjs-stripe-classic__group">
+                <label for="tjs-stripe-cvc-element"><?php esc_html_e('Security code', 'tjs-gymnastics'); ?></label>
+                <div id="tjs-stripe-cvc-element" class="tjs-stripe-classic__field"></div>
+            </div>
+        </div>
+
+        <div id="tjs-stripe-errors" class="stripe-source-errors" role="alert"></div>
+    </div>
+    <?php
+}
+add_action('wc_stripe_payment_fields_stripe', 'tjs_render_classic_stripe_mount');
+
+/**
+ * Enqueue Stripe field mounting for the class-booking page.
+ */
+function tjs_enqueue_booking_stripe_form() {
+    if (!is_page_template('page-templates/template-class-booking.php')) {
+        return;
+    }
+
+    if (!class_exists('WC_Stripe')) {
+        return;
+    }
+
+    $gateway = WC_Stripe::get_instance()->get_main_stripe_gateway();
+
+    if (!$gateway || !method_exists($gateway, 'javascript_params')) {
+        return;
+    }
+
+    wp_register_script('stripe', 'https://js.stripe.com/clover/stripe.js', array(), null, true);
+    wp_enqueue_script('stripe');
+
+    wp_enqueue_script(
+        'tjs-booking-stripe-form',
+        get_template_directory_uri() . '/assets/js/booking-stripe-form.js',
+        array('stripe'),
+        filemtime(get_template_directory() . '/assets/js/booking-stripe-form.js'),
+        true
+    );
+
+    wp_localize_script(
+        'tjs-booking-stripe-form',
+        'tjsBookingStripeParams',
+        $gateway->javascript_params()
+    );
+}
+add_action('wp_enqueue_scripts', 'tjs_enqueue_booking_stripe_form', 130);
 
 /**
  * Remove "New in store" section from Cart page
@@ -257,6 +401,28 @@ function tjs_body_classes($classes) {
     return $classes;
 }
 add_filter('body_class', 'tjs_body_classes');
+
+/**
+ * Hide the Product Description editor for class products.
+ * Class content is managed via ACF fields (About Description).
+ * Only targets products in tiddler-gym, toddler-gym, mini-gym, gymnastics categories.
+ */
+function tjs_hide_class_product_description() {
+    $screen = get_current_screen();
+    if (!$screen || $screen->id !== 'product') {
+        return;
+    }
+
+    $post_id = isset($_GET['post']) ? absint($_GET['post']) : 0;
+    if (!$post_id) {
+        return;
+    }
+
+    if (tjs_is_class_product($post_id)) {
+        echo '<style>#postdivrich { display: none !important; }</style>';
+    }
+}
+add_action('admin_head', 'tjs_hide_class_product_description');
 
 /**
  * Custom excerpt length

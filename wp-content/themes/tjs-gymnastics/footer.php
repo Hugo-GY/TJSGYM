@@ -5,7 +5,7 @@
     <div class="footer-inner">
         <div class="footer-section">
             <h4><?php _e("TJ's Gymnastics Club", 'tjs-gymnastics'); ?></h4>
-            <p><?php _e('Building confidence through movement since 1988. Serving families across Wimbledon, Raynes Park and South West London.', 'tjs-gymnastics'); ?></p>
+            <p><?php _e('Building confidence through gymnastics since 1988. Serving families across Wimbledon, Raynes Park and South West London.', 'tjs-gymnastics'); ?></p>
         </div>
         <div class="footer-section">
             <h4><?php _e('Our Partners', 'tjs-gymnastics'); ?></h4>

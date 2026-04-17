@@ -70,13 +70,7 @@ function tjs_cart_has_class_product() {
     if (function_exists('WC') && WC()->cart) {
         foreach (WC()->cart->get_cart() as $cart_item) {
             $product_id = $cart_item['product_id'];
-            $categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
-            
-            if (in_array('classes', $categories) ||
-                in_array('tiddler-gym', $categories) ||
-                in_array('toddler-gym', $categories) ||
-                in_array('mini-gym', $categories) ||
-                in_array('gymnastics', $categories)) {
+            if (tjs_is_class_product($product_id)) {
                 return true;
             }
         }
@@ -221,13 +215,7 @@ function tjs_order_has_class_product($order) {
             }
         }
 
-        $categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
-
-        if (in_array('classes', $categories) ||
-            in_array('tiddler-gym', $categories) ||
-            in_array('toddler-gym', $categories) ||
-            in_array('mini-gym', $categories) ||
-            in_array('gymnastics', $categories)) {
+        if (tjs_is_class_product($product_id)) {
             return true;
         }
     }
@@ -290,9 +278,9 @@ function tjs_get_session_day($order, $product) {
             
             // Check if it's a variation
             if ($product_obj->is_type('variation')) {
-                $attributes = $product_obj->get_attributes();
-                if (isset($attributes['pa_class-day'])) {
-                    $day = $attributes['pa_class-day'];
+                $schedule = function_exists('tjs_get_variation_schedule_data') ? tjs_get_variation_schedule_data($product_obj) : array();
+                if (!empty($schedule['day'])) {
+                    $day = $schedule['day'];
                     return ucwords(str_replace('-', ' ', $day));
                 }
             }
@@ -346,12 +334,9 @@ function tjs_get_session_time($order, $product) {
             // Method 3: Get from product variation attributes or meta
             $product_obj = $item->get_product();
             if ($product_obj && $product_obj->is_type('variation')) {
-                // Check variation attributes for time info
-                $attributes = $product_obj->get_attributes();
-                foreach ($attributes as $attr_key => $attr_value) {
-                    if (strpos($attr_key, 'time') !== false && !empty($attr_value)) {
-                        return tjs_format_time_slot($attr_value);
-                    }
+                $schedule = function_exists('tjs_get_variation_schedule_data') ? tjs_get_variation_schedule_data($product_obj) : array();
+                if (!empty($schedule['time'])) {
+                    return $schedule['time'];
                 }
                 
                 // Check variation meta

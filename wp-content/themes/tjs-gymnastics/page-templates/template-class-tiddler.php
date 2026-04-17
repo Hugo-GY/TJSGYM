@@ -10,26 +10,18 @@ $product = tjs_get_class_product('tiddler-gym');
 // Get ACF fields or use defaults
 $age_range = ($product && function_exists('get_field')) ? get_field('age_range', $product->get_id()) : '6–12 Months';
 $about_title = ($product && function_exists('get_field')) ? get_field('about_title', $product->get_id()) : '<em>Parent & Baby</em> movement, music and play';
-$about_lead = ($product && function_exists('get_field')) ? get_field('about_lead', $product->get_id()) : 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing.';
-$about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>';
+$about_content = ($product && function_exists('get_field')) ? get_field('about_content', $product->get_id()) : '<p>Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing.</p><p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>';
 
 // Get variations data using unified function
-// Tiddler Gym uses per-class pricing with max 10 slots
-$sessions = $product ? tjs_get_class_sessions($product, 10, 'per_class') : array();
-
-// Fallback sessions if no variations
-if (empty($sessions)) {
-    $sessions = array(
-        array('day' => 'Thursday', 'time' => '10:30 – 11:10', 'price' => '£10 / class', 'availability' => '8 / 10', 'status' => 'available'),
-    );
-}
+$pay_type = ($product && function_exists('get_field')) ? get_field('pay_type', $product->get_id()) : 'per_class';
+$sessions = $product ? tjs_get_class_sessions($product, 10, $pay_type) : array();
+$schedule_data_unavailable = empty($sessions);
 
 $class_data = array(
     'name' => 'Tiddler Gym',
     'age' => $age_range ?: '6–12 Months',
     'about_title' => $about_title ?: '<em>Parent & Baby</em> movement, music and play',
-    'about_lead' => $about_lead ?: 'Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing. The equipment is carefully chosen for the Tiddler age range: tactile, bright and engaging for young explorers.',
-    'about_content' => $about_content ?: '<p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>',
+    'about_content' => $about_content ?: '<p>Tiddler Gym is designed to offer a fun, safe environment for parent or carer and baby — encouraging physical play and interaction through music, rolling, rocking, crawling and balancing. The equipment is carefully chosen for the Tiddler age range: tactile, bright and engaging for young explorers.</p><p>The circuit changes every single week, so there\'s always something fresh to discover. It\'s also a lovely chance for parents and carers to relax, have a chat, and watch their little ones thrive.</p>',
     'modifier' => 'tiddler',
 );
 
@@ -138,7 +130,6 @@ $gallery_images = array(
             </div>
             <div class="cd-about-inner">
                 <div class="cd-about-content">
-                    <p class="cd-about-lead"><?php echo esc_html($class_data['about_lead']); ?></p>
                     <?php echo wp_kses_post($class_data['about_content']); ?>
                 </div>
             </div>
@@ -153,6 +144,7 @@ $gallery_images = array(
                 <p><?php _e('Current term sessions are shown below, with the next term dates underneath for planning ahead.', 'tjs-gymnastics'); ?></p>
             </div>
 
+            <?php if (!$schedule_data_unavailable): ?>
             <div class="cd-booking-table-wrap">
                 <table class="cd-booking-table" aria-label="<?php echo esc_attr($current_term['season'] . ' ' . $class_data['name'] . ' sessions'); ?>">
                     <thead>
@@ -226,6 +218,9 @@ $gallery_images = array(
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php else: ?>
+                <?php tjs_render_schedule_unavailable_notice(); ?>
+            <?php endif; ?>
 
             <section class="cd-booking-term-current" aria-label="<?php _e('Current term details', 'tjs-gymnastics'); ?>">
                 <span class="section-label"><?php _e('Current Term', 'tjs-gymnastics'); ?></span>
@@ -271,22 +266,30 @@ $gallery_images = array(
         </div>
     </section>
 
+    <?php $hide_terms = ($product && function_exists('get_field')) ? get_field('hide_terms', $product->get_id()) : false; ?>
+    <?php if (!$hide_terms): ?>
     <section class="cd-terms-summary" aria-labelledby="cd-terms-summary-title">
         <div class="container">
             <article class="cd-terms-summary-card">
                 <span class="section-label"><?php _e('Important Information', 'tjs-gymnastics'); ?></span>
                 <h2 id="cd-terms-summary-title"><?php _e('Terms and Conditions on', 'tjs-gymnastics'); ?> <em><?php _e('Bookings', 'tjs-gymnastics'); ?></em></h2>
                 <div class="cd-terms-summary-body">
-                    <p><?php _e('Our classes are run on a termly basis. The classes are coached, structured and progressive classes, the equipment set ups and skills become more demanding the term progresses.', 'tjs-gymnastics'); ?></p>
-                    <p><?php _e('We want to work with you and your child to give them the best possible experience at TJ\'s and we know that it can sometimes take a few weeks for the children to get to know us and what to expect. We also need to ensure the class numbers are limited. Therefore, we prefer that bookings are made for the term. If after few weeks you feel the class is not right for your child, we are happy to refund remaining classes.', 'tjs-gymnastics'); ?></p>
-                    <p><?php _e('Trial classes are only available if we have spaces in a particular class. Only 2 trials per term per child can be booked.', 'tjs-gymnastics'); ?></p>
-                    <p><?php _e('If you sign up to a trial class, consideration must be given to the fact there is a lot to see and do and, for some, the first class can be quite intense! It can take a few weeks for children to settle into the classes, the first class is not always the best guide for how your child will enjoy our classes.', 'tjs-gymnastics'); ?></p>
+                    <?php
+                    $terms_content = ($product && function_exists('get_field')) ? get_field('terms_content', $product->get_id()) : '';
+                    $plain_terms = wp_strip_all_tags(html_entity_decode((string) $terms_content, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                    $plain_terms = trim(preg_replace('/[\s\x{00A0}]+/u', '', $plain_terms));
+                    if ($plain_terms !== ''):
+                        echo wp_kses_post($terms_content);
+                    else: ?>
+                    <p><?php _e('Our Tiddler class is our only Pay as You Go class. So, no need to book in advance, just come along. We do also offer the option of a Tiddler Card, payment for 6 sessions which is then stamped each time you come and is slightly cheaper than paying for each class individually. If you are a regular member of Tiddlers you will have priority to book the Toddlers class when your child is ready to progress.', 'tjs-gymnastics'); ?></p>
                     <p><?php _e('We cannot offer refunds or \'make up\' classes for those missed. However, in serious medical circumstances, we can make exceptions to this rule.', 'tjs-gymnastics'); ?></p>
+                    <?php endif; ?>
                 </div>
                 <p class="cd-terms-summary-date"><?php _e('March 2026', 'tjs-gymnastics'); ?></p>
             </article>
         </div>
     </section>
+    <?php endif; ?>
 
     <section class="cd-gallery section" aria-label="<?php _e('Tiddler Gym photos', 'tjs-gymnastics'); ?>">
         <div class="container">

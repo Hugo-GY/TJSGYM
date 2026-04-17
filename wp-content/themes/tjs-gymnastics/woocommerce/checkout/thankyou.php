@@ -30,20 +30,22 @@ if ( $order_id > 0 ) {
 
 $session_data = array();
 $customer_data = array();
+$has_valid_order = false;
+$is_failed_order = false;
 
 if ( $order && $key_is_valid ) {
+    $has_valid_order = true;
+    $is_failed_order = $order->has_status( 'failed' );
+
     foreach ( $order->get_items() as $item_id => $item ) {
         $session_data['class_name'] = $item->get_name();
         $session_data['quantity'] = $item->get_quantity();
 
         $variation = new WC_Product_Variation( $item->get_variation_id() );
         if ( $variation ) {
-            $attributes = $variation->get_attributes();
-            $session_data['day'] = isset( $attributes['pa_class-day'] ) ? $attributes['pa_class-day'] :
-                                  ( isset( $attributes['class-day'] ) ? $attributes['class-day'] : '' );
-            $time_raw = isset( $attributes['pa_time-slot'] ) ? $attributes['pa_time-slot'] :
-                       ( isset( $attributes['time-slot'] ) ? $attributes['time-slot'] : '' );
-            $session_data['time'] = function_exists( 'tjs_format_time_slot' ) ? tjs_format_time_slot( $time_raw ) : $time_raw;
+            $schedule = function_exists( 'tjs_get_variation_schedule_data' ) ? tjs_get_variation_schedule_data( $variation ) : array();
+            $session_data['day'] = isset( $schedule['day'] ) ? $schedule['day'] : '';
+            $session_data['time'] = isset( $schedule['time'] ) ? $schedule['time'] : '';
         }
 
         $session_data['price'] = $item->get_total() > 0 ? '£' . number_format( $item->get_total(), 0 ) . ' / term' : '';
@@ -57,6 +59,18 @@ if ( $order && $key_is_valid ) {
             }
         }
     }
+}
+
+$hero_eyebrow = $session_data['class_name'] ?? 'Class Booking';
+$hero_title = 'Order Not Found';
+$hero_subtitle = 'We could not find this order. Please check your email for confirmation or return to the classes page.';
+
+if ( $is_failed_order ) {
+    $hero_title = 'Payment Failed';
+    $hero_subtitle = 'Unfortunately your order cannot be processed as the originating bank has declined your transaction.';
+} elseif ( $has_valid_order ) {
+    $hero_title = 'Booking Confirmed';
+    $hero_subtitle = 'Thank you! Your booking has been received. Review your selected session and details below.';
 }
 ?>
 
@@ -72,21 +86,21 @@ if ( $order && $key_is_valid ) {
 
     <section class="cd-booking-confirmation-hero" aria-label="Booking confirmation">
         <div class="container">
-            <p class="page-hero-eyebrow"><?php echo esc_html( $session_data['class_name'] ?? 'Class Booking' ); ?></p>
-            <h1>Booking Confirmed</h1>
-            <p class="page-hero-sub">Thank you! Your booking has been received. Review your selected session and details below.</p>
+            <p class="page-hero-eyebrow"><?php echo esc_html( $hero_eyebrow ); ?></p>
+            <h1><?php echo esc_html( $hero_title ); ?></h1>
+            <p class="page-hero-sub"><?php echo esc_html( $hero_subtitle ); ?></p>
         </div>
     </section>
 
     <section class="cd-booking-confirmation section" aria-label="Booking confirmation details">
         <div class="container">
 
-            <?php if ( $order && $key_is_valid ) :
+            <?php if ( $has_valid_order ) :
 
-                if ( $order->has_status( 'failed' ) ) : ?>
+                if ( $is_failed_order ) : ?>
 
                     <div class="contact-card cd-confirmation-fallback">
-                        <h2>Payment Failed</h2>
+                        <h2>Try Payment Again</h2>
                         <p>Unfortunately your order cannot be processed as the originating bank has declined your transaction.</p>
                         <div class="contact-submit-row">
                             <a href="<?php echo esc_url( $order->get_checkout_payment_url() ); ?>" class="btn btn-magenta">Try Payment Again</a>
@@ -203,7 +217,7 @@ if ( $order && $key_is_valid ) {
             <?php else : ?>
 
                 <div class="contact-card cd-confirmation-fallback">
-                    <h2>Order Not Found</h2>
+                    <h2>Need Help?</h2>
                     <p>We could not find this order. Please check your email for confirmation or return to the classes page.</p>
                     <div class="contact-submit-row">
                         <a href="<?php echo esc_url( home_url( '/classes/' ) ); ?>" class="btn btn-magenta">View Classes</a>

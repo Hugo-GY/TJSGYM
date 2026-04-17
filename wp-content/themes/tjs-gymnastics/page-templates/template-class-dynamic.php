@@ -61,7 +61,6 @@ $product_slug = $product->get_slug();
 // ACF fields with defaults
 $age_range = (function_exists('get_field') && get_field('age_range', $product_id)) ? get_field('age_range', $product_id) : '';
 $about_title = (function_exists('get_field') && get_field('about_title', $product_id)) ? get_field('about_title', $product_id) : '';
-$about_lead = (function_exists('get_field') && get_field('about_lead', $product_id)) ? get_field('about_lead', $product_id) : '';
 $about_content = (function_exists('get_field') && get_field('about_content', $product_id)) ? get_field('about_content', $product_id) : '';
 $pay_type = (function_exists('get_field') && get_field('pay_type', $product_id)) ? get_field('pay_type', $product_id) : '';
 
@@ -95,8 +94,8 @@ if (empty($about_title)) {
     $about_title = isset($default_titles[$modifier]) ? $default_titles[$modifier] : $product_name;
 }
 
-if (empty($about_lead)) {
-    $about_lead = $product->get_short_description() ?: $product->get_description();
+if (empty($about_content)) {
+    $about_content = $product->get_short_description() ?: $product->get_description();
 }
 
 // Session/booking config
@@ -127,33 +126,15 @@ function tjs_format_term_dates_dynamic($dates_field) {
     return explode("\n", trim($dates_field));
 }
 
-// Smart booking URL resolution - Use unified /class-booking/ page
+// Booking URL - unified /class-booking/ page
 $booking_url = home_url('/class-booking/');
-if (function_exists('get_field')) {
-    $custom_booking_url = get_field('booking_page_url', $product_id);
-    if ($custom_booking_url) {
-        $booking_url = $custom_booking_url;
-    }
-}
+$waitlist_url = home_url('/contact/');
 
-// Gallery setup - 3-tier fallback system
+// Gallery setup - 2-tier fallback system
 $gallery_images = array();
 
-// Tier 1: ACF Gallery field (highest priority)
-if (function_exists('get_field')) {
-    $acf_gallery = get_field('gallery_images', $product_id);
-    if (is_array($acf_gallery) && !empty($acf_gallery)) {
-        foreach ($acf_gallery as $img) {
-            $gallery_images[] = array(
-                'src' => isset($img['url']) ? $img['url'] : '',
-                'alt' => isset($img['alt']) ? $img['alt'] : $product_name . ' photo'
-            );
-        }
-    }
-}
-
-// Tier 2: WooCommerce Product Gallery (if ACF not configured)
-if (empty($gallery_images) && method_exists($product, 'get_gallery_image_ids')) {
+// Tier 1: WooCommerce Product Gallery
+if (method_exists($product, 'get_gallery_image_ids')) {
     $wc_gallery_ids = $product->get_gallery_image_ids();
     if (!empty($wc_gallery_ids)) {
         foreach ($wc_gallery_ids as $attachment_id) {
@@ -169,9 +150,11 @@ if (empty($gallery_images) && method_exists($product, 'get_gallery_image_ids')) 
     }
 }
 
-// Tier 3: Default theme images (fallback)
+// Tier 2: Default theme images (fallback)
 if (empty($gallery_images)) {
-    $gallery_base = get_template_directory_uri() . '/assets/images/classes/' . $modifier . '/';
+    $gallery_folders = array('minigym' => 'mini-gym', 'gym' => 'gymnastics');
+    $gallery_folder = isset($gallery_folders[$modifier]) ? $gallery_folders[$modifier] : $modifier;
+    $gallery_base = get_template_directory_uri() . '/assets/images/classes/' . $gallery_folder . '/';
     $default_gallery_count = 5;
     for ($i = 1; $i <= $default_gallery_count; $i++) {
         $gallery_images[] = array(
@@ -214,7 +197,6 @@ if (empty($gallery_images)) {
             </div>
             <div class="cd-about-inner">
                 <div class="cd-about-content">
-                    <p class="cd-about-lead"><?php echo esc_html($about_lead); ?></p>
                     <?php if ($about_content): ?>
                         <?php echo wp_kses_post($about_content); ?>
                     <?php endif; ?>
@@ -263,7 +245,7 @@ if (empty($gallery_images)) {
                                     <?php if ($session['status'] !== 'full'): ?>
                                         <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                     <?php else: ?>
-                                        <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
+                                        <a href="<?php echo esc_url($waitlist_url); ?>" class="btn btn-magenta btn-sm cd-waitlist-btn"><?php _e('Join the Waiting List', 'tjs-gymnastics'); ?></a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -300,7 +282,7 @@ if (empty($gallery_images)) {
                                 <?php if ($session['status'] !== 'full'): ?>
                                     <a href="<?php echo esc_url(add_query_arg('variation', $session['variation_id'], $booking_url)); ?>" class="btn btn-magenta btn-sm cd-book-btn"><?php _e('Book Now', 'tjs-gymnastics'); ?></a>
                                 <?php else: ?>
-                                    <button class="btn btn-secondary btn-sm cd-waitlist-btn" disabled><?php _e('Fully Booked', 'tjs-gymnastics'); ?></button>
+                                    <a href="<?php echo esc_url($waitlist_url); ?>" class="btn btn-magenta btn-sm cd-waitlist-btn"><?php _e('Join the Waiting List', 'tjs-gymnastics'); ?></a>
                                 <?php endif; ?>
                             </div>
                         </article>
@@ -378,22 +360,33 @@ if (empty($gallery_images)) {
     <?php endif; ?>
 
     <!-- Terms & Conditions Summary -->
+    <?php $hide_terms = (function_exists('get_field')) ? get_field('hide_terms', $product_id) : false; ?>
+    <?php if (!$hide_terms): ?>
     <section class="cd-terms-summary" aria-labelledby="cd-terms-summary-title">
         <div class="container">
             <article class="cd-terms-summary-card">
                 <span class="section-label"><?php _e('Important Information', 'tjs-gymnastics'); ?></span>
                 <h2 id="cd-terms-summary-title"><?php _e('Terms and Conditions on', 'tjs-gymnastics'); ?> <em><?php _e('Bookings', 'tjs-gymnastics'); ?></em></h2>
                 <div class="cd-terms-summary-body">
+                    <?php
+                    $terms_content = (function_exists('get_field')) ? get_field('terms_content', $product_id) : '';
+                    $plain_terms = wp_strip_all_tags(html_entity_decode((string) $terms_content, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                    $plain_terms = trim(preg_replace('/[\s\x{00A0}]+/u', '', $plain_terms));
+                    if ($plain_terms !== ''):
+                        echo wp_kses_post($terms_content);
+                    else: ?>
                     <p><?php _e('Our classes are run on a termly basis. The classes are coached, structured and progressive classes, the equipment set ups and skills become more demanding the term progresses.', 'tjs-gymnastics'); ?></p>
                     <p><?php _e('We want to work with you and your child to give them the best possible experience at TJ\'s and we know that it can sometimes take a few weeks for the children to get to know us and what to expect. We also need to ensure the class numbers are limited. Therefore, we prefer that bookings are made for the term. If after few weeks you feel the class is not right for your child, we are happy to refund remaining classes.', 'tjs-gymnastics'); ?></p>
                     <p><?php _e('Trial classes are only available if we have spaces in a particular class. Only 2 trials per term per child can be booked.', 'tjs-gymnastics'); ?></p>
                     <p><?php _e('If you sign up to a trial class, consideration must be given to the fact there is a lot to see and do and, for some, the first class can be quite intense! It can take a few weeks for children to settle into the classes, the first class is not always the best guide for how your child will enjoy our classes.', 'tjs-gymnastics'); ?></p>
                     <p><?php _e('We cannot offer refunds or \'make up\' classes for those missed. However, in serious medical circumstances, we can make exceptions to this rule.', 'tjs-gymnastics'); ?></p>
+                    <?php endif; ?>
                 </div>
                 <p class="cd-terms-summary-date"><?php _e('March 2026', 'tjs-gymnastics'); ?></p>
             </article>
         </div>
     </section>
+    <?php endif; ?>
 
     <?php if (!empty($gallery_images)): ?>
     <!-- Photo Gallery -->

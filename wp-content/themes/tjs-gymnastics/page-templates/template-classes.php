@@ -110,7 +110,7 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
                     $image_file = 'class-card-gymnastics.png';
                     if ($modifier === 'tiddler') $image_file = 'class-card-tiddler.png';
                     if ($modifier === 'toddler') $image_file = 'class-card-toddler.png';
-                    if ($modifier === 'minigym') $image_file = 'class-card-mini-gym.png';
+                    if ($modifier === 'minigym') $image_file = 'class-card-mini-gym.jpg';
                     
                     // Fallback age ranges if ACF not set
                     if (empty($age_range)) {
@@ -159,6 +159,9 @@ $hero_subtitle = get_field('hero_subtitle') ?: 'From Babies and Crawling Toddler
 // Terms and Conditions Section
 $terms_title = get_field('terms_title') ?: 'Terms and Conditions on <em>Bookings</em>';
 $terms_content = get_field('terms_content');
+$plain_terms = wp_strip_all_tags(html_entity_decode((string) $terms_content, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+$plain_terms = trim(preg_replace('/[\s\x{00A0}]+/u', '', $plain_terms));
+$has_custom_terms = ($plain_terms !== '');
 $terms_date = get_field('terms_date') ?: 'March 2026';
 ?>
 
@@ -168,7 +171,7 @@ $terms_date = get_field('terms_date') ?: 'March 2026';
             <span class="section-label"><?php _e('Important Information', 'tjs-gymnastics'); ?></span>
             <h2 id="terms-bookings-title"><?php echo wp_kses_post($terms_title); ?></h2>
             <div class="terms-bookings-body">
-                <?php if ($terms_content): ?>
+                <?php if ($has_custom_terms): ?>
                     <?php echo wp_kses_post($terms_content); ?>
                 <?php else: ?>
                     <p>Our classes are run on a termly basis. The classes are coached, structured and progressive classes, the equipment set ups and skills become more demanding the term progresses.</p>
@@ -180,6 +183,23 @@ $terms_date = get_field('terms_date') ?: 'March 2026';
             </div>
             <p class="terms-bookings-date"><?php echo esc_html($terms_date); ?></p>
         </article>
+    </div>
+</section>
+
+<!-- ── FAQ Teaser ─────────────────────────────────── -->
+<section class="faq-teaser" aria-label="<?php _e('Frequently asked questions', 'tjs-gymnastics'); ?>">
+    <div class="container">
+        <div class="faq-teaser-card card-accent">
+            <span class="section-label"><?php _e('Need More Detail?', 'tjs-gymnastics'); ?></span>
+            <h2><?php _e('Still Choosing the <em>Right Class?</em>', 'tjs-gymnastics'); ?></h2>
+            <p class="faq-teaser-copy">
+                <?php _e('If you want more detail on class structure, trials, what to wear, or what to expect on your first visit, our FAQ covers the practical questions families usually ask before booking.', 'tjs-gymnastics'); ?>
+            </p>
+            <div class="faq-teaser-actions">
+                <a href="<?php echo esc_url(home_url('/faq/')); ?>" class="btn btn-magenta"><?php _e('Visit FAQ', 'tjs-gymnastics'); ?></a>
+                <a href="<?php echo esc_url(home_url('/contact-us/')); ?>" class="btn btn-ghost-magenta"><?php _e('Contact Us', 'tjs-gymnastics'); ?></a>
+            </div>
+        </div>
     </div>
 </section>
 

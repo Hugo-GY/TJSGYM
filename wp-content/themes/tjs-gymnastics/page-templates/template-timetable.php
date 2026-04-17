@@ -78,15 +78,10 @@ function get_timetable_data_from_products() {
                 $variation = wc_get_product($variation_data['variation_id']);
                 if (!$variation) continue;
                 
-                $attributes = $variation->get_attributes();
-
-                // Support both taxonomy attributes (pa_*) and custom attributes
-                $day = isset($attributes['pa_class-day']) ? $attributes['pa_class-day'] :
-                       (isset($attributes['class-day']) ? $attributes['class-day'] : '');
-                $time_raw = isset($attributes['pa_time-slot']) ? $attributes['pa_time-slot'] :
-                            (isset($attributes['time-slot']) ? $attributes['time-slot'] : '');
-                $group = isset($attributes['pa_group-level']) ? $attributes['pa_group-level'] :
-                         (isset($attributes['group-level']) ? $attributes['group-level'] : '');
+                $schedule = function_exists('tjs_get_variation_schedule_data') ? tjs_get_variation_schedule_data($variation) : array();
+                $day = isset($schedule['day']) ? $schedule['day'] : '';
+                $time_raw = isset($schedule['time_raw']) ? $schedule['time_raw'] : '';
+                $group = isset($schedule['group']) ? $schedule['group'] : '';
 
                 if (empty($day) || empty($time_raw)) continue;
 

@@ -35,12 +35,9 @@
 |--------|------|------|
 | `age_range` | Text | 年龄范围 (如 "6–12 Months") |
 | `about_title` | WYSIWYG | 页面副标题 |
-| `about_lead` | Textarea | 简短描述 |
-| `about_content` | WYSIWYG | 详细内容 |
+| `about_content` | WYSIWYG | 课程介绍（完整描述） |
 | `pay_type` | Select | `per_term` 或 `per_class` |
 | `term_info` | Repeater | 学期信息（见下方） |
-| `gallery_images` | Gallery | 图片画廊 |
-| `booking_page_url` | URL | 自定义预订页链接 |
 
 #### Term Info Repeater 结构：
 
@@ -90,134 +87,44 @@
 
 ---
 
-## 图片资源组织
+## Booking 链接
 
-将课程图片放置在对应目录：
+所有课程统一使用 `/class-booking/` 作为预订页面，不支持单独覆盖。
+
+---
+
+## 图片资源
+
+### 专用模板（template-class-tiddler/toddler/mini-gym/gymnastics.php）
+
+图片硬编码在各模板中，来自主题目录：
 
 ```
 /wp-content/themes/tjs-gymnastics/assets/images/classes/
 ├── tiddler/
-│   ├── gallery-1.jpg
-│   ├── gallery-2.jpg
-│   ├── gallery-3.jpg
-│   ├── gallery-4.jpg
-│   └── gallery-5.jpg
+│   ├── gallery-1.jpg ... gallery-4.jpg, hero.jpg
 ├── toddler/
-│   └── ... (同上)
-├── minigym/
-│   └── ...
+│   ├── gallery-1.jpg ... gallery-5.jpg, hero.jpg
+├── mini-gym/
+│   ├── kids-mini-gym-1.jpg ... kids-mini-gym-6.jpg
 └── gymnastics/
-    └── ...
+    ├── gallery-1.jpg ... gallery-8.jpg
 ```
 
-**注意：** 系统现在支持 **3 种图片来源方式**（见下方 Gallery 管理章节）
+### 动态模板（template-class-dynamic.php）
 
----
+2 层 fallback 系统：
 
-## 📸 Gallery 图片管理（3 种方式）
+1. **WooCommerce Product Gallery** — 如果产品配置了图库图片，优先使用
+2. **主题默认图片** — fallback 到 `assets/images/classes/{folder}/gallery-{n}.jpg`
 
-系统采用 **三层优先级** 自动选择图片来源：
+目录映射：modifier `minigym` → 目录 `mini-gym`，modifier `gym` → 目录 `gymnastics`。
 
-### **方式 1：ACF Gallery 字段（推荐 ⭐⭐⭐⭐⭐）**
+### 统一动态模板（template-dynamic-class.php）
 
-**适用场景：** 需要完全控制图片顺序、单独设置 Alt 文本
+从 `tjs_get_class_config()` 的 defaults 读取固定图集。
 
-**操作步骤：**
-1. 编辑 WooCommerce 产品
-2. 找到 **"Class Gallery & Media"** Meta Box
-3. 点击 **"Add to Gallery"** 上传/选择图片
-4. 拖拽调整顺序（第一张 = 主图）
-5. 可点击每张图片编辑标题和 Alt 文本
-
-**优点：**
-- ✅ 拖拽排序，完全控制显示顺序
-- ✅ 每张图可独立设置 Alt 文本（SEO 友好）
-- ✅ 专用界面，不会与产品主图混淆
-- ✅ 支持批量上传
-
-**配置位置：**
-```
-产品编辑页 > Class Gallery & Media > Gallery Images
-```
-
----
-
-### **方式 2：WooCommerce 产品图库（简单 ⭐⭐⭐⭐）**
-
-**适用场景：** 快速上线，复用已有产品图片
-
-**操作步骤：**
-1. 编辑 WooCommerce 产品
-2. 在右侧边栏找到 **"Product gallery"** 区域
-3. 点击 **"Add product gallery images"**
-4. 选择/上传图片
-
-**自动触发条件：**
-- 当 ACF `gallery_images` 字段为空时
-- 系统会自动读取 WC Product Gallery
-
-**优点：**
-- ✅ 无需额外 ACF 配置
-- ✅ 与 WooCommerce 原生功能集成
-- ✅ 适合快速迁移现有产品
-
-**注意：**
-- ⚠️ 显示顺序按 WC 设置的顺序
-- ⚠️ 无法在 Class 页面单独调整顺序
-
----
-
-### **方式 3：主题默认图片（回退方案）**
-
-**适用场景：** 开发测试、临时占位
-
-**工作机制：**
-- 当以上两种方式都没有配置时
-- 自动加载 `/assets/images/classes/{modifier}/gallery-{n}.jpg`
-
-**文件路径示例：**
-```
-/assets/images/classes/tiddler/gallery-1.jpg
-/assets/images/classes/tiddler/gallery-2.jpg
-...
-/assets/images/classes/toddler/gallery-1.jpg
-...
-```
-
----
-
-### **优先级流程图**
-
-```
-用户访问页面
-    ↓
-检查 ACF gallery_images 字段
-    ↓ (有图片？)
-   YES → 使用 ACF 图片 ✅
-    ↓ (无图片)
-   NO  → 检查 WC Product Gallery
-            ↓ (有图片？)
-           YES → 使用 WC 图片 ✅
-            ↓ (无图片)
-           NO  → 使用主题默认图片 ⚠️
-```
-
----
-
-### **推荐配置策略**
-
-| 场景 | 推荐方式 | 原因 |
-|------|---------|------|
-| 新产品正式发布 | 方式 1 (ACF) | 最灵活，SEO 最佳 |
-| 快速原型/MVP | 方式 2 (WC) | 零配置，立即可用 |
-| 开发环境测试 | 方式 3 (默认) | 无需上传图片 |
-| 从旧站迁移 | 方式 2 (WC) | 批量导入时保留原图 |
-
----
-
-### **最佳实践建议**
-
-#### **图片规范**
+### 图片规范
 
 | 属性 | 推荐值 |
 |------|--------|
@@ -225,36 +132,6 @@
 | **格式** | JPG (照片) / PNG (图标) / WebP (现代浏览器) |
 | **文件大小** | 单张 ≤ 500KB (压缩后) |
 | **数量** | 5-10 张（过多影响加载速度） |
-| **比例** | 16:9 或 4:3 (横向) |
-
-#### **命名规范**
-```
-tiddler-gym-class-action-shots-01.jpg
-tiddler-gym-class-action-shots-02.jpg
-...
-```
-
-#### **Alt 文本写法**
-```
-✅ 好: "Children enjoying Tiddler Gym obstacle course"
-❌ 差: "image01.jpg" / "DSC_1234"
-✅ 好: "Parent and baby during music time at TJ's Gymnastics"
-```
-
----
-
-## Booking 页面配置
-
-每个课程需要一个对应的预订页面：
-
-**自动匹配逻辑：**
-1. 首先检查 ACF 字段 `booking_page_url`
-2. 尝试查找 `{product-slug}-booking` 页面
-3. 尝试查找 `{page-slug}-booking` 页面
-
-**示例：**
-- 产品：`tiddler-gym`
-- 预订页：创建页面 slug 为 `tiddler-gym-booking`
 
 ---
 
@@ -330,9 +207,9 @@ add_action('template_redirect', function() {
 ### 问题：页面显示 "Class Not Found"
 
 **可能原因：**
-1. ❌ 页面 slug 与产品 slug 不匹配
-2. ❌ 产品不存在或已删除
-3. ❌ 产品不是 Variable Product 类型
+1. 页面 slug 与产品 slug 不匹配
+2. 产品不存在或已删除
+3. 产品不是 Variable Product 类型
 
 **解决方案：**
 1. 检查 WooCommerce 后台确认产品存在
@@ -342,8 +219,9 @@ add_action('template_redirect', function() {
 ### 问题：图片不显示
 
 **检查顺序：**
-1. ACF `gallery_images` 字段是否配置？
-2. 文件路径 `/assets/images/classes/{modifier}/gallery-{n}.jpg` 是否存在？
+1. WooCommerce Product Gallery 是否配置了图片？
+2. 主题目录 `/assets/images/classes/{folder}/gallery-{n}.jpg` 是否存在？
+3. 注意目录映射：modifier `minigym` 对应目录 `mini-gym`，modifier `gym` 对应目录 `gymnastics`
 
 ### 问题：样式不正确
 
@@ -397,18 +275,6 @@ template-class-dynamic.php
 
 ---
 
-## 更新日志
-
-### v2.0 (当前版本)
-- ✅ 增强动态模板（Gallery + Mobile View）
-- ✅ 智能缓存系统（产品 1h / 会话 15m）
-- ✅ 动态 CSS modifier 检测
-- ✅ 多级 Booking URL 解析
-- ✅ 自动缓存清除钩子
-- ✅ 完整错误处理
-
----
-
 ## 联系与支持
 
 如有问题，请检查：
@@ -423,5 +289,5 @@ template-class-dynamic.php
 
 ---
 
-**最后更新：** 2026-04-11
-**版本：** 2.0.0
+**最后更新：** 2026-04-17
+**版本：** 2.1.0

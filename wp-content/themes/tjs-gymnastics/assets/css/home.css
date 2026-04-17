@@ -163,26 +163,30 @@
 }
 
 .hero-collage-card--main {
-  top: 1.6rem;
-  left: 2.8rem;
-  width: min(100%, 25.5rem);
-  transform: rotate(-3deg);
+  left: 50%;
+  top: -0.5rem;
+  width: min(100%, 23rem);
+  transform: translateX(-50%) rotate(-4deg);
   z-index: 1;
 }
 
 .hero-collage-card--archive {
-  top: 0;
-  right: 0;
-  width: 12.2rem;
-  transform: rotate(6deg);
+  top: 18.5rem;
+  left: -0.2rem;
+  right: auto;
+  width: 14.5rem;
+  transform: rotate(-9deg);
   z-index: 3;
+  box-shadow:
+    0 12px 24px rgba(122, 42, 122, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 .hero-collage-card--space {
-  right: 2.2rem;
-  bottom: 0.6rem;
-  width: 15rem;
-  transform: rotate(2.5deg);
+  right: 0.15rem;
+  bottom: 0.5rem;
+  width: 20rem;
+  transform: rotate(7deg);
   z-index: 2;
 }
 
@@ -385,7 +389,7 @@
 }
 .class-card--tiddler .class-card-img { object-position: center 52%; }
 .class-card--toddler .class-card-img { object-position: center 38%; }
-.class-card--minigym .class-card-img { object-position: center 44%; }
+.class-card--minigym .class-card-img { object-position: center 20%; }
 .class-card--gym     .class-card-img { object-position: center 20%; }
 
 /* Age pill floated over the image area */
@@ -716,37 +720,42 @@
   }
 
   .hero-collage-card--main {
-    top: 1.1rem;
-    left: 1.4rem;
+    left: 50%;
+    top: 0.4rem;
     width: min(100%, 20rem);
-    transform: rotate(-2deg);
+    transform: translateX(-50%) rotate(-4deg);
   }
 
   .hero-collage-card--archive {
-    top: 0.2rem;
-    right: 0.8rem;
-    left: auto;
-    width: 9.25rem;
-    transform: rotate(5deg);
+    top: 14.5rem;
+    left: -0.2rem;
+    right: auto;
+    width: 11.5rem;
+    transform: rotate(-9deg);
   }
 
   .hero-collage-card--space {
-    right: 1rem;
-    bottom: 1.1rem;
-    width: 11.5rem;
-    transform: rotate(3deg);
+    right: 0.15rem;
+    bottom: 1rem;
+    width: 15.5rem;
+    transform: rotate(7deg);
   }
 
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-md);
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
     min-height: auto;
-    gap: 0.125rem;
+    gap: 0;
   }
 
   .hero-eyebrow { justify-content: center; }
@@ -767,6 +776,7 @@
 
   .hero-content {
     order: 2;
+    margin-top: -3rem;
   }
 
   .hero-visual {

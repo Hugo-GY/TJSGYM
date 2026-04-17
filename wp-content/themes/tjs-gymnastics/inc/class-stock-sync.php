@@ -31,7 +31,16 @@ function tjs_sync_stock_to_acf($product_id) {
         $parent_id = $product->get_parent_id();
         if ($parent_id) {
             tjs_update_parent_stock($parent_id);
+
+            $parent = wc_get_product($parent_id);
+            if ($parent && function_exists('tjs_clear_product_cache')) {
+                tjs_clear_product_cache($parent->get_slug());
+            }
         }
+
+        delete_transient('tjs_booking_v' . $product_id);
+    } elseif (function_exists('tjs_clear_class_runtime_caches')) {
+        tjs_clear_class_runtime_caches();
     }
 }
 add_action('woocommerce_update_product_stock', 'tjs_sync_stock_to_acf');
@@ -52,13 +61,14 @@ function tjs_update_parent_stock($parent_id) {
         $variation = wc_get_product($variation_data['variation_id']);
         if (!$variation) continue;
         
+        $capacity = tjs_get_variation_capacity($variation);
         $stock = $variation->get_stock_quantity();
         if ($stock === null || $stock === '') {
-            $stock = 20; // Default capacity
+            $stock = $capacity;
         }
         
         $total_stock += $stock;
-        $total_capacity += 20; // Assuming default capacity of 20
+        $total_capacity += $capacity;
     }
     
     // Update parent product meta
@@ -74,20 +84,7 @@ function tjs_get_variation_availability($variation_id) {
     if (!$variation) return array('status' => 'unknown', 'availability' => 'N/A');
     
     $stock = $variation->get_stock_quantity();
-    $max_capacity = 20; // Default max
-    
-    // Get category-specific capacity
-    $parent_id = $variation->get_parent_id();
-    if ($parent_id) {
-        $categories = wp_get_post_terms($parent_id, 'product_cat', array('fields' => 'slugs'));
-        if (in_array('toddler-gym', $categories)) {
-            $max_capacity = 18;
-        } elseif (in_array('tiddler-gym', $categories)) {
-            $max_capacity = 10;
-        } elseif (in_array('mini-gym', $categories)) {
-            $max_capacity = 10;
-        }
-    }
+    $max_capacity = tjs_get_variation_capacity($variation);
     
     if ($stock === null || $stock === '') {
         $stock = $max_capacity;
@@ -111,6 +108,112 @@ function tjs_get_variation_availability($variation_id) {
         'max_capacity' => $max_capacity
     );
 }
+
+/**
+ * Add a per-variation capacity field in the WooCommerce variation editor.
+ */
+function tjs_render_variation_capacity_field($loop, $variation_data, $variation) {
+    if (!function_exists('woocommerce_wp_text_input')) {
+        return;
+    }
+
+    $variation_id = is_object($variation) ? $variation->ID : intval($variation);
+    $parent_id = wp_get_post_parent_id($variation_id);
+    $default_capacity = tjs_get_default_class_capacity($parent_id);
+    $configured_capacity = get_post_meta($variation_id, '_tjs_class_capacity', true);
+
+    woocommerce_wp_text_input(array(
+        'id' => 'tjs_class_capacity_' . $loop,
+        'name' => 'tjs_class_capacity[' . $loop . ']',
+        'label' => __('Class capacity', 'tjs-gymnastics'),
+        'desc_tip' => true,
+        'description' => sprintf(
+            __('Total places for this class. Stock quantity remains the remaining places. Leave blank to use the default capacity of %d.', 'tjs-gymnastics'),
+            $default_capacity
+        ),
+        'type' => 'number',
+        'value' => $configured_capacity,
+        'custom_attributes' => array(
+            'min' => '0',
+            'step' => '1'
+        ),
+        'wrapper_class' => 'form-row form-row-full'
+    ));
+}
+add_action('woocommerce_variation_options_inventory', 'tjs_render_variation_capacity_field', 10, 3);
+
+/**
+ * Save the per-variation capacity field.
+ */
+function tjs_save_variation_capacity_field($variation_id, $loop) {
+    if (!isset($_POST['tjs_class_capacity'][$loop])) {
+        return;
+    }
+
+    $raw_capacity = wc_clean(wp_unslash($_POST['tjs_class_capacity'][$loop]));
+
+    if ($raw_capacity === '') {
+        delete_post_meta($variation_id, '_tjs_class_capacity');
+    } else {
+        update_post_meta($variation_id, '_tjs_class_capacity', max(0, intval($raw_capacity)));
+    }
+
+    $variation = wc_get_product($variation_id);
+    if ($variation && $variation->is_type('variation')) {
+        $parent_id = $variation->get_parent_id();
+        if ($parent_id) {
+            tjs_update_parent_stock($parent_id);
+
+            $parent = wc_get_product($parent_id);
+            if ($parent) {
+                tjs_clear_product_cache($parent->get_slug());
+            }
+        }
+    }
+}
+add_action('woocommerce_save_product_variation', 'tjs_save_variation_capacity_field', 10, 2);
+
+/**
+ * Add a per-variation session length field in the WooCommerce variation editor.
+ */
+function tjs_render_variation_length_field($loop, $variation_data, $variation) {
+    if (!function_exists('woocommerce_wp_text_input')) {
+        return;
+    }
+
+    $variation_id = is_object($variation) ? $variation->ID : intval($variation);
+    $length = get_post_meta($variation_id, '_tjs_session_length', true);
+
+    woocommerce_wp_text_input(array(
+        'id' => 'tjs_session_length_' . $loop,
+        'name' => 'tjs_session_length[' . $loop . ']',
+        'label' => __('Session length', 'tjs-gymnastics'),
+        'desc_tip' => true,
+        'description' => __('e.g. 13 weeks, 12 weeks. Displayed in the booking table.', 'tjs-gymnastics'),
+        'type' => 'text',
+        'value' => $length,
+        'wrapper_class' => 'form-row form-row-full'
+    ));
+}
+add_action('woocommerce_variation_options_inventory', 'tjs_render_variation_length_field', 10, 3);
+
+/**
+ * Save the per-variation session length field.
+ */
+function tjs_save_variation_length_field($variation_id, $loop) {
+    if (!isset($_POST['tjs_session_length'][$loop])) {
+        return;
+    }
+
+    $raw_length = wc_clean(wp_unslash($_POST['tjs_session_length'][$loop]));
+
+    if ($raw_length === '') {
+        delete_post_meta($variation_id, '_tjs_session_length');
+    } else {
+        update_post_meta($variation_id, '_tjs_session_length', sanitize_text_field($raw_length));
+    }
+}
+add_action('woocommerce_save_product_variation', 'tjs_save_variation_length_field', 10, 2);
 
 /**
  * Check if class is full
@@ -183,14 +286,7 @@ function tjs_validate_class_stock($passed, $product_id, $quantity, $variation_id
     $parent = wc_get_product($product_id);
     if (!$parent) return $passed;
     
-    $categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'slugs'));
-    $is_class = in_array('classes', $categories) || 
-                in_array('tiddler-gym', $categories) ||
-                in_array('toddler-gym', $categories) ||
-                in_array('mini-gym', $categories) ||
-                in_array('gymnastics', $categories);
-    
-    if (!$is_class) return $passed;
+    if (!tjs_is_class_product($product_id)) return $passed;
     
     // Check stock
     $stock = $variation->get_stock_quantity();

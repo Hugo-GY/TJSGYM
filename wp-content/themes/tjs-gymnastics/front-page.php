@@ -21,7 +21,7 @@ get_header();
             <p class="hero-sub">
                 <?php _e('Structured gymnastics classes for children from 6 months to 12+.
                 Warm, encouraging coaches. British Gymnastics registered.
-                Serving Wimbledon families since 1988.', 'tjs-gymnastics'); ?>
+                Serving families since 1988.', 'tjs-gymnastics'); ?>
             </p>
 
             <div class="hero-ctas">
@@ -37,7 +37,7 @@ get_header();
             <div class="hero-collage" aria-label="<?php _e('Photos from TJ\'s Gymnastics Club', 'tjs-gymnastics'); ?>">
                 <figure class="hero-collage-card hero-collage-card--main">
                     <img
-                        src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/hero-photo.jpg'); ?>"
+                        src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/2026-03-06 08.50.48-1.jpg'); ?>"
                         alt="<?php _e('Coach supporting a young child during gymnastics practice', 'tjs-gymnastics'); ?>"
                         class="hero-collage-img hero-collage-img--main"
                         width="1200" height="1350"
@@ -53,8 +53,8 @@ get_header();
                 </figure>
                 <figure class="hero-collage-card hero-collage-card--space">
                     <img
-                        src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/facilities.png'); ?>"
-                        alt="<?php _e('The fully matted gymnastics hall at Raynes Park Sports Pavilion', 'tjs-gymnastics'); ?>"
+                        src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/home/2026-03-04-hero-web.jpg'); ?>"
+                        alt="<?php _e('A young girl smiling as she climbs the wall bars at TJ\'s Gymnastics Club', 'tjs-gymnastics'); ?>"
                         class="hero-collage-img hero-collage-img--space"
                         width="580" height="435"
                     >
@@ -94,7 +94,7 @@ get_header();
 
             <div class="trust-item">
                 <div class="trust-visual">
-                    <span class="trust-years-number">36+</span>
+                    <span class="trust-years-number">38+</span>
                 </div>
                 <span class="trust-item-label"><?php _e('Years Established', 'tjs-gymnastics'); ?></span>
                 <span class="trust-item-sub"><?php _e('Founded in 1988', 'tjs-gymnastics'); ?></span>
@@ -203,7 +203,7 @@ get_header();
                     $image_file = 'class-card-gymnastics.png';
                     if ($modifier === 'tiddler') $image_file = 'class-card-tiddler.png';
                     if ($modifier === 'toddler') $image_file = 'class-card-toddler.png';
-                    if ($modifier === 'minigym') $image_file = 'class-card-mini-gym.png';
+                    if ($modifier === 'minigym') $image_file = 'class-card-mini-gym.jpg';
 
                     // Fallback age ranges if ACF not set
                     if (empty($age_range)) {
