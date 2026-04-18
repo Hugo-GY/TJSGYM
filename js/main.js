@@ -152,15 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getBookingPageConfig(className) {
     switch (className) {
-      case 'Tiddler Gym':
-        return {
-          classLabel: 'Tiddler Gym',
-          classHref: '../classes/tiddler.html#book',
-          bookingHref: '../classes/toddler-booking.html',
-          missingSessionCopy: 'We could not find a selected Tiddler Gym session for this booking page.',
-          confirmationSessionCopy: 'We could not find a selected Tiddler Gym session for this confirmation page.',
-          confirmationFallbackCopy: 'You can return to the booking form and complete the enquiry again, or go back to the Tiddler Gym timetable.'
-        };
       case 'Mini Gym':
         return {
           classLabel: 'Mini Gym',

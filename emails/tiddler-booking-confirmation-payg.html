@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{email_subject}}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#fbf6fb; color:#34203d; font-family:Arial, Helvetica, sans-serif;">
+  <!--
+    Tiddler Gym — Pay as you go booking confirmation email
+    Sample data:
+    {{email_subject}} = Booking Confirmed | Tiddler Gym | TJ's Gymnastics Club
+    {{class_name}} = Tiddler Gym
+    {{booking_type}} = Pay as you go
+    {{term}} = Summer 2026
+    {{date_booked}} = Thursday 14 May 2026
+    {{session_time}} = 10:30 – 11:10
+    {{price}} = £10 / class
+    {{booking_reference}} = TJ-2026-0418-001
+    {{order_date}} = 18 April 2026
+    {{parent_name}} = Alex Smith
+    {{child_name}} = Jamie Smith
+    {{child_dob}} = 14 March 2025
+    {{email}} = alex@example.com
+    {{phone}} = 07885 103080
+  -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; border-collapse:collapse; background-color:#fbf6fb;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; max-width:640px; border-collapse:collapse;">
+          <tr>
+            <td align="center" style="padding:0 0 24px 0;">
+              <img src="../images/shared/logo.png" alt="TJ's Gymnastics Club" width="120" style="display:block; width:120px; max-width:100%; height:auto; margin:0 auto 22px auto;">
+              <span style="display:inline-block; padding:8px 14px; border-radius:999px; background-color:#f8dfef; color:#c63b8f; font-size:12px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase;">Booking Confirmed</span>
+              <h1 style="margin:18px 0 12px 0; color:#4a214d; font-size:34px; line-height:1.15; font-weight:700;">Your Booking Is Confirmed</h1>
+              <p style="margin:0 auto; max-width:520px; color:#6e5a77; font-size:17px; line-height:1.7;">
+                Thank you for booking with TJ's Gymnastics Club. Your place for the next Tiddler class is confirmed — details are below.
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:0 0 18px 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; border-collapse:separate; border-spacing:0; background-color:#ffffff; border:1px solid #efd7e8; border-top:5px solid #d94a9f; border-radius:22px;">
+                <tr>
+                  <td style="padding:28px 28px 16px 28px;">
+                    <p style="margin:0 0 12px 0; color:#4a214d; font-size:22px; line-height:1.3; font-weight:700;">Booking Details</p>
+                    <p style="margin:0; color:#6e5a77; font-size:15px; line-height:1.75;">
+                      Please keep this email for your records. If anything needs to change, contact us using the details at the bottom of this email.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 28px 28px 28px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; border-collapse:collapse;">
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Class</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{class_name}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Booking Type</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{booking_type}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Term</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{term}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Date Booked</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{date_booked}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Time</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{session_time}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Price</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{price}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Booking Reference</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{booking_reference}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0 0 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Order Date</td>
+                        <td style="padding:14px 0 0 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{order_date}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:0 0 18px 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; border-collapse:separate; border-spacing:0; background-color:#ffffff; border:1px solid #efd7e8; border-radius:22px;">
+                <tr>
+                  <td style="padding:28px 28px 18px 28px;">
+                    <p style="margin:0; color:#4a214d; font-size:22px; line-height:1.3; font-weight:700;">Your Details</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0 28px 28px 28px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%; border-collapse:collapse;">
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Parent / Carer Name</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{parent_name}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Child's Name</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{child_name}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Child's Date of Birth</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{child_dob}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Email Address</td>
+                        <td style="padding:14px 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{email}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 0 0 0; border-top:1px solid #f1e5ef; color:#8e6c8a; font-size:12px; line-height:1.4; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Phone Number</td>
+                        <td style="padding:14px 0 0 0; border-top:1px solid #f1e5ef; color:#34203d; font-size:16px; line-height:1.5; text-align:right;">{{phone}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:14px 10px 0 10px; text-align:center;">
+              <p style="margin:0 0 10px 0; color:#4a214d; font-size:18px; line-height:1.4; font-weight:700;">TJ's Gymnastics Club</p>
+              <p style="margin:0 0 14px 0; color:#6e5a77; font-size:14px; line-height:1.7;">Building confidence through gymnastics since 1988.</p>
+              <p style="margin:0 0 6px 0; color:#6e5a77; font-size:14px; line-height:1.7;">Raynes Park Sports Pavilion, Taunton Avenue, London SW20 0BH</p>
+              <p style="margin:0 0 6px 0; color:#6e5a77; font-size:14px; line-height:1.7;">
+                <a href="tel:01252702295" style="color:#c63b8f; text-decoration:none;">01252 702295</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="tel:07885103080" style="color:#c63b8f; text-decoration:none;">07885 103080</a>
+              </p>
+              <p style="margin:0; color:#6e5a77; font-size:14px; line-height:1.7;">
+                <a href="mailto:info@tjsgymclub.co.uk" style="color:#c63b8f; text-decoration:none;">info@tjsgymclub.co.uk</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

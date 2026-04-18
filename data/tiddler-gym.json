@@ -31,8 +31,9 @@
     "currency": "GBP",
     "tiddler_card": {
       "classes": 6,
-      "price": null,
-      "note": "Price not listed on original site — confirm with club"
+      "price": 54,
+      "currency": "GBP",
+      "note": "6 classes for £54 — flexible stamp card, no term commitment"
     }
   },
 

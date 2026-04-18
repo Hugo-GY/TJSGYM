@@ -87,59 +87,42 @@
 
         <div class="cd-booking-header">
           <span class="section-label">Book a Place</span>
-          <h2>Times, Prices and <em>Term Dates</em></h2>
-          <p>Current term sessions are shown below, with the next term dates underneath for planning ahead.</p>
+          <h2>Choose Your <em>Booking Type</em></h2>
+          <p>Tiddler runs on Thursday mornings year-round. Pick how you'd like to book — drop in for a single class, or save with a 6-class card.</p>
         </div>
 
-        <!-- Booking Table -->
-        <div class="cd-booking-table-wrap">
-            <table class="cd-booking-table" aria-label="Summer 2026 Tiddler Gym sessions">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Price</th>
-                  <th>Availability</th>
-                  <th>Book Now</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="cd-day-group">
-                  <td>Thursday</td><td colspan="3"></td>
-                </tr>
-                <tr>
-                  <td data-label="Time">10:30 – 11:10</td>
-                  <td data-label="Price">£10 / class</td>
-                  <td data-label="Availability"><span class="cd-avail">8 / 10</span></td>
-                  <td data-label="Book Now">
-                    <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Tiddler Gym" data-term="Summer 2026" data-day="Thursday" data-time="10:30 – 11:10" data-price="£10 / class" data-availability="8 / 10">Book Now</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="cd-booking-cards-mobile" aria-hidden="true">
-              <p class="cd-booking-mobile-day">Thursday</p>
-              <article class="cd-booking-mobile-card">
-                <div class="cd-booking-mobile-stats">
-                  <div class="cd-booking-mobile-stat">
-                    <span class="cd-booking-mobile-label">Time</span>
-                    <span class="cd-booking-mobile-value">10:30 – 11:10</span>
-                  </div>
-                  <div class="cd-booking-mobile-stat">
-                    <span class="cd-booking-mobile-label">Price</span>
-                    <span class="cd-booking-mobile-value">£10 / class</span>
-                  </div>
-                  <div class="cd-booking-mobile-stat">
-                    <span class="cd-booking-mobile-label">Availability</span>
-                    <span class="cd-booking-mobile-value">8 / 10</span>
-                  </div>
-                </div>
-                <div class="cd-booking-mobile-actions">
-                  <a href="#" class="btn btn-magenta btn-sm cd-book-btn" data-booking-link data-booking-type="full" data-class="Tiddler Gym" data-term="Summer 2026" data-day="Thursday" data-time="10:30 – 11:10" data-price="£10 / class" data-availability="8 / 10">Book Now</a>
-                </div>
-              </article>
+        <!-- Single-session info card + two booking entry points -->
+        <article class="cd-tiddler-booking" aria-label="Tiddler session and booking options">
+          <div class="cd-tiddler-booking-stats">
+            <div class="cd-tiddler-booking-stat">
+              <span class="cd-tiddler-booking-label">Day</span>
+              <span class="cd-tiddler-booking-value">Thursday</span>
             </div>
-        </div>
+            <div class="cd-tiddler-booking-stat">
+              <span class="cd-tiddler-booking-label">Time</span>
+              <span class="cd-tiddler-booking-value">10:30 – 11:10</span>
+            </div>
+            <div class="cd-tiddler-booking-stat">
+              <span class="cd-tiddler-booking-label">Length</span>
+              <span class="cd-tiddler-booking-value">40 min</span>
+            </div>
+            <div class="cd-tiddler-booking-stat">
+              <span class="cd-tiddler-booking-label">Availability</span>
+              <span class="cd-tiddler-booking-value">8 / 10</span>
+            </div>
+          </div>
+
+          <div class="cd-tiddler-booking-actions">
+            <a href="/class-booking/?variation={{session_variation_id}}" class="cd-tiddler-booking-action cd-tiddler-booking-action--payg">
+              <span class="cd-tiddler-booking-action-title">Pay as you go</span>
+              <span class="cd-tiddler-booking-action-sub">£10 / class · Book for the next available class only</span>
+            </a>
+            <a href="/class-booking/?variation={{card_variation_id}}" class="cd-tiddler-booking-action cd-tiddler-booking-action--card">
+              <span class="cd-tiddler-booking-action-title">Buy Tiddler Card</span>
+              <span class="cd-tiddler-booking-action-sub">6 classes for £54</span>
+            </a>
+          </div>
+        </article>
 
         <section class="cd-booking-term-current" aria-label="Current term details">
           <span class="section-label">Current Term</span>
